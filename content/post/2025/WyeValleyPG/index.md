@@ -46,7 +46,7 @@ Trip attendees:
 
 The first postgrad trip of the year started in the early hours of the evening when Matthew Shields gathered the keys and minibus from the Union. Some may call him the antithesis of Batman (I mean, like, flip ‘need’ and ‘deserve’ in the famous quote and boom, not like hes the opposite of batman), being ‘The hero we need, but not the hero we deserve’ as he packed the minibus with the gear for the weekend. He and the troops headed over to Tesco to begin the shop for the weekend.
 
-{{< figure src="images/30.HEIC" width="300">}}
+{{< figure src="images/30.JPG" width="300">}}
 
 Nearby was Jesslin Ho, driving a Zipcar (RIP Zipcar 🙁) for us – she had not driven in years, and this was her first time driving on the left-hand side of the road. Her confidence in her ability was convincing, so we sent the expendable members (e.g. Mona) in the car just in case.
 
@@ -62,7 +62,7 @@ Matthew, despite being in the slower minibus, had somehow steamed ahead and had 
 
 Jesslin, a new member of ICMC, had recently been made aware that drivers for trips get certain benefits – one being that they get free dinners to and from trips. Making use of the saying, ‘given an inch, take a mile’, I can say she took many many miles because when Noah had arrived, she was stuffed full with an entire family bucket of KFC. Welp, she hadn't crashed the car, so all was good in the hood. She also shared the remainder of the food with Noah’s car – ah, we love embezzling money from ICMC don't we.
 
-{{< figure src="images/31.HEIC" width="300">}}
+{{< figure src="images/31.JPG" width="300">}}
 
 We all arrived at the village hall unscathed. We chatted and hung out, then quickly drifted off to bed.
 
@@ -82,9 +82,9 @@ Anyway, they made their way to the crag for the day (Wintour’s Leap or Ban-y-g
 
 Some had decided to visit an indoor climbing centre in Bristol for the day. It looked fun. See some pics below.
 
-{{< figure src="images/32.HEIC" width="300">}}
+{{< figure src="images/32.JPG" width="300">}}
 
-{{< figure src="images/2.HEIC" width="300">}}
+{{< figure src="images/2.JPG" width="300">}}
 
 {{< figure src="images/5.JPG" width="300">}}
 
@@ -94,7 +94,7 @@ They returned to the village hall at around 6 or 7pm and Jeremy Ghinn (The Spagh
 
 {{< figure src="images/6.JPG" width="300">}}
 
-{{< figure src="images/9.HEIC" width="300">}}
+{{< figure src="images/9.JPG" width="300">}}
 
 Before this, and during, I had been scheming. You see, it was Halloween weekend. I had asked everyone to bring a costume for a surprise game. Some decided they were too cool for school and didn't want to bring one. After a threat of sleeping in the minibus if they didn't find a costume by 7pm, everyone was in the Halloween spirit. While they were away climbing, I had been plotting and scheming the ‘Squid Games’ night…
 
@@ -180,17 +180,17 @@ I stayed in the minibus while they went to the crag, again cus they were being a
 
 I'm sure they had a nice time. Here are some pictures. Amy ate some of Spaghetti man’s Bolognese out of a bag for some reason. It must have been that good.
 
-{{< figure src="images/3.HEIC" width="300">}}
+{{< figure src="images/3.JPG" width="300">}}
 
 {{< figure src="images/8.JPG" width="300">}}
 
 {{< figure src="images/28.JPG" width="300">}}
 
-{{< figure src="images/11.HEIC" width="300">}}
+{{< figure src="images/11.JPG" width="300">}}
 
 {{< figure src="images/29.JPG" width="300">}}
 
-{{< figure src="images/10.HEIC" width="300">}}
+{{< figure src="images/10.JPG" width="300">}}
 
 They arrived back when the sun had set. Well, at least Matthew had. We got our cars, picked everyone up, and started our journey back to London. Sofia had left her shoes (or something?) at the Bristol climbing centre so we drove down there to pick it up. Once again we were late.
 
