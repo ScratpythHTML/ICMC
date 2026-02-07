@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Big Wall on Imperial College Mountaineering</title><link>YAYAYA/tags/big-wall/</link><description>Recent content in Big Wall on Imperial College Mountaineering</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 08 Aug 2013 00:00:00 +0000</lastBuildDate><atom:link href="YAYAYA/tags/big-wall/index.xml" rel="self" type="application/rss+xml"/><item><title>Yosemite Expedition 2013</title><link>YAYAYA/p/yosemite-expedition-2013/</link><pubDate>Thu, 08 Aug 2013 00:00:00 +0000</pubDate><guid>YAYAYA/p/yosemite-expedition-2013/</guid><description>&lt;img src="YAYAYA/YAYAYA/p/yosemite-expedition-2013/cover.png" alt="Featured image of post Yosemite Expedition 2013" /&gt;&lt;p&gt;&lt;a class="link" href="YAYAYA/documents/yosemite_exped_2013.pdf" &gt;Expedition report&lt;/a&gt;&lt;/p&gt;
+&lt;div class="video-wrapper"&gt;
+&lt;iframe loading="lazy"
+src="https://www.youtube.com/embed/JyUc20kwTz8"
+allowfullscreen
+title="YouTube Video"
+&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;script src="YAYAYA/shortcode-gallery/jquery-3.7.0.min.js"&gt;&lt;/script&gt;
+&lt;script src="YAYAYA/shortcode-gallery/lazy/jquery.lazy.min.js"&gt;&lt;/script&gt;
+&lt;script src="YAYAYA/shortcode-gallery/swipebox/js/jquery.swipebox.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="YAYAYA/shortcode-gallery/swipebox/css/swipebox.min.css"&gt;
+&lt;script src="YAYAYA/shortcode-gallery/justified_gallery/jquery.justifiedGallery.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="YAYAYA/shortcode-gallery/justified_gallery/justifiedGallery.min.css"/&gt;
+&lt;style&gt;
+&lt;/style&gt;
+&lt;div id="gallery-d2802e9024be280c95207b0c30e17be6-1-wrapper" class="gallery-wrapper"&gt;
+&lt;div id="gallery-d2802e9024be280c95207b0c30e17be6-1" class="justified-gallery"&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+if (!jQuery) {
+alert("jquery is not loaded");
+}
+$( document ).ready(() =&gt; {
+const gallery = $("#gallery-d2802e9024be280c95207b0c30e17be6-1");
+let swipeboxInstance = null;
+gallery.on('jg.complete', () =&gt; {
+$(() =&gt; {
+$('.lazy').Lazy({
+visibleOnly: true,
+afterLoad: element =&gt; element.css({filter: "none", transition: "filter 1.0s ease-in-out"})
+});
+});
+swipeboxInstance = $('.galleryImg').swipebox(
+jQuery.extend({},
+{ }
+)
+);
+});
+gallery.justifiedGallery({
+rowHeight : "150",
+margins : "5",
+border : 0,
+randomize : false ,
+waitThumbnailsLoad : false,
+lastRow : "justify",
+captions : false,
+});
+});
+&lt;/script&gt;</description></item><item><title>Kenya Expedition 2003</title><link>YAYAYA/p/kenya-expedition-2003/</link><pubDate>Tue, 01 Jul 2003 00:00:00 +0000</pubDate><guid>YAYAYA/p/kenya-expedition-2003/</guid><description>&lt;img src="YAYAYA/YAYAYA/p/kenya-expedition-2003/cover.png" alt="Featured image of post Kenya Expedition 2003" /&gt;&lt;p&gt;&lt;a class="link" href="YAYAYA/documents/kenya2003.pdf" &gt;Expedition report&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>
