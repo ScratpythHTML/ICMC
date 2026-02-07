@@ -90,6 +90,12 @@ Some had decided to visit an indoor climbing centre in Bristol for the day. It l
 
 Others had decided to go on a lil hike outdoors. Mr Stelios Kotsovolis was the belle of the ball, entertaining everyone while they hiked through mud and wet. There is a funny picture of him but I can't find it #sadface.
 
+EDIT: I found the pictures (thanks to Amelia).
+
+{{< figure src="images/33.JPG" width="300">}}
+
+{{< figure src="images/34.JPG" width="300">}}
+
 They returned to the village hall at around 6 or 7pm and Jeremy Ghinn (The Spaghetti man, the penne predator, The Bolognese bandit, CHEF) started work on his famous Bolognese recipe. It was very dictatorial his style of cheffing, I felt bad (not really) for his sous-chefs, but god damn can he make a good Bolognese.
 
 {{< figure src="images/6.JPG" width="300">}}
