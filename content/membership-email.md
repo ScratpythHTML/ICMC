@@ -5,11 +5,6 @@ date: 2023-10-02T17:24:06+01:00
 
 hidden: false
 comments: true
-menu:
-    main:
-        weight: 2
-        params: 
-            icon: hand-click
 ---
 You can request a membership email below:
 
