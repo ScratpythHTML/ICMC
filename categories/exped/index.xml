@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Exped on Imperial College Mountaineering</title><link>YAYAYA/categories/exped/</link><description>Recent content in Exped on Imperial College Mountaineering</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 01 Oct 2010 00:00:00 +0000</lastBuildDate><atom:link href="YAYAYA/categories/exped/index.xml" rel="self" type="application/rss+xml"/><item><title>Fresher's trip 2xxx</title><link>YAYAYA/p/freshers-trip-2xxx/</link><pubDate>Fri, 01 Oct 2010 00:00:00 +0000</pubDate><guid>YAYAYA/p/freshers-trip-2xxx/</guid><description>&lt;img src="/YAYAYA/images/0.jpg" alt="Featured image of post Fresher's trip 2xxx" /&gt;
+&lt;script src="YAYAYA/shortcode-gallery/jquery-3.7.0.min.js"&gt;&lt;/script&gt;
+&lt;script src="YAYAYA/shortcode-gallery/lazy/jquery.lazy.min.js"&gt;&lt;/script&gt;
+&lt;script src="YAYAYA/shortcode-gallery/swipebox/js/jquery.swipebox.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="YAYAYA/shortcode-gallery/swipebox/css/swipebox.min.css"&gt;
+&lt;script src="YAYAYA/shortcode-gallery/justified_gallery/jquery.justifiedGallery.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="YAYAYA/shortcode-gallery/justified_gallery/justifiedGallery.min.css"/&gt;
+&lt;style&gt;
+&lt;/style&gt;
+&lt;div id="gallery-d0731573a9ded2dff3a7fa1b1e26fdde-0-wrapper" class="gallery-wrapper"&gt;
+&lt;div id="gallery-d0731573a9ded2dff3a7fa1b1e26fdde-0" class="justified-gallery"&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+if (!jQuery) {
+alert("jquery is not loaded");
+}
+$( document ).ready(() =&gt; {
+const gallery = $("#gallery-d0731573a9ded2dff3a7fa1b1e26fdde-0");
+let swipeboxInstance = null;
+gallery.on('jg.complete', () =&gt; {
+$(() =&gt; {
+$('.lazy').Lazy({
+visibleOnly: true,
+afterLoad: element =&gt; element.css({filter: "none", transition: "filter 1.0s ease-in-out"})
+});
+});
+swipeboxInstance = $('.galleryImg').swipebox(
+jQuery.extend({},
+{ }
+)
+);
+});
+gallery.justifiedGallery({
+rowHeight : "150",
+margins : "5",
+border : 0,
+randomize : false ,
+waitThumbnailsLoad : false,
+lastRow : "justify",
+captions : false,
+});
+});
+&lt;/script&gt;</description></item></channel></rss>
