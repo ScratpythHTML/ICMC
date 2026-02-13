@@ -37,3 +37,13 @@ url = "mailto:mountain@imperial.ac.uk"
 
 [social.params]
 icon = "send"
+
+
+[[social]]
+identifier = "whatsapp"
+name = "WhatsApp"
+url = "/whatsapp"
+
+[social.params]
+icon = "brand-whatsapp"
+newTab = false

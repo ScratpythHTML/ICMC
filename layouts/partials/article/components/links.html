@@ -1,7 +1,7 @@
 <div class="article-list--compact links">
     {{ range $i, $link := .Params.links }}
         <article>
-            <a href="{{ $link.website }}" target="_blank" rel="noopener">
+            <a href="{{ $link.website }}" target="_self" rel="noopener">
                 <div class="article-details">
                     <h2 class="article-title">
                         {{- $link.title -}}
