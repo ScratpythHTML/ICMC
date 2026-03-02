@@ -149,6 +149,9 @@ params:
     flags:
         width: 24
         height: 18
+    author:
+        name: "Imperial College Mountaineering Club"
+        email: "mountain@imperial.ac.uk"
 enableGitInfo: true
 frontmatter:
     lastmode: ['lastmod', ':git']
