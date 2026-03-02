@@ -173,8 +173,6 @@ Abby and I raced side-by-side on different routes, and I beat her (she was top-r
 
 Toren and I learnt some multi-pitch stuff from Zak (thank you!).
 
-Erin and Lola (and some others) were climbing a route with the first draw like 5m off the ground, so they had to climb another route adjacent to it to clip it in.
-
 Here are some pictures.
 
 {{< figure src="images/4.JPG" width="300">}}
