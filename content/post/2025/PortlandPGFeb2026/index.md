@@ -82,9 +82,11 @@ We got a move on and arrived at the Battleship area car park at like 11/12. The 
 
 A few other unis were there: Oxford, Bath, Surrey, Sussex. They were all very nice. I like the climbing community. I was told that Ben went ‘slightly off route’ – perhaps he has been training too much on the traverse wall at Westway?
 
-Erin and Lola (and some others) were climbing a route with the first draw like 5m off the ground, so they had to climb another route adjacent to it to clip it in.
-
 {{< figure src="images/2.JPG" width="300">}}
+
+Fig above is Ben's training wall (this was funnier in my head)...
+
+Erin and Lola (and some others) were climbing a route with the first draw like 5m off the ground, so they had to climb another route adjacent to it to clip it in.
 
 Anyway, here are some wholesome pictures.
 
