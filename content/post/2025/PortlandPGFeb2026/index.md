@@ -137,6 +137,8 @@ Just as we were walking along the ridge, I thought it would be funny to do the l
 
 {{< figure src="images/40.JPG" width="300">}}
 
+My attacker was none other than Felicia, who is notorious for her unprompted acts of violence. (If the authorities are reading this, im joking, she was being protective of her bff).
+
 Anyway, we hopped in the vehicles and went to Tesco to pick up food. We then went to the bunkhouse, where we were greeted by the very friendly Surrey uni people. The head chef Theo (Fedir) and his sous-chefs got to work and cooked us up an amazing meal (thank you). We chatted for a while, and it was good. 
 
 {{< figure src="images/9.JPG" width="300">}}
