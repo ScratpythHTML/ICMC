@@ -169,3 +169,79 @@ This trip report is dedicated to three people:
 - Sofia, for navigating and scouting, as well as also helping with gear, and just also managing the logistics of climbing outside.
 
 {{< figure src="images/26.png" width="400">}}
+
+## TWO STARS AND A WISH
+
+* sofia missed the dolphins!!
+
+Jesslin:
+- first time outdoor lead, top rope set-up, first outdoor bouldering, first time cleaning
+- good vibes: smaller group; feels more cozy `
+- packing; was too cold
+
+
+Katie:
+- first time outdoor bouldering/in general
+- warm in bed :) lets keep the bunkhouse
+- more rope climbing but bouldering all day was really fun
+
+Jenny:
+- first time outdoor climbing - lack of experience was not a problem
+- nature :) dolphins
+- more top rope, less waiting 
+
+Natasha:
+- go outdoor climbing again! encouraged more outdoor trips
+- getting the 6a slab !!
+- two full days of climbing preferred
+
+
+Claire:
+- really nice views everywhere
+- doing top ropes!
+- really muddy :( - approach was hard?
+
+Monty:
+- meeting a lot of people
+- bunkhouse was so comfy
+- warming up, route management; being too ambitious?
+
+Mack:
+- first time bouldering outdoors
+- meeting everyone! meeting girls >:)
+- better packing (more thorough packing list needed)
+
+Rafi !!!:
+- the trip happened !!!!!! thank you rafi !! everyone is alive !
+- the vibes :) biggest girls trip ever !!!!
+- happy there was bouldering at all 
+- approach to battleship was horrible - she wishes she was indoors. less sharp rocks
+- everything felt super safe; spotting was very vigilant
+
+Amy:
+- seeing everyone happy
+- vibes :D
+- wish we pre sliced the cheese (new trip standard)
+
+Sofia:
+- doing a 6b !!!! getting the sequence down !
+- hearing about missing out on dolphins
+- get everyone to try the alternative approach
+
+Milena:
+- weather! super lucky we had dry rocks
+- first pitch of multipitch !! of a Portland 3a
+- Portland wasn't so sandbagged
+- more space in the minivan !
+
+Aliza:
+- first time outdoor climbing! with rocks!
+- love how sweet and nice everyone is :) the community + supportive
+- wish it was less windy
+
+Mona:
+- first time outdoor bouldering + lead, first time taking union minibus (thank you Amy! Efficient And Fun minibus)
+- vibes! supportive vibes, Asha's masterclass on outdoor bouldering and spotting; whole trip felt super organized 
+- more prepared with the weather; check the location and weather; packing better; taking pictures
+
+
