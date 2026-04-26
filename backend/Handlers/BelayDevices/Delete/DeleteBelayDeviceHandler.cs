@@ -1,0 +1,50 @@
+using Audacia.Commands;
+using EntityFramework;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+
+namespace Handlers.BelayDevices.Delete;
+
+/// <summary>
+/// The handler that deletes a belay device.
+/// </summary>
+public class DeleteBelayDeviceHandler : IRequestHandler<DeleteBelayDeviceRequest, CommandResult>
+{
+  private readonly DatabaseContext _context;
+  /// <summary>
+  /// The constructor for the class.
+  /// </summary>
+  /// <param name="context"></param>
+  public DeleteBelayDeviceHandler(
+    DatabaseContext context
+  )
+  {
+    _context = context;
+  }
+  /// <summary>
+  /// Handles deleting a belay device.
+  /// </summary>
+  /// <param name="request"></param>
+  /// <param name="cancellationToken"></param>
+  /// <returns></returns>
+  public async Task<CommandResult> Handle(DeleteBelayDeviceRequest request, CancellationToken cancellationToken)
+  {
+    if (request == null)
+    {
+      throw new ArgumentNullException();
+    }
+    var result = await _context.BelayDevices
+        .FirstOrDefaultAsync(bd => bd.Id == request.Id)
+        .ConfigureAwait(false);
+
+    if (result == null)
+    {
+      return CommandResult.Failure();
+    }
+
+    _context.BelayDevices.Remove(result);
+
+    return CommandResult.Success();
+
+  }
+}

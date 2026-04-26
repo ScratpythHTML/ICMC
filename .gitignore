@@ -1,0 +1,5 @@
+.vscode/
+[Bb]in/
+[Oo]bj/
+appsettings.Local.json
+.DS_Store
