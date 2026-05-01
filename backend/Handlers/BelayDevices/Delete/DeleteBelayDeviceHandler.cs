@@ -8,7 +8,7 @@ namespace Handlers.BelayDevices.Delete;
 /// <summary>
 /// The handler that deletes a belay device.
 /// </summary>
-public class DeleteBelayDeviceHandler : IRequestHandler<DeleteBelayDeviceRequest, CommandResult>
+public class DeleteBelayDeviceHandler : IDeleteBelayDeviceHandler
 {
   private readonly DatabaseContext _context;
   /// <summary>
@@ -39,10 +39,12 @@ public class DeleteBelayDeviceHandler : IRequestHandler<DeleteBelayDeviceRequest
 
     if (result == null)
     {
-      return CommandResult.Failure();
+      return CommandResult.Failure("Belay device not found.");
     }
 
     _context.BelayDevices.Remove(result);
+
+    await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
     return CommandResult.Success();
 

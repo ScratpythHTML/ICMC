@@ -1,6 +1,5 @@
-using EntityFramework;
-using MediatR;
 using Audacia.Commands;
+using EntityFramework;
 using Microsoft.EntityFrameworkCore;
 
 namespace Handlers.BelayDevices.Get;
@@ -8,7 +7,7 @@ namespace Handlers.BelayDevices.Get;
 /// <summary>
 /// The handler that gets a belay device.
 /// </summary>
-public class GetBelayDeviceHandler : IRequestHandler<GetBelayDeviceRequest, CommandResult<BelayDeviceDto>>
+public class GetBelayDeviceHandler : IGetBelayDeviceHandler
 {
   private readonly DatabaseContext _context;
 
@@ -42,7 +41,7 @@ public class GetBelayDeviceHandler : IRequestHandler<GetBelayDeviceRequest, Comm
         .ConfigureAwait(false);
     if (result == null)
     {
-      throw new InvalidOperationException();
+      return CommandResult.Failure<BelayDeviceDto>("No belay device found");
     }
 
     return CommandResult.WithResult(result);
