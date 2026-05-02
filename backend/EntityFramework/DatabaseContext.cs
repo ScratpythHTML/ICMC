@@ -1,11 +1,11 @@
-using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace EntityFramework;
 
 public class DatabaseContext : DbContext
 {
-
+  public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
   public DbSet<BelayDevice> BelayDevices { get; set; }
   public DbSet<Carabiner> Carabiners { get; set; }
   public DbSet<Crashpad> Crashpads { get; set; }
@@ -15,9 +15,4 @@ public class DatabaseContext : DbContext
   public DbSet<Rope> Ropes { get; set; }
   public DbSet<User> Users { get; set; }
 
-  protected override void OnConfiguring(DbContextOptionsBuilder options)
-  {
-    var connectionString = Environment.GetEnvironmentVariable($"ConnectionStrings__{nameof(DatabaseContext)}");
-    options.UseNpgsql(connectionString);
-  }
 }
