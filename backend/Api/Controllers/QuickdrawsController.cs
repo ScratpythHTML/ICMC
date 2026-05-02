@@ -1,8 +1,8 @@
-using Handlers.Quickdraws.Add;
-using Handlers.Quickdraws.Delete;
-using Handlers.Quickdraws.Get;
-using Handlers.Quickdraws.Update;
 using Microsoft.AspNetCore.Mvc;
+using Services.Quickdraws.Add;
+using Services.Quickdraws.Delete;
+using Services.Quickdraws.Get;
+using Services.Quickdraws.Update;
 
 namespace Api.Controllers;
 
@@ -13,29 +13,29 @@ namespace Api.Controllers;
 [Route("quickdraws")]
 public class QuickdrawsController : ControllerBase
 {
-  private readonly GetQuickdrawHandler _getQuickdrawHandler;
-  private readonly DeleteQuickdrawHandler _deleteQuickdrawHandler;
-  private readonly AddQuickdrawHandler _addQuickdrawHandler;
-  private readonly UpdateQuickdrawHandler _updateQuickdrawHandler;
+  private readonly GetQuickdrawService _getQuickdrawService;
+  private readonly DeleteQuickdrawService _deleteQuickdrawService;
+  private readonly AddQuickdrawService _addQuickdrawService;
+  private readonly UpdateQuickdrawService _updateQuickdrawService;
 
   public QuickdrawsController(
-    GetQuickdrawHandler getQuickdrawHandler,
-    DeleteQuickdrawHandler deleteQuickdrawHandler,
-    AddQuickdrawHandler addQuickdrawHandler,
-    UpdateQuickdrawHandler updateQuickdrawHandler
+    GetQuickdrawService getQuickdrawService,
+    DeleteQuickdrawService deleteQuickdrawService,
+    AddQuickdrawService addQuickdrawService,
+    UpdateQuickdrawService updateQuickdrawService
   )
   {
-    _getQuickdrawHandler = getQuickdrawHandler;
-    _deleteQuickdrawHandler = deleteQuickdrawHandler;
-    _addQuickdrawHandler = addQuickdrawHandler;
-    _updateQuickdrawHandler = updateQuickdrawHandler;
+    _getQuickdrawService = getQuickdrawService;
+    _deleteQuickdrawService = deleteQuickdrawService;
+    _addQuickdrawService = addQuickdrawService;
+    _updateQuickdrawService = updateQuickdrawService;
   }
 
   [HttpGet("{id}")]
   public async Task<IActionResult> GetQuickdraw(int id, CancellationToken cancellationToken)
   {
     var request = new GetQuickdrawRequest(id);
-    var result = await _getQuickdrawHandler.Handle(request, cancellationToken).ConfigureAwait(false);
+    var result = await _getQuickdrawService.Handle(request, cancellationToken).ConfigureAwait(false);
 
     if (result.IsSuccess)
     {
@@ -49,7 +49,7 @@ public class QuickdrawsController : ControllerBase
   public async Task<IActionResult> DeleteQuickdraw(int id, CancellationToken cancellationToken)
   {
     var request = new DeleteQuickdrawRequest(id);
-    var result = await _deleteQuickdrawHandler.Handle(request, cancellationToken);
+    var result = await _deleteQuickdrawService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
@@ -62,7 +62,7 @@ public class QuickdrawsController : ControllerBase
   [HttpPost]
   public async Task<IActionResult> AddQuickdraw(AddQuickdrawRequest request, CancellationToken cancellationToken)
   {
-    var result = await _addQuickdrawHandler.Handle(request, cancellationToken);
+    var result = await _addQuickdrawService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
@@ -73,9 +73,14 @@ public class QuickdrawsController : ControllerBase
 
 
   [HttpPatch("{id}")]
-  public async Task<IActionResult> UpdateQuickdraw(UpdateQuickdrawRequest request, CancellationToken cancellationToken)
+  public async Task<IActionResult> UpdateQuickdraw(int id, UpdateQuickdrawRequest request, CancellationToken cancellationToken)
   {
-    var result = await _updateQuickdrawHandler.Handle(request, cancellationToken);
+    if (id != request.Id)
+    {
+      return BadRequest("Id in URL must match Id in request body");
+    }
+
+    var result = await _updateQuickdrawService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {

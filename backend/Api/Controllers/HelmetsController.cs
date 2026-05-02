@@ -1,8 +1,8 @@
-using Handlers.Helmets.Add;
-using Handlers.Helmets.Delete;
-using Handlers.Helmets.Get;
-using Handlers.Helmets.Update;
 using Microsoft.AspNetCore.Mvc;
+using Services.Helmets.Add;
+using Services.Helmets.Delete;
+using Services.Helmets.Get;
+using Services.Helmets.Update;
 
 namespace Api.Controllers;
 
@@ -13,29 +13,29 @@ namespace Api.Controllers;
 [Route("helmets")]
 public class HelmetsController : ControllerBase
 {
-  private readonly GetHelmetHandler _getHelmetHandler;
-  private readonly DeleteHelmetHandler _deleteHelmetHandler;
-  private readonly AddHelmetHandler _addHelmetHandler;
-  private readonly UpdateHelmetHandler _updateHelmetHandler;
+  private readonly IGetHelmetService _getHelmetService;
+  private readonly IDeleteHelmetService _deleteHelmetService;
+  private readonly AddHelmetService _addHelmetService;
+  private readonly UpdateHelmetService _updateHelmetService;
 
   public HelmetsController(
-    GetHelmetHandler getHelmetHandler,
-    DeleteHelmetHandler deleteHelmetHandler,
-    AddHelmetHandler addHelmetHandler,
-    UpdateHelmetHandler updateHelmetHandler
+    GetHelmetService getHelmetService,
+    DeleteHelmetService deleteHelmetService,
+    AddHelmetService addHelmetService,
+    UpdateHelmetService updateHelmetService
   )
   {
-    _getHelmetHandler = getHelmetHandler;
-    _deleteHelmetHandler = deleteHelmetHandler;
-    _addHelmetHandler = addHelmetHandler;
-    _updateHelmetHandler = updateHelmetHandler;
+    _getHelmetService = getHelmetService;
+    _deleteHelmetService = deleteHelmetService;
+    _addHelmetService = addHelmetService;
+    _updateHelmetService = updateHelmetService;
   }
 
   [HttpGet("{id}")]
   public async Task<IActionResult> GetHelmet(int id, CancellationToken cancellationToken)
   {
     var request = new GetHelmetRequest(id);
-    var result = await _getHelmetHandler.Handle(request, cancellationToken).ConfigureAwait(false);
+    var result = await _getHelmetService.Handle(request, cancellationToken).ConfigureAwait(false);
 
     if (result.IsSuccess)
     {
@@ -49,7 +49,7 @@ public class HelmetsController : ControllerBase
   public async Task<IActionResult> DeleteHelmet(int id, CancellationToken cancellationToken)
   {
     var request = new DeleteHelmetRequest(id);
-    var result = await _deleteHelmetHandler.Handle(request, cancellationToken);
+    var result = await _deleteHelmetService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
@@ -62,7 +62,7 @@ public class HelmetsController : ControllerBase
   [HttpPost]
   public async Task<IActionResult> AddHelmet(AddHelmetRequest request, CancellationToken cancellationToken)
   {
-    var result = await _addHelmetHandler.Handle(request, cancellationToken);
+    var result = await _addHelmetService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
@@ -73,9 +73,14 @@ public class HelmetsController : ControllerBase
 
 
   [HttpPatch("{id}")]
-  public async Task<IActionResult> UpdateHelmet(UpdateHelmetRequest request, CancellationToken cancellationToken)
+  public async Task<IActionResult> UpdateHelmet(int id, UpdateHelmetRequest request, CancellationToken cancellationToken)
   {
-    var result = await _updateHelmetHandler.Handle(request, cancellationToken);
+    if (id != request.Id)
+    {
+      return BadRequest("Id in URL must match Id in request body");
+    }
+
+    var result = await _updateHelmetService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {

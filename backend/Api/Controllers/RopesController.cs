@@ -1,8 +1,8 @@
-using Handlers.Ropes.Add;
-using Handlers.Ropes.Delete;
-using Handlers.Ropes.Get;
-using Handlers.Ropes.Update;
 using Microsoft.AspNetCore.Mvc;
+using Services.Ropes.Add;
+using Services.Ropes.Delete;
+using Services.Ropes.Get;
+using Services.Ropes.Update;
 
 namespace Api.Controllers;
 
@@ -13,29 +13,29 @@ namespace Api.Controllers;
 [Route("ropes")]
 public class RopesController : ControllerBase
 {
-  private readonly GetRopeHandler _getRopeHandler;
-  private readonly DeleteRopeHandler _deleteRopeHandler;
-  private readonly AddRopeHandler _addRopeHandler;
-  private readonly UpdateRopeHandler _updateRopeHandler;
+  private readonly GetRopeService _getRopeService;
+  private readonly DeleteRopeService _deleteRopeService;
+  private readonly AddRopeService _addRopeService;
+  private readonly UpdateRopeService _updateRopeService;
 
   public RopesController(
-    GetRopeHandler getRopeHandler,
-    DeleteRopeHandler deleteRopeHandler,
-    AddRopeHandler addRopeHandler,
-    UpdateRopeHandler updateRopeHandler
+    GetRopeService getRopeService,
+    DeleteRopeService deleteRopeService,
+    AddRopeService addRopeService,
+    UpdateRopeService updateRopeService
   )
   {
-    _getRopeHandler = getRopeHandler;
-    _deleteRopeHandler = deleteRopeHandler;
-    _addRopeHandler = addRopeHandler;
-    _updateRopeHandler = updateRopeHandler;
+    _getRopeService = getRopeService;
+    _deleteRopeService = deleteRopeService;
+    _addRopeService = addRopeService;
+    _updateRopeService = updateRopeService;
   }
 
   [HttpGet("{id}")]
   public async Task<IActionResult> GetRope(int id, CancellationToken cancellationToken)
   {
     var request = new GetRopeRequest(id);
-    var result = await _getRopeHandler.Handle(request, cancellationToken).ConfigureAwait(false);
+    var result = await _getRopeService.Handle(request, cancellationToken).ConfigureAwait(false);
 
     if (result.IsSuccess)
     {
@@ -49,7 +49,7 @@ public class RopesController : ControllerBase
   public async Task<IActionResult> DeleteRope(int id, CancellationToken cancellationToken)
   {
     var request = new DeleteRopeRequest(id);
-    var result = await _deleteRopeHandler.Handle(request, cancellationToken);
+    var result = await _deleteRopeService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
@@ -62,7 +62,7 @@ public class RopesController : ControllerBase
   [HttpPost]
   public async Task<IActionResult> AddRope(AddRopeRequest request, CancellationToken cancellationToken)
   {
-    var result = await _addRopeHandler.Handle(request, cancellationToken);
+    var result = await _addRopeService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
@@ -73,9 +73,14 @@ public class RopesController : ControllerBase
 
 
   [HttpPatch("{id}")]
-  public async Task<IActionResult> UpdateRope(UpdateRopeRequest request, CancellationToken cancellationToken)
+  public async Task<IActionResult> UpdateRope(int id, UpdateRopeRequest request, CancellationToken cancellationToken)
   {
-    var result = await _updateRopeHandler.Handle(request, cancellationToken);
+    if (id != request.Id)
+    {
+      return BadRequest("Id in URL must match Id in request body");
+    }
+
+    var result = await _updateRopeService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {

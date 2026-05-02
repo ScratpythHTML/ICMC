@@ -1,8 +1,8 @@
-using Handlers.Harnesses.Add;
-using Handlers.Harnesses.Delete;
-using Handlers.Harnesses.Get;
-using Handlers.Harnesses.Update;
 using Microsoft.AspNetCore.Mvc;
+using Services.Harnesses.Add;
+using Services.Harnesses.Delete;
+using Services.Harnesses.Get;
+using Services.Harnesses.Update;
 
 namespace Api.Controllers;
 
@@ -13,29 +13,29 @@ namespace Api.Controllers;
 [Route("harnesses")]
 public class HarnessesController : ControllerBase
 {
-  private readonly GetHarnessHandler _getHarnessHandler;
-  private readonly DeleteHarnessHandler _deleteHarnessHandler;
-  private readonly AddHarnessHandler _addHarnessHandler;
-  private readonly UpdateHarnessHandler _updateHarnessHandler;
+  private readonly IGetHarnessService _getHarnessService;
+  private readonly IDeleteHarnessService _deleteHarnessService;
+  private readonly IAddHarnessService _addHarnessService;
+  private readonly IUpdateHarnessService _updateHarnessService;
 
   public HarnessesController(
-    GetHarnessHandler getHarnessHandler,
-    DeleteHarnessHandler deleteHarnessHandler,
-    AddHarnessHandler addHarnessHandler,
-    UpdateHarnessHandler updateHarnessHandler
+    IGetHarnessService getHarnessService,
+    IDeleteHarnessService deleteHarnessService,
+    IAddHarnessService addHarnessService,
+    IUpdateHarnessService updateHarnessService
   )
   {
-    _getHarnessHandler = getHarnessHandler;
-    _deleteHarnessHandler = deleteHarnessHandler;
-    _addHarnessHandler = addHarnessHandler;
-    _updateHarnessHandler = updateHarnessHandler;
+    _getHarnessService = getHarnessService;
+    _deleteHarnessService = deleteHarnessService;
+    _addHarnessService = addHarnessService;
+    _updateHarnessService = updateHarnessService;
   }
 
   [HttpGet("{id}")]
   public async Task<IActionResult> GetHarness(int id, CancellationToken cancellationToken)
   {
     var request = new GetHarnessRequest(id);
-    var result = await _getHarnessHandler.Handle(request, cancellationToken).ConfigureAwait(false);
+    var result = await _getHarnessService.Handle(request, cancellationToken).ConfigureAwait(false);
 
     if (result.IsSuccess)
     {
@@ -49,7 +49,7 @@ public class HarnessesController : ControllerBase
   public async Task<IActionResult> DeleteHarness(int id, CancellationToken cancellationToken)
   {
     var request = new DeleteHarnessRequest(id);
-    var result = await _deleteHarnessHandler.Handle(request, cancellationToken);
+    var result = await _deleteHarnessService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
@@ -62,7 +62,7 @@ public class HarnessesController : ControllerBase
   [HttpPost]
   public async Task<IActionResult> AddHarness(AddHarnessRequest request, CancellationToken cancellationToken)
   {
-    var result = await _addHarnessHandler.Handle(request, cancellationToken);
+    var result = await _addHarnessService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
@@ -73,9 +73,14 @@ public class HarnessesController : ControllerBase
 
 
   [HttpPatch("{id}")]
-  public async Task<IActionResult> UpdateHarness(UpdateHarnessRequest request, CancellationToken cancellationToken)
+  public async Task<IActionResult> UpdateHarness(int id, UpdateHarnessRequest request, CancellationToken cancellationToken)
   {
-    var result = await _updateHarnessHandler.Handle(request, cancellationToken);
+    if (id != request.Id)
+    {
+      return BadRequest("Id in URL must match Id in request body");
+    }
+
+    var result = await _updateHarnessService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {

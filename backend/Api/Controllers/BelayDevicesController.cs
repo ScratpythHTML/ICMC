@@ -1,8 +1,8 @@
-using Handlers.BelayDevices.Add;
-using Handlers.BelayDevices.Delete;
-using Handlers.BelayDevices.Get;
-using Handlers.BelayDevices.Update;
 using Microsoft.AspNetCore.Mvc;
+using Services.BelayDevices.Add;
+using Services.BelayDevices.Delete;
+using Services.BelayDevices.Get;
+using Services.BelayDevices.Update;
 
 namespace Api.Controllers;
 
@@ -13,29 +13,29 @@ namespace Api.Controllers;
 [Route("belay-devices")]
 public class BelayDevicesController : ControllerBase
 {
-  private readonly GetBelayDeviceHandler _getBelayDeviceHandler;
-  private readonly DeleteBelayDeviceHandler _deleteBelayDeviceHandler;
-  private readonly AddBelayDeviceHandler _addBelayDeviceHandler;
-  private readonly UpdateBelayDeviceHandler _updateBelayDeviceHandler;
+  private readonly IGetBelayDeviceService _getBelayDeviceService;
+  private readonly IDeleteBelayDeviceService _deleteBelayDeviceService;
+  private readonly IAddBelayDeviceService _addBelayDeviceService;
+  private readonly IUpdateBelayDeviceService _updateBelayDeviceService;
 
   public BelayDevicesController(
-    GetBelayDeviceHandler getBelayDeviceHandler,
-    DeleteBelayDeviceHandler deleteBelayDeviceHandler,
-    AddBelayDeviceHandler addBelayDeviceHandler,
-    UpdateBelayDeviceHandler updateBelayDeviceHandler
+    IGetBelayDeviceService getBelayDeviceService,
+    IDeleteBelayDeviceService deleteBelayDeviceService,
+    IAddBelayDeviceService addBelayDeviceService,
+    IUpdateBelayDeviceService updateBelayDeviceService
   )
   {
-    _getBelayDeviceHandler = getBelayDeviceHandler;
-    _deleteBelayDeviceHandler = deleteBelayDeviceHandler;
-    _addBelayDeviceHandler = addBelayDeviceHandler;
-    _updateBelayDeviceHandler = updateBelayDeviceHandler;
+    _getBelayDeviceService = getBelayDeviceService;
+    _deleteBelayDeviceService = deleteBelayDeviceService;
+    _addBelayDeviceService = addBelayDeviceService;
+    _updateBelayDeviceService = updateBelayDeviceService;
   }
 
   [HttpGet("{id}")]
   public async Task<IActionResult> GetBelayDevice(int id, CancellationToken cancellationToken)
   {
     var request = new GetBelayDeviceRequest(id);
-    var result = await _getBelayDeviceHandler.Handle(request, cancellationToken).ConfigureAwait(false);
+    var result = await _getBelayDeviceService.Handle(request, cancellationToken).ConfigureAwait(false);
 
     if (result.IsSuccess)
     {
@@ -49,7 +49,7 @@ public class BelayDevicesController : ControllerBase
   public async Task<IActionResult> DeleteBelayDevice(int id, CancellationToken cancellationToken)
   {
     var request = new DeleteBelayDeviceRequest(id);
-    var result = await _deleteBelayDeviceHandler.Handle(request, cancellationToken);
+    var result = await _deleteBelayDeviceService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
@@ -62,7 +62,7 @@ public class BelayDevicesController : ControllerBase
   [HttpPost]
   public async Task<IActionResult> AddBelayDevice(AddBelayDeviceRequest request, CancellationToken cancellationToken)
   {
-    var result = await _addBelayDeviceHandler.Handle(request, cancellationToken);
+    var result = await _addBelayDeviceService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
@@ -72,10 +72,15 @@ public class BelayDevicesController : ControllerBase
   }
 
 
-  [HttpPatch]
-  public async Task<IActionResult> UpdateBelayDevice(UpdateBelayDeviceRequest request, CancellationToken cancellationToken)
+  [HttpPatch("{id}")]
+  public async Task<IActionResult> UpdateBelayDevice(int id, UpdateBelayDeviceRequest request, CancellationToken cancellationToken)
   {
-    var result = await _updateBelayDeviceHandler.Handle(request, cancellationToken);
+    if (id != request.Id)
+    {
+      return BadRequest("Id in URL must match Id in request body");
+    }
+
+    var result = await _updateBelayDeviceService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {

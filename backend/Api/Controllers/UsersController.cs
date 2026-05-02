@@ -1,8 +1,8 @@
-using Handlers.Users.Add;
-using Handlers.Users.Delete;
-using Handlers.Users.Get;
-using Handlers.Users.Update;
 using Microsoft.AspNetCore.Mvc;
+using Services.Users.Add;
+using Services.Users.Delete;
+using Services.Users.Get;
+using Services.Users.Update;
 
 namespace Api.Controllers;
 
@@ -13,29 +13,29 @@ namespace Api.Controllers;
 [Route("users")]
 public class UsersController : ControllerBase
 {
-  private readonly GetUserHandler _getUserHandler;
-  private readonly DeleteUserHandler _deleteUserHandler;
-  private readonly AddUserHandler _addUserHandler;
-  private readonly UpdateUserHandler _updateUserHandler;
+  private readonly GetUserService _getUserService;
+  private readonly DeleteUserService _deleteUserService;
+  private readonly AddUserService _addUserService;
+  private readonly UpdateUserService _updateUserService;
 
   public UsersController(
-    GetUserHandler getUserHandler,
-    DeleteUserHandler deleteUserHandler,
-    AddUserHandler addUserHandler,
-    UpdateUserHandler updateUserHandler
+    GetUserService getUserService,
+    DeleteUserService deleteUserService,
+    AddUserService addUserService,
+    UpdateUserService updateUserService
   )
   {
-    _getUserHandler = getUserHandler;
-    _deleteUserHandler = deleteUserHandler;
-    _addUserHandler = addUserHandler;
-    _updateUserHandler = updateUserHandler;
+    _getUserService = getUserService;
+    _deleteUserService = deleteUserService;
+    _addUserService = addUserService;
+    _updateUserService = updateUserService;
   }
 
   [HttpGet("{id}")]
   public async Task<IActionResult> GetUser(Guid id, CancellationToken cancellationToken)
   {
     var request = new GetUserRequest(id);
-    var result = await _getUserHandler.Handle(request, cancellationToken).ConfigureAwait(false);
+    var result = await _getUserService.Handle(request, cancellationToken).ConfigureAwait(false);
 
     if (result.IsSuccess)
     {
@@ -49,7 +49,7 @@ public class UsersController : ControllerBase
   public async Task<IActionResult> DeleteUser(Guid id, CancellationToken cancellationToken)
   {
     var request = new DeleteUserRequest(id);
-    var result = await _deleteUserHandler.Handle(request, cancellationToken);
+    var result = await _deleteUserService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
@@ -62,7 +62,7 @@ public class UsersController : ControllerBase
   [HttpPost]
   public async Task<IActionResult> AddUser(AddUserRequest request, CancellationToken cancellationToken)
   {
-    var result = await _addUserHandler.Handle(request, cancellationToken);
+    var result = await _addUserService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
@@ -72,10 +72,15 @@ public class UsersController : ControllerBase
   }
 
 
-  [HttpPatch("{id}")]
-  public async Task<IActionResult> UpdateUser(UpdateUserRequest request, CancellationToken cancellationToken)
+  [HttpPatch("{userId}")]
+  public async Task<IActionResult> UpdateUser(string userId, UpdateUserRequest request, CancellationToken cancellationToken)
   {
-    var result = await _updateUserHandler.Handle(request, cancellationToken);
+    if (userId != request.userId)
+    {
+      return BadRequest("Id in URL must match Id in request body");
+    }
+
+    var result = await _updateUserService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {

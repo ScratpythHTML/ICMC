@@ -1,8 +1,8 @@
-using Handlers.Crashpads.Add;
-using Handlers.Crashpads.Delete;
-using Handlers.Crashpads.Get;
-using Handlers.Crashpads.Update;
 using Microsoft.AspNetCore.Mvc;
+using Services.Crashpads.Add;
+using Services.Crashpads.Delete;
+using Services.Crashpads.Get;
+using Services.Crashpads.Update;
 
 namespace Api.Controllers;
 
@@ -13,29 +13,29 @@ namespace Api.Controllers;
 [Route("crashpads")]
 public class CrashpadsController : ControllerBase
 {
-  private readonly GetCrashpadHandler _getCrashpadHandler;
-  private readonly DeleteCrashpadHandler _deleteCrashpadHandler;
-  private readonly AddCrashpadHandler _addCrashpadHandler;
-  private readonly UpdateCrashpadHandler _updateCrashpadHandler;
+  private readonly IGetCrashpadService _getCrashpadService;
+  private readonly IDeleteCrashpadService _deleteCrashpadService;
+  private readonly IAddCrashpadService _addCrashpadService;
+  private readonly IUpdateCrashpadService _updateCrashpadService;
 
   public CrashpadsController(
-    GetCrashpadHandler getCrashpadHandler,
-    DeleteCrashpadHandler deleteCrashpadHandler,
-    AddCrashpadHandler addCrashpadHandler,
-    UpdateCrashpadHandler updateCrashpadHandler
+    IGetCrashpadService getCrashpadService,
+    IDeleteCrashpadService deleteCrashpadService,
+    IAddCrashpadService addCrashpadService,
+    IUpdateCrashpadService updateCrashpadService
   )
   {
-    _getCrashpadHandler = getCrashpadHandler;
-    _deleteCrashpadHandler = deleteCrashpadHandler;
-    _addCrashpadHandler = addCrashpadHandler;
-    _updateCrashpadHandler = updateCrashpadHandler;
+    _getCrashpadService = getCrashpadService;
+    _deleteCrashpadService = deleteCrashpadService;
+    _addCrashpadService = addCrashpadService;
+    _updateCrashpadService = updateCrashpadService;
   }
 
   [HttpGet("{id}")]
   public async Task<IActionResult> GetCrashpad(int id, CancellationToken cancellationToken)
   {
     var request = new GetCrashpadRequest(id);
-    var result = await _getCrashpadHandler.Handle(request, cancellationToken).ConfigureAwait(false);
+    var result = await _getCrashpadService.Handle(request, cancellationToken).ConfigureAwait(false);
 
     if (result.IsSuccess)
     {
@@ -49,7 +49,7 @@ public class CrashpadsController : ControllerBase
   public async Task<IActionResult> DeleteCrashpad(int id, CancellationToken cancellationToken)
   {
     var request = new DeleteCrashpadRequest(id);
-    var result = await _deleteCrashpadHandler.Handle(request, cancellationToken);
+    var result = await _deleteCrashpadService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
@@ -62,7 +62,7 @@ public class CrashpadsController : ControllerBase
   [HttpPost]
   public async Task<IActionResult> AddCrashpad(AddCrashpadRequest request, CancellationToken cancellationToken)
   {
-    var result = await _addCrashpadHandler.Handle(request, cancellationToken);
+    var result = await _addCrashpadService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
@@ -73,9 +73,14 @@ public class CrashpadsController : ControllerBase
 
 
   [HttpPatch("{id}")]
-  public async Task<IActionResult> UpdateCrashpad(UpdateCrashpadRequest request, CancellationToken cancellationToken)
+  public async Task<IActionResult> UpdateCrashpad(int id, UpdateCrashpadRequest request, CancellationToken cancellationToken)
   {
-    var result = await _updateCrashpadHandler.Handle(request, cancellationToken);
+    if (id != request.Id)
+    {
+      return BadRequest("Id in URL must match Id in request body");
+    }
+
+    var result = await _updateCrashpadService.Handle(request, cancellationToken);
 
     if (result.IsSuccess)
     {
