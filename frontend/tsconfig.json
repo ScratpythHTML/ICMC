@@ -6,10 +6,13 @@
     "paths": {
       "@api/*": ["./src/api/*"],
       "@components/*": ["./src/components/*"],
-      "@pages/*": ["./pages/*"]
+      "@pages/*": ["./src/pages/*"],
+      "@http/*": ["./src/http/*"],
+      "@config/*": ["./src/config/*"]
     }
   },
   "include": [
-    "**/*.tsx"
+    "**/*.tsx",
+    "**/*.ts"
   ]
 }

@@ -43,8 +43,4 @@ public class BelayDeviceDto
   /// Gets of sets the User ID of the committee member who inspected the belay device.
   /// </summary>
   public Guid? InspectedBy { get; set; }
-  /// <summary>
-  /// Gets or sets the User navigation property.
-  /// </summary>
-  public virtual User? User { get; set; }
 }
