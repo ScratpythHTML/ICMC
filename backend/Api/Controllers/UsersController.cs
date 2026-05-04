@@ -75,7 +75,7 @@ public class UsersController : ControllerBase
   [HttpPatch("{userId}")]
   public async Task<IActionResult> UpdateUser(string userId, UpdateUserRequest request, CancellationToken cancellationToken)
   {
-    if (userId != request.userId)
+    if (userId != request.UserId)
     {
       return BadRequest("Id in URL must match Id in request body");
     }

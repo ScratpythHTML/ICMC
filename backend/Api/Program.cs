@@ -5,7 +5,7 @@ builder.Services.AddControllers();
 builder.Services.AddHealthChecks();
 
 builder.Configuration
-    .AddJsonFile("appsettings.Local.json");
+    .AddJsonFile("appsettings.local.json");
 
 builder.Services
     .AddIcmcApiServices()

@@ -37,7 +37,7 @@ public class UpdateUserService : IUpdateUserService
         }
 
         var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.UserId == request.UserId, cancellationToken)
+            .FirstOrDefaultAsync(u => u.UserId == Guid.Parse(request.UserId), cancellationToken)
             .ConfigureAwait(false);
 
         if (user == null)
