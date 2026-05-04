@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "ICMC",
+    "slug": "icmc",
+    "version": "1.0.0",
+    "orientation": "default",
+    "scheme": "icmc",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true
+  }
+}

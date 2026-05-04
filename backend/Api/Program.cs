@@ -7,8 +7,6 @@ builder.Services.AddHealthChecks();
 builder.Configuration
     .AddJsonFile("appsettings.Local.json");
 
-Console.WriteLine(builder.Configuration.GetConnectionString("DatabaseContext"));
-
 builder.Services
     .AddIcmcApiServices()
     .AddDatabaseAccess(builder.Configuration);
