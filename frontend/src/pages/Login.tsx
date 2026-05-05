@@ -2,10 +2,10 @@ import type { RootStackParamList } from '@navigation/BootRouter';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { View } from 'react-native';
 
-type ImperialProps = NativeStackScreenProps<RootStackParamList, 'Imperial'>;
+type LoginProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
-const Imperial = ({ navigation }: ImperialProps) => {
+const Login = ({ navigation }: LoginProps) => {
   return <View></View>;
 };
 
-export default Imperial;
+export default Login;

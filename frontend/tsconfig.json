@@ -8,7 +8,8 @@
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
       "@http/*": ["./src/http/*"],
-      "@config/*": ["./src/config/*"]
+      "@config/*": ["./src/config/*"],
+      "@navigation/*": ["./src/navigation/*"]
     }
   },
   "include": [
