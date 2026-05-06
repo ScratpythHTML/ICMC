@@ -9,7 +9,9 @@
       "@pages/*": ["./src/pages/*"],
       "@http/*": ["./src/http/*"],
       "@config/*": ["./src/config/*"],
-      "@navigation/*": ["./src/navigation/*"]
+      "@navigation/*": ["./src/navigation/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@ui/*": ["./src/ui/*"]
     }
   },
   "include": [

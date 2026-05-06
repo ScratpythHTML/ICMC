@@ -18,7 +18,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const BootRouter = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName="Login"
+    >
       <Stack.Screen name="Account" component={Account} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Imperial" component={Imperial} />
