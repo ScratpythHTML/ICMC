@@ -22,13 +22,13 @@ export interface UpdateBelayDeviceRequest {
 }
 
 export interface BelayDeviceDto {
-  Id: number;
-  ToughTag?: number;
-  Brand?: string;
-  Model?: number;
-  DateOfPurchase?: string;
-  ManufacturerExpiry?: string;
-  LastInspection?: string;
-  NextInspection?: string;
-  InspectedBy?: string;
+  id: number;
+  toughTag?: number;
+  brand?: string;
+  model?: number;
+  dateOfPurchase?: string;
+  manufacturerExpiry?: string;
+  lastInspection?: string;
+  nextInspection?: string;
+  inspectedBy?: string;
 }

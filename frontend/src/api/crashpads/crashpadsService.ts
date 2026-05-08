@@ -11,6 +11,16 @@ export const getCrashpad = async (id: number): Promise<CrashpadDto> => {
   return result.data;
 };
 
+export const getCrashpads = async (
+  storageLocation: string
+): Promise<CrashpadDto[]> => {
+  const icmcClient = await getIcmcApiClient();
+  const result = await icmcClient.get(
+    `/crashpads/?storageLocation=${storageLocation}`
+  );
+  return result.data;
+};
+
 export const addCrashpad = async (
   request: AddCrashpadRequest
 ): Promise<void> => {

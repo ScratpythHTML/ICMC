@@ -11,6 +11,16 @@ export const getHarness = async (id: number): Promise<HarnessDto> => {
   return result.data;
 };
 
+export const getHarnesses = async (
+  storageLocation: string
+): Promise<HarnessDto[]> => {
+  const icmcClient = await getIcmcApiClient();
+  const result = await icmcClient.get(
+    `/harnesses/?storageLocation=${storageLocation}`
+  );
+  return result.data;
+};
+
 export const addHarness = async (
   request: AddHarnessRequest
 ): Promise<void> => {

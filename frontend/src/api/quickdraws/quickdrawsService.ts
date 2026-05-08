@@ -11,6 +11,16 @@ export const getQuickdraw = async (id: number): Promise<QuickdrawDto> => {
   return result.data;
 };
 
+export const getQuickdraws = async (
+  storageLocation: string
+): Promise<QuickdrawDto[]> => {
+  const icmcClient = await getIcmcApiClient();
+  const result = await icmcClient.get(
+    `/quickdraws/?storageLocation=${storageLocation}`
+  );
+  return result.data;
+};
+
 export const addQuickdraw = async (
   request: AddQuickdrawRequest
 ): Promise<void> => {

@@ -3,6 +3,7 @@ import {
   addQuickdraw,
   deleteQuickdraw,
   getQuickdraw,
+  getQuickdraws,
   updateQuickdraw,
 } from './quickdrawsService';
 import type {
@@ -13,8 +14,16 @@ import type {
 
 export function useGetQuickdraw(id: number) {
   const query = useQuery<QuickdrawDto>({
-    queryKey: ['quickdraws', id],
+    queryKey: ['quickdraw', id],
     queryFn: () => getQuickdraw(id),
+  });
+  return query;
+}
+
+export function useGetQuickdraws(storageLocation: string) {
+  const query = useQuery<QuickdrawDto[]>({
+    queryKey: ['quickdraws', storageLocation],
+    queryFn: () => getQuickdraws(storageLocation),
   });
   return query;
 }

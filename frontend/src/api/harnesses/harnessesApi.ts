@@ -3,6 +3,7 @@ import {
   addHarness,
   deleteHarness,
   getHarness,
+  getHarnesses,
   updateHarness,
 } from './harnessesService';
 import type {
@@ -13,8 +14,16 @@ import type {
 
 export function useGetHarness(id: number) {
   const query = useQuery<HarnessDto>({
-    queryKey: ['harnesses', id],
+    queryKey: ['harness', id],
     queryFn: () => getHarness(id),
+  });
+  return query;
+}
+
+export function useGetHarnesses(storageLocation: string) {
+  const query = useQuery<HarnessDto[]>({
+    queryKey: ['harnesses', storageLocation],
+    queryFn: () => getHarnesses(storageLocation),
   });
   return query;
 }

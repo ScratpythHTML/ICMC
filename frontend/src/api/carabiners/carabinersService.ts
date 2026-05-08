@@ -11,6 +11,16 @@ export const getCarabiner = async (id: number): Promise<CarabinerDto> => {
   return result.data;
 };
 
+export const getCarabiners = async (
+  storageLocation: string
+): Promise<CarabinerDto[]> => {
+  const icmcClient = await getIcmcApiClient();
+  const result = await icmcClient.get(
+    `/carabiners/?storageLocation=${storageLocation}`
+  );
+  return result.data;
+};
+
 export const addCarabiner = async (
   request: AddCarabinerRequest
 ): Promise<void> => {

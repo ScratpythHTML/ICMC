@@ -3,6 +3,7 @@ import {
   addBelayDevice,
   deleteBelayDevice,
   getBelayDevice,
+  getBelayDevices,
   updateBelayDevice,
 } from './belayDevicesService';
 import type {
@@ -13,8 +14,16 @@ import type {
 
 export function useGetBelayDevice(id: number) {
   const query = useQuery<BelayDeviceDto>({
-    queryKey: ['belay-devices', id],
+    queryKey: ['belay-device', id],
     queryFn: () => getBelayDevice(id),
+  });
+  return query;
+}
+
+export function useGetBelayDevices(storageLocation: string) {
+  const query = useQuery<BelayDeviceDto[]>({
+    queryKey: ['belay-devices', storageLocation],
+    queryFn: () => getBelayDevices(storageLocation),
   });
   return query;
 }

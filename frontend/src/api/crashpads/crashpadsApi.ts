@@ -3,6 +3,7 @@ import {
   addCrashpad,
   deleteCrashpad,
   getCrashpad,
+  getCrashpads,
   updateCrashpad,
 } from './crashpadsService';
 import type {
@@ -13,8 +14,16 @@ import type {
 
 export function useGetCrashpad(id: number) {
   const query = useQuery<CrashpadDto>({
-    queryKey: ['crashpads', id],
+    queryKey: ['crashpad', id],
     queryFn: () => getCrashpad(id),
+  });
+  return query;
+}
+
+export function useGetCrashpads(storageLocation: string) {
+  const query = useQuery<CrashpadDto[]>({
+    queryKey: ['crashpads', storageLocation],
+    queryFn: () => getCrashpads(storageLocation),
   });
   return query;
 }

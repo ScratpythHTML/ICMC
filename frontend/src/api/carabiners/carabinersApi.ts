@@ -3,6 +3,7 @@ import {
   addCarabiner,
   deleteCarabiner,
   getCarabiner,
+  getCarabiners,
   updateCarabiner,
 } from './carabinersService';
 import type {
@@ -13,8 +14,16 @@ import type {
 
 export function useGetCarabiner(id: number) {
   const query = useQuery<CarabinerDto>({
-    queryKey: ['carabiners', id],
+    queryKey: ['carabiner', id],
     queryFn: () => getCarabiner(id),
+  });
+  return query;
+}
+
+export function useGetCarabiners(storageLocation: string) {
+  const query = useQuery<CarabinerDto[]>({
+    queryKey: ['carabiners', storageLocation],
+    queryFn: () => getCarabiners(storageLocation),
   });
   return query;
 }

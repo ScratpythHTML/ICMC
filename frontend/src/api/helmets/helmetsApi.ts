@@ -3,6 +3,7 @@ import {
   addHelmet,
   deleteHelmet,
   getHelmet,
+  getHelmets,
   updateHelmet,
 } from './helmetsService';
 import type {
@@ -13,8 +14,16 @@ import type {
 
 export function useGetHelmet(id: number) {
   const query = useQuery<HelmetDto>({
-    queryKey: ['helmets', id],
+    queryKey: ['helmet', id],
     queryFn: () => getHelmet(id),
+  });
+  return query;
+}
+
+export function useGetHelmets(storageLocation: string) {
+  const query = useQuery<HelmetDto[]>({
+    queryKey: ['helmets', storageLocation],
+    queryFn: () => getHelmets(storageLocation),
   });
   return query;
 }

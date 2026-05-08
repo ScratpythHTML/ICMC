@@ -11,6 +11,16 @@ export const getHelmet = async (id: number): Promise<HelmetDto> => {
   return result.data;
 };
 
+export const getHelmets = async (
+  storageLocation: string
+): Promise<HelmetDto[]> => {
+  const icmcClient = await getIcmcApiClient();
+  const result = await icmcClient.get(
+    `/helmets/?storageLocation=${storageLocation}`
+  );
+  return result.data;
+};
+
 export const addHelmet = async (request: AddHelmetRequest): Promise<void> => {
   const icmcClient = await getIcmcApiClient();
   const result = await icmcClient.post(`helmets`, request);

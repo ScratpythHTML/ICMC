@@ -11,6 +11,16 @@ export const getRope = async (id: number): Promise<RopeDto> => {
   return result.data;
 };
 
+export const getRopes = async (
+  storageLocation: string
+): Promise<RopeDto[]> => {
+  const icmcClient = await getIcmcApiClient();
+  const result = await icmcClient.get(
+    `/ropes/?storageLocation=${storageLocation}`
+  );
+  return result.data;
+};
+
 export const addRope = async (request: AddRopeRequest): Promise<void> => {
   const icmcClient = await getIcmcApiClient();
   const result = await icmcClient.post(`ropes`, request);

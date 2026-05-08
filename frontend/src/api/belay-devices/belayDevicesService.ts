@@ -11,6 +11,16 @@ export const getBelayDevice = async (id: number): Promise<BelayDeviceDto> => {
   return result.data;
 };
 
+export const getBelayDevices = async (
+  storageLocation: string
+): Promise<BelayDeviceDto[]> => {
+  const icmcClient = await getIcmcApiClient();
+  const result = await icmcClient.get(
+    `/belay-devices/?storageLocation=${storageLocation}`
+  );
+  return result.data;
+};
+
 export const addBelayDevice = async (
   request: AddBelayDeviceRequest
 ): Promise<void> => {
