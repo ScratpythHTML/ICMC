@@ -1,3 +1,4 @@
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services.Ropes.Add;
 using Services.Ropes.Delete;
@@ -13,19 +14,22 @@ namespace Api.Controllers;
 [Route("ropes")]
 public class RopesController : ControllerBase
 {
-  private readonly GetRopeService _getRopeService;
-  private readonly DeleteRopeService _deleteRopeService;
-  private readonly AddRopeService _addRopeService;
-  private readonly UpdateRopeService _updateRopeService;
+  private readonly IGetRopeService _getRopeService;
+  private readonly IGetRopesService _getRopesService;
+  private readonly IDeleteRopeService _deleteRopeService;
+  private readonly IAddRopeService _addRopeService;
+  private readonly IUpdateRopeService _updateRopeService;
 
   public RopesController(
-    GetRopeService getRopeService,
-    DeleteRopeService deleteRopeService,
-    AddRopeService addRopeService,
-    UpdateRopeService updateRopeService
+    IGetRopeService getRopeService,
+    IGetRopesService getRopesService,
+    IDeleteRopeService deleteRopeService,
+    IAddRopeService addRopeService,
+    IUpdateRopeService updateRopeService
   )
   {
     _getRopeService = getRopeService;
+    _getRopesService = getRopesService;
     _deleteRopeService = deleteRopeService;
     _addRopeService = addRopeService;
     _updateRopeService = updateRopeService;
@@ -43,6 +47,18 @@ public class RopesController : ControllerBase
     }
 
     return NotFound(result.Errors);
+  }
+
+  [HttpGet]
+  public async Task<IActionResult> GetRopes(StorageLocation storageLocation, CancellationToken cancellationToken)
+  {
+    var request = new GetRopesRequest(storageLocation);
+    var result = await _getRopesService.Handle(request, cancellationToken).ConfigureAwait(false);
+    if (result.IsSuccess)
+    {
+      return Ok(result.Output);
+    }
+    return BadRequest(result.Errors);
   }
 
   [HttpDelete("{id}")]

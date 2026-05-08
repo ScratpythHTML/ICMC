@@ -1,3 +1,4 @@
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services.Harnesses.Add;
 using Services.Harnesses.Delete;
@@ -14,18 +15,21 @@ namespace Api.Controllers;
 public class HarnessesController : ControllerBase
 {
   private readonly IGetHarnessService _getHarnessService;
+  private readonly IGetHarnessesService _getHarnessesService;
   private readonly IDeleteHarnessService _deleteHarnessService;
   private readonly IAddHarnessService _addHarnessService;
   private readonly IUpdateHarnessService _updateHarnessService;
 
   public HarnessesController(
     IGetHarnessService getHarnessService,
+    IGetHarnessesService getHarnessesService,
     IDeleteHarnessService deleteHarnessService,
     IAddHarnessService addHarnessService,
     IUpdateHarnessService updateHarnessService
   )
   {
     _getHarnessService = getHarnessService;
+    _getHarnessesService = getHarnessesService;
     _deleteHarnessService = deleteHarnessService;
     _addHarnessService = addHarnessService;
     _updateHarnessService = updateHarnessService;
@@ -43,6 +47,18 @@ public class HarnessesController : ControllerBase
     }
 
     return NotFound(result.Errors);
+  }
+
+  [HttpGet]
+  public async Task<IActionResult> GetHarnesses(StorageLocation storageLocation, CancellationToken cancellationToken)
+  {
+    var request = new GetHarnessesRequest(storageLocation);
+    var result = await _getHarnessesService.Handle(request, cancellationToken).ConfigureAwait(false);
+    if (result.IsSuccess)
+    {
+      return Ok(result.Output);
+    }
+    return BadRequest(result.Errors);
   }
 
   [HttpDelete("{id}")]

@@ -1,3 +1,4 @@
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services.Helmets.Add;
 using Services.Helmets.Delete;
@@ -14,18 +15,21 @@ namespace Api.Controllers;
 public class HelmetsController : ControllerBase
 {
   private readonly IGetHelmetService _getHelmetService;
+  private readonly IGetHelmetsService _getHelmetsService;
   private readonly IDeleteHelmetService _deleteHelmetService;
-  private readonly AddHelmetService _addHelmetService;
-  private readonly UpdateHelmetService _updateHelmetService;
+  private readonly IAddHelmetService _addHelmetService;
+  private readonly IUpdateHelmetService _updateHelmetService;
 
   public HelmetsController(
-    GetHelmetService getHelmetService,
-    DeleteHelmetService deleteHelmetService,
-    AddHelmetService addHelmetService,
-    UpdateHelmetService updateHelmetService
+    IGetHelmetService getHelmetService,
+    IGetHelmetsService getHelmetsService,
+    IDeleteHelmetService deleteHelmetService,
+    IAddHelmetService addHelmetService,
+    IUpdateHelmetService updateHelmetService
   )
   {
     _getHelmetService = getHelmetService;
+    _getHelmetsService = getHelmetsService;
     _deleteHelmetService = deleteHelmetService;
     _addHelmetService = addHelmetService;
     _updateHelmetService = updateHelmetService;
@@ -43,6 +47,18 @@ public class HelmetsController : ControllerBase
     }
 
     return NotFound(result.Errors);
+  }
+
+  [HttpGet]
+  public async Task<IActionResult> GetHelmets(StorageLocation storageLocation, CancellationToken cancellationToken)
+  {
+    var request = new GetHelmetsRequest(storageLocation);
+    var result = await _getHelmetsService.Handle(request, cancellationToken).ConfigureAwait(false);
+    if (result.IsSuccess)
+    {
+      return Ok(result.Output);
+    }
+    return BadRequest(result.Errors);
   }
 
   [HttpDelete("{id}")]

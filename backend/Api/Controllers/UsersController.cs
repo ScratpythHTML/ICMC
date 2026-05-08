@@ -13,19 +13,22 @@ namespace Api.Controllers;
 [Route("users")]
 public class UsersController : ControllerBase
 {
-  private readonly GetUserService _getUserService;
-  private readonly DeleteUserService _deleteUserService;
-  private readonly AddUserService _addUserService;
-  private readonly UpdateUserService _updateUserService;
+  private readonly IGetUserService _getUserService;
+  private readonly IGetUsersService _getUsersService;
+  private readonly IDeleteUserService _deleteUserService;
+  private readonly IAddUserService _addUserService;
+  private readonly IUpdateUserService _updateUserService;
 
   public UsersController(
-    GetUserService getUserService,
-    DeleteUserService deleteUserService,
-    AddUserService addUserService,
-    UpdateUserService updateUserService
+    IGetUserService getUserService,
+    IGetUsersService getUsersService,
+    IDeleteUserService deleteUserService,
+    IAddUserService addUserService,
+    IUpdateUserService updateUserService
   )
   {
     _getUserService = getUserService;
+    _getUsersService = getUsersService;
     _deleteUserService = deleteUserService;
     _addUserService = addUserService;
     _updateUserService = updateUserService;
@@ -43,6 +46,18 @@ public class UsersController : ControllerBase
     }
 
     return NotFound(result.Errors);
+  }
+
+  [HttpGet]
+  public async Task<IActionResult> GetUsers(CancellationToken cancellationToken)
+  {
+    var request = new GetUsersRequest();
+    var result = await _getUsersService.Handle(request, cancellationToken).ConfigureAwait(false);
+    if (result.IsSuccess)
+    {
+      return Ok(result.Output);
+    }
+    return BadRequest(result.Errors);
   }
 
   [HttpDelete("{id}")]
@@ -72,10 +87,10 @@ public class UsersController : ControllerBase
   }
 
 
-  [HttpPatch("{userId}")]
-  public async Task<IActionResult> UpdateUser(string userId, UpdateUserRequest request, CancellationToken cancellationToken)
+  [HttpPatch("{id}")]
+  public async Task<IActionResult> UpdateUser(Guid id, UpdateUserRequest request, CancellationToken cancellationToken)
   {
-    if (userId != request.UserId)
+    if (id != request.UserId)
     {
       return BadRequest("Id in URL must match Id in request body");
     }

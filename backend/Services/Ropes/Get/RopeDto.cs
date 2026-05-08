@@ -48,6 +48,10 @@ public class RopeDto
   /// </summary>
   public int? Length { get; set; }
   /// <summary>
+  /// Gets or sets the location where a piece of gear is stored.
+  /// </summary>
+  public StorageLocation StorageLocation { get; set; }
+  /// <summary>
   /// Gets or sets the User navigation property.
   /// </summary>
   public virtual User? User { get; set; }

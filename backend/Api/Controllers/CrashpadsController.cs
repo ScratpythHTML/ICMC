@@ -1,3 +1,4 @@
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services.Crashpads.Add;
 using Services.Crashpads.Delete;
@@ -14,18 +15,21 @@ namespace Api.Controllers;
 public class CrashpadsController : ControllerBase
 {
   private readonly IGetCrashpadService _getCrashpadService;
+  private readonly IGetCrashpadsService _getCrashpadsService;
   private readonly IDeleteCrashpadService _deleteCrashpadService;
   private readonly IAddCrashpadService _addCrashpadService;
   private readonly IUpdateCrashpadService _updateCrashpadService;
 
   public CrashpadsController(
     IGetCrashpadService getCrashpadService,
+    IGetCrashpadsService getCrashpadsService,
     IDeleteCrashpadService deleteCrashpadService,
     IAddCrashpadService addCrashpadService,
     IUpdateCrashpadService updateCrashpadService
   )
   {
     _getCrashpadService = getCrashpadService;
+    _getCrashpadsService = getCrashpadsService;
     _deleteCrashpadService = deleteCrashpadService;
     _addCrashpadService = addCrashpadService;
     _updateCrashpadService = updateCrashpadService;
@@ -43,6 +47,18 @@ public class CrashpadsController : ControllerBase
     }
 
     return NotFound(result.Errors);
+  }
+
+  [HttpGet]
+  public async Task<IActionResult> GetCrashpads(StorageLocation storageLocation, CancellationToken cancellationToken)
+  {
+    var request = new GetCrashpadsRequest(storageLocation);
+    var result = await _getCrashpadsService.Handle(request, cancellationToken).ConfigureAwait(false);
+    if (result.IsSuccess)
+    {
+      return Ok(result.Output);
+    }
+    return BadRequest(result.Errors);
   }
 
   [HttpDelete("{id}")]

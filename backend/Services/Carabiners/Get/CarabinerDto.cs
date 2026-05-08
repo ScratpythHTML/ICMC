@@ -40,9 +40,13 @@ public class CarabinerDto
   /// </summary>
   public DateTimeOffset? NextInspection { get; set; }
   /// <summary>
-  /// Gets of sets the User ID of the committee member who inspected of the carabiner.
+  /// Gets or sets the User ID of the committee member who inspected of the carabiner.
   /// </summary>
   public Guid? InspectedBy { get; set; }
+  /// <summary>
+  /// Gets or sets the location where a piece of gear is stored.
+  /// </summary>
+  public StorageLocation StorageLocation { get; set; }
   /// <summary>
   /// Gets or sets the User navigation property.
   /// </summary>

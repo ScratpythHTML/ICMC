@@ -1,3 +1,4 @@
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services.BelayDevices.Add;
 using Services.BelayDevices.Delete;
@@ -14,18 +15,21 @@ namespace Api.Controllers;
 public class BelayDevicesController : ControllerBase
 {
   private readonly IGetBelayDeviceService _getBelayDeviceService;
+  private readonly IGetBelayDevicesService _getBelayDevicesService;
   private readonly IDeleteBelayDeviceService _deleteBelayDeviceService;
   private readonly IAddBelayDeviceService _addBelayDeviceService;
   private readonly IUpdateBelayDeviceService _updateBelayDeviceService;
 
   public BelayDevicesController(
     IGetBelayDeviceService getBelayDeviceService,
+    IGetBelayDevicesService getBelayDevicesService,
     IDeleteBelayDeviceService deleteBelayDeviceService,
     IAddBelayDeviceService addBelayDeviceService,
     IUpdateBelayDeviceService updateBelayDeviceService
   )
   {
     _getBelayDeviceService = getBelayDeviceService;
+    _getBelayDevicesService = getBelayDevicesService;
     _deleteBelayDeviceService = deleteBelayDeviceService;
     _addBelayDeviceService = addBelayDeviceService;
     _updateBelayDeviceService = updateBelayDeviceService;
@@ -43,6 +47,18 @@ public class BelayDevicesController : ControllerBase
     }
 
     return NotFound(result.Errors);
+  }
+
+  [HttpGet]
+  public async Task<IActionResult> GetBelayDevices(StorageLocation storageLocation, CancellationToken cancellationToken)
+  {
+    var request = new GetBelayDevicesRequest(storageLocation);
+    var result = await _getBelayDevicesService.Handle(request, cancellationToken).ConfigureAwait(false);
+    if (result.IsSuccess)
+    {
+      return Ok(result.Output);
+    }
+    return BadRequest(result.Errors);
   }
 
   [HttpDelete("{id}")]

@@ -52,6 +52,7 @@ public static class IcmcApiServiceCollectionExtensions
             .AddTransient<IAddBelayDeviceService, AddBelayDeviceService>()
             .AddTransient<IDeleteBelayDeviceService, DeleteBelayDeviceService>()
             .AddTransient<IGetBelayDeviceService, GetBelayDeviceService>()
+            .AddTransient<IGetBelayDevicesService, GetBelayDevicesService>()
             .AddTransient<IUpdateBelayDeviceService, UpdateBelayDeviceService>();
     }
 
@@ -61,6 +62,7 @@ public static class IcmcApiServiceCollectionExtensions
             .AddTransient<IAddCarabinerService, AddCarabinerService>()
             .AddTransient<IDeleteCarabinerService, DeleteCarabinerService>()
             .AddTransient<IGetCarabinerService, GetCarabinerService>()
+            .AddTransient<IGetCarabinersService, GetCarabinersService>()
             .AddTransient<IUpdateCarabinerService, UpdateCarabinerService>();
     }
 
@@ -70,6 +72,7 @@ public static class IcmcApiServiceCollectionExtensions
             .AddTransient<IAddCrashpadService, AddCrashpadService>()
             .AddTransient<IDeleteCrashpadService, DeleteCrashpadService>()
             .AddTransient<IGetCrashpadService, GetCrashpadService>()
+            .AddTransient<IGetCrashpadsService, GetCrashpadsService>()
             .AddTransient<IUpdateCrashpadService, UpdateCrashpadService>();
     }
 
@@ -79,6 +82,7 @@ public static class IcmcApiServiceCollectionExtensions
             .AddTransient<IAddHarnessService, AddHarnessService>()
             .AddTransient<IDeleteHarnessService, DeleteHarnessService>()
             .AddTransient<IGetHarnessService, GetHarnessService>()
+            .AddTransient<IGetHarnessesService, GetHarnessesService>()
             .AddTransient<IUpdateHarnessService, UpdateHarnessService>();
     }
 
@@ -88,6 +92,7 @@ public static class IcmcApiServiceCollectionExtensions
             .AddTransient<IAddHelmetService, AddHelmetService>()
             .AddTransient<IDeleteHelmetService, DeleteHelmetService>()
             .AddTransient<IGetHelmetService, GetHelmetService>()
+            .AddTransient<IGetHelmetsService, GetHelmetsService>()
             .AddTransient<IUpdateHelmetService, UpdateHelmetService>();
     }
 
@@ -97,6 +102,7 @@ public static class IcmcApiServiceCollectionExtensions
             .AddTransient<IAddQuickdrawService, AddQuickdrawService>()
             .AddTransient<IDeleteQuickdrawService, DeleteQuickdrawService>()
             .AddTransient<IGetQuickdrawService, GetQuickdrawService>()
+            .AddTransient<IGetQuickdrawsService, GetQuickdrawsService>()
             .AddTransient<IUpdateQuickdrawService, UpdateQuickdrawService>();
     }
 
@@ -106,6 +112,7 @@ public static class IcmcApiServiceCollectionExtensions
             .AddTransient<IAddRopeService, AddRopeService>()
             .AddTransient<IDeleteRopeService, DeleteRopeService>()
             .AddTransient<IGetRopeService, GetRopeService>()
+            .AddTransient<IGetRopesService, GetRopesService>()
             .AddTransient<IUpdateRopeService, UpdateRopeService>();
     }
 
@@ -115,6 +122,7 @@ public static class IcmcApiServiceCollectionExtensions
             .AddTransient<IAddUserService, AddUserService>()
             .AddTransient<IDeleteUserService, DeleteUserService>()
             .AddTransient<IGetUserService, GetUserService>()
+            .AddTransient<IGetUsersService, GetUsersService>()
             .AddTransient<IUpdateUserService, UpdateUserService>();
     }
 }

@@ -44,6 +44,10 @@ public class QuickdrawDto
   /// </summary>
   public Guid? InspectedBy { get; set; }
   /// <summary>
+  /// Gets or sets the location where a piece of gear is stored.
+  /// </summary>
+  public StorageLocation StorageLocation { get; set; }
+  /// <summary>
   /// Gets or sets the User navigation property.
   /// </summary>
   public virtual User? User { get; set; }

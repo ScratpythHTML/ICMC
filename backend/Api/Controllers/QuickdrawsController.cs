@@ -1,3 +1,4 @@
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services.Quickdraws.Add;
 using Services.Quickdraws.Delete;
@@ -13,19 +14,22 @@ namespace Api.Controllers;
 [Route("quickdraws")]
 public class QuickdrawsController : ControllerBase
 {
-  private readonly GetQuickdrawService _getQuickdrawService;
-  private readonly DeleteQuickdrawService _deleteQuickdrawService;
-  private readonly AddQuickdrawService _addQuickdrawService;
-  private readonly UpdateQuickdrawService _updateQuickdrawService;
+  private readonly IGetQuickdrawService _getQuickdrawService;
+  private readonly IGetQuickdrawsService _getQuickdrawsService;
+  private readonly IDeleteQuickdrawService _deleteQuickdrawService;
+  private readonly IAddQuickdrawService _addQuickdrawService;
+  private readonly IUpdateQuickdrawService _updateQuickdrawService;
 
   public QuickdrawsController(
-    GetQuickdrawService getQuickdrawService,
-    DeleteQuickdrawService deleteQuickdrawService,
-    AddQuickdrawService addQuickdrawService,
-    UpdateQuickdrawService updateQuickdrawService
+    IGetQuickdrawService getQuickdrawService,
+    IGetQuickdrawsService getQuickdrawsService,
+    IDeleteQuickdrawService deleteQuickdrawService,
+    IAddQuickdrawService addQuickdrawService,
+    IUpdateQuickdrawService updateQuickdrawService
   )
   {
     _getQuickdrawService = getQuickdrawService;
+    _getQuickdrawsService = getQuickdrawsService;
     _deleteQuickdrawService = deleteQuickdrawService;
     _addQuickdrawService = addQuickdrawService;
     _updateQuickdrawService = updateQuickdrawService;
@@ -43,6 +47,18 @@ public class QuickdrawsController : ControllerBase
     }
 
     return NotFound(result.Errors);
+  }
+
+  [HttpGet]
+  public async Task<IActionResult> GetQuickdraws(StorageLocation storageLocation, CancellationToken cancellationToken)
+  {
+    var request = new GetQuickdrawsRequest(storageLocation);
+    var result = await _getQuickdrawsService.Handle(request, cancellationToken).ConfigureAwait(false);
+    if (result.IsSuccess)
+    {
+      return Ok(result.Output);
+    }
+    return BadRequest(result.Errors);
   }
 
   [HttpDelete("{id}")]

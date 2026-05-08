@@ -1,3 +1,4 @@
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services.Carabiners.Add;
 using Services.Carabiners.Delete;
@@ -14,18 +15,21 @@ namespace Api.Controllers;
 public class CarabinersController : ControllerBase
 {
   private readonly IGetCarabinerService _getCarabinerService;
+  private readonly IGetCarabinersService _getCarabinersService;
   private readonly IDeleteCarabinerService _deleteCarabinerService;
   private readonly IAddCarabinerService _addCarabinerService;
   private readonly IUpdateCarabinerService _updateCarabinerService;
 
   public CarabinersController(
     IGetCarabinerService getCarabinerService,
+    IGetCarabinersService getCarabinersService,
     IDeleteCarabinerService deleteCarabinerService,
     IAddCarabinerService addCarabinerService,
     IUpdateCarabinerService updateCarabinerService
   )
   {
     _getCarabinerService = getCarabinerService;
+    _getCarabinersService = getCarabinersService;
     _deleteCarabinerService = deleteCarabinerService;
     _addCarabinerService = addCarabinerService;
     _updateCarabinerService = updateCarabinerService;
@@ -43,6 +47,18 @@ public class CarabinersController : ControllerBase
     }
 
     return NotFound(result.Errors);
+  }
+
+  [HttpGet]
+  public async Task<IActionResult> GetCarabiners(StorageLocation storageLocation, CancellationToken cancellationToken)
+  {
+    var request = new GetCarabinersRequest(storageLocation);
+    var result = await _getCarabinersService.Handle(request, cancellationToken).ConfigureAwait(false);
+    if (result.IsSuccess)
+    {
+      return Ok(result.Output);
+    }
+    return BadRequest(result.Errors);
   }
 
   [HttpDelete("{id}")]
