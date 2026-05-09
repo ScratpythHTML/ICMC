@@ -31,7 +31,7 @@ public class GetGearItemService : IGetGearItemService
       throw new ArgumentNullException();
     }
     var result = await _context.GearItems
-        .Where(gi => gi.Id == request.Id && (request.GearCategory == null || gi.GearCategory == request.GearCategory) && (request.StorageLocation == null || gi.StorageLocation == request.StorageLocation))
+        .Where(gi => gi.Id == request.Id)
         .Select(gi => new GearItemDto
         {
           Brand = gi.Brand,

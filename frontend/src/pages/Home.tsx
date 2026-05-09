@@ -1,3 +1,4 @@
+import { StorageLocation } from '@api/common/enums';
 import ImperialPreview from '@components/account/ImperialPreview';
 import WestwayPreview from '@components/account/WestwayPreview';
 import type { RootStackParamList } from '@navigation/BootRouter';
@@ -11,10 +12,14 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 const Home = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const handleOnWestwayPress = () => {
-    navigation.navigate('Westway');
+    navigation.navigate('Storage', {
+      storageLocation: StorageLocation.Westway,
+    });
   };
   const handleOnImperialPress = () => {
-    navigation.navigate('Imperial');
+    navigation.navigate('Storage', {
+      storageLocation: StorageLocation.Imperial,
+    });
   };
   return (
     <View style={styles.container}>

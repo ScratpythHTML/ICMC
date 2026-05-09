@@ -23,7 +23,7 @@ export function useGetGearItem(id: number) {
 
 export function useGetGearItems(request: GetGearItemsRequest) {
   const query = useQuery<GearItemDto[]>({
-    queryKey: ['gear-items', request.storageLocation, request.gearCategory],
+    queryKey: ['gear-items', request.gearCategory, request.storageLocation],
     queryFn: () => getGearItems(request),
   });
   return query;
