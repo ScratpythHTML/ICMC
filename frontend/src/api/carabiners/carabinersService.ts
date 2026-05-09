@@ -1,4 +1,5 @@
 import getIcmcApiClient from '@http/getIcmcClient';
+import { StorageLocation } from '../common/enums';
 import type {
   AddCarabinerRequest,
   CarabinerDto,
@@ -12,7 +13,7 @@ export const getCarabiner = async (id: number): Promise<CarabinerDto> => {
 };
 
 export const getCarabiners = async (
-  storageLocation: string
+  storageLocation: StorageLocation
 ): Promise<CarabinerDto[]> => {
   const icmcClient = await getIcmcApiClient();
   const result = await icmcClient.get(

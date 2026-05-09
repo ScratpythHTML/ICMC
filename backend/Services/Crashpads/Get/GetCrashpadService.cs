@@ -34,7 +34,7 @@ public class GetCrashpadService : IGetCrashpadService
         .Where(c => c.Id == request.Id)
         .Select(c => new CrashpadDto
         {
-          Id = request.Id,
+          Id = c.Id,
           ToughTag = c.ToughTag,
           Brand = c.Brand,
           Model = c.Model,
@@ -42,7 +42,11 @@ public class GetCrashpadService : IGetCrashpadService
           ManufacturerExpiry = c.ManufacturerExpiry,
           LastInspection = c.LastInspection,
           NextInspection = c.NextInspection,
-          InspectedBy = c.InspectedBy
+          InspectedBy = c.InspectedBy,
+          StorageLocation = c.StorageLocation,
+          LentTo = c.LentTo,
+          LentBy = c.LentBy,
+          ReturnedDate = c.ReturnedDate
         })
         .FirstOrDefaultAsync(cancellationToken)
         .ConfigureAwait(false);

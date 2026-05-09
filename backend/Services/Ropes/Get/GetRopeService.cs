@@ -34,7 +34,7 @@ public class GetRopeService : IGetRopeService
         .Where(r => r.Id == request.Id)
         .Select(r => new RopeDto
         {
-          Id = request.Id,
+          Id = r.Id,
           ToughTag = r.ToughTag,
           Brand = r.Brand,
           Model = r.Model,
@@ -43,7 +43,11 @@ public class GetRopeService : IGetRopeService
           LastInspection = r.LastInspection,
           NextInspection = r.NextInspection,
           InspectedBy = r.InspectedBy,
-          Length = r.Length
+          Length = r.Length,
+          StorageLocation = r.StorageLocation,
+          LentTo = r.LentTo,
+          LentBy = r.LentBy,
+          ReturnedDate = r.ReturnedDate
         })
         .FirstOrDefaultAsync(cancellationToken)
         .ConfigureAwait(false);

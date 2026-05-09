@@ -1,4 +1,5 @@
 import getIcmcApiClient from '@http/getIcmcClient';
+import { StorageLocation } from '../common/enums';
 import type {
   AddHarnessRequest,
   HarnessDto,
@@ -12,7 +13,7 @@ export const getHarness = async (id: number): Promise<HarnessDto> => {
 };
 
 export const getHarnesses = async (
-  storageLocation: string
+  storageLocation: StorageLocation
 ): Promise<HarnessDto[]> => {
   const icmcClient = await getIcmcApiClient();
   const result = await icmcClient.get(

@@ -1,3 +1,5 @@
+import { StorageLocation } from '../common/enums';
+
 export interface AddQuickdrawRequest {
   ToughTag: number;
   Brand?: string;
@@ -6,7 +8,7 @@ export interface AddQuickdrawRequest {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
 }
 
 export interface UpdateQuickdrawRequest {
@@ -18,7 +20,7 @@ export interface UpdateQuickdrawRequest {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
 }
 
 export interface QuickdrawDto {
@@ -30,5 +32,9 @@ export interface QuickdrawDto {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
+  StorageLocation: StorageLocation;
+  LentTo?: number;
+  LentBy?: number;
+  ReturnedDate?: string;
 }

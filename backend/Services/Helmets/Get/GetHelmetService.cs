@@ -34,7 +34,7 @@ public class GetHelmetService : IGetHelmetService
         .Where(h => h.Id == request.Id)
         .Select(h => new HelmetDto
         {
-          Id = request.Id,
+          Id = h.Id,
           ToughTag = h.ToughTag,
           Brand = h.Brand,
           Model = h.Model,
@@ -43,7 +43,11 @@ public class GetHelmetService : IGetHelmetService
           LastInspection = h.LastInspection,
           NextInspection = h.NextInspection,
           InspectedBy = h.InspectedBy,
-          Size = h.Size
+          Size = h.Size,
+          StorageLocation = h.StorageLocation,
+          LentTo = h.LentTo,
+          LentBy = h.LentBy,
+          ReturnedDate = h.ReturnedDate
         })
         .FirstOrDefaultAsync(cancellationToken)
         .ConfigureAwait(false);

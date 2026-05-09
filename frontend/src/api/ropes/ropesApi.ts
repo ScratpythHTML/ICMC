@@ -1,5 +1,12 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { addRope, deleteRope, getRope, getRopes, updateRope } from './ropesService';
+import { StorageLocation } from '../common/enums';
+import {
+  addRope,
+  deleteRope,
+  getRope,
+  getRopes,
+  updateRope,
+} from './ropesService';
 import type {
   AddRopeRequest,
   RopeDto,
@@ -14,7 +21,7 @@ export function useGetRope(id: number) {
   return query;
 }
 
-export function useGetRopes(storageLocation: string) {
+export function useGetRopes(storageLocation: StorageLocation) {
   const query = useQuery<RopeDto[]>({
     queryKey: ['ropes', storageLocation],
     queryFn: () => getRopes(storageLocation),

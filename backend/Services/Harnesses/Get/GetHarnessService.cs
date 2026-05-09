@@ -34,7 +34,7 @@ public class GetHarnessService : IGetHarnessService
         .Where(h => h.Id == request.Id)
         .Select(h => new HarnessDto
         {
-          Id = request.Id,
+          Id = h.Id,
           ToughTag = h.ToughTag,
           Brand = h.Brand,
           Model = h.Model,
@@ -44,7 +44,11 @@ public class GetHarnessService : IGetHarnessService
           NextInspection = h.NextInspection,
           InspectedBy = h.InspectedBy,
           Size = h.Size,
-          Sex = h.Sex
+          Sex = h.Sex,
+          StorageLocation = h.StorageLocation,
+          LentTo = h.LentTo,
+          LentBy = h.LentBy,
+          ReturnedDate = h.ReturnedDate
         })
         .FirstOrDefaultAsync(cancellationToken)
         .ConfigureAwait(false);

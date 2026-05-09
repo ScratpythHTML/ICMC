@@ -46,7 +46,10 @@ public class GetCrashpadsService : IGetCrashpadsService
             LastInspection = c.LastInspection,
             NextInspection = c.NextInspection,
             InspectedBy = c.InspectedBy,
-            StorageLocation = c.StorageLocation
+            StorageLocation = c.StorageLocation,
+            LentTo = c.LentTo,
+            LentBy = c.LentBy,
+            ReturnedDate = c.ReturnedDate
         }).Where(c => c.StorageLocation == request.storageLocation).ToArrayAsync(cancellationToken);
 
         if (result == null)

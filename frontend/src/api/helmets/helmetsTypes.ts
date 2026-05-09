@@ -1,4 +1,4 @@
-import type { Size } from '../common/enums';
+import type { Size, StorageLocation } from '../common/enums';
 
 export interface AddHelmetRequest {
   ToughTag: number;
@@ -8,7 +8,7 @@ export interface AddHelmetRequest {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
   Size?: Size;
 }
 
@@ -21,7 +21,7 @@ export interface UpdateHelmetRequest {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
   Size?: Size;
 }
 
@@ -34,6 +34,10 @@ export interface HelmetDto {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
   Size?: Size;
+  StorageLocation: StorageLocation;
+  LentTo?: number;
+  LentBy?: number;
+  ReturnedDate?: string;
 }

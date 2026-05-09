@@ -48,7 +48,10 @@ public class GetHarnessesService : IGetHarnessesService
             InspectedBy = h.InspectedBy,
             Size = h.Size,
             Sex = h.Sex,
-            StorageLocation = h.StorageLocation
+            StorageLocation = h.StorageLocation,
+            LentTo = h.LentTo,
+            LentBy = h.LentBy,
+            ReturnedDate = h.ReturnedDate
         }).Where(h => h.StorageLocation == request.storageLocation).ToArrayAsync(cancellationToken);
 
         if (result == null)

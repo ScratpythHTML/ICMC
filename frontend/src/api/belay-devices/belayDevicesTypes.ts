@@ -1,3 +1,5 @@
+import { StorageLocation } from '../common/enums';
+
 export interface AddBelayDeviceRequest {
   ToughTag: number;
   Brand?: string;
@@ -6,7 +8,7 @@ export interface AddBelayDeviceRequest {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
 }
 
 export interface UpdateBelayDeviceRequest {
@@ -18,7 +20,7 @@ export interface UpdateBelayDeviceRequest {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
 }
 
 export interface BelayDeviceDto {
@@ -30,7 +32,9 @@ export interface BelayDeviceDto {
   manufacturerExpiry?: string;
   lastInspection?: string;
   nextInspection?: string;
-  inspectedBy?: string;
+  inspectedBy?: number;
+  storageLocation: StorageLocation;
+  lentTo?: number;
+  lentBy?: number;
+  returnedDate?: string;
 }
-
-export type StorageLocation = 'imperial' | 'westway';

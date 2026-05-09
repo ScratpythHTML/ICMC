@@ -1,4 +1,4 @@
-import type { Sex, Size } from '../common/enums';
+import type { Sex, Size, StorageLocation } from '../common/enums';
 
 export interface AddHarnessRequest {
   ToughTag: number;
@@ -8,7 +8,7 @@ export interface AddHarnessRequest {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
   Size?: Size;
   Sex?: Sex;
 }
@@ -22,7 +22,7 @@ export interface UpdateHarnessRequest {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
   Size?: Size;
   Sex?: Sex;
 }
@@ -36,7 +36,11 @@ export interface HarnessDto {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
   Size?: Size;
   Sex?: Sex;
+  StorageLocation: StorageLocation;
+  LentTo?: number;
+  LentBy?: number;
+  ReturnedDate?: string;
 }

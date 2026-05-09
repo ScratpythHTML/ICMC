@@ -46,7 +46,10 @@ public class GetQuickdrawsService : IGetQuickdrawsService
             LastInspection = q.LastInspection,
             NextInspection = q.NextInspection,
             InspectedBy = q.InspectedBy,
-            StorageLocation = q.StorageLocation
+            StorageLocation = q.StorageLocation,
+            LentTo = q.LentTo,
+            LentBy = q.LentBy,
+            ReturnedDate = q.ReturnedDate
         }).Where(q => q.StorageLocation == request.storageLocation).ToArrayAsync(cancellationToken);
 
         if (result == null)

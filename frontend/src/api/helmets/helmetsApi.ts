@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { StorageLocation } from '../common/enums';
 import {
   addHelmet,
   deleteHelmet,
@@ -20,7 +21,7 @@ export function useGetHelmet(id: number) {
   return query;
 }
 
-export function useGetHelmets(storageLocation: string) {
+export function useGetHelmets(storageLocation: StorageLocation) {
   const query = useQuery<HelmetDto[]>({
     queryKey: ['helmets', storageLocation],
     queryFn: () => getHelmets(storageLocation),

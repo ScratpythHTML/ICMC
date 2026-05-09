@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
+import { StorageLocation } from '../api/common/enums';
 
-type StorageLocation = 'imperial' | 'westway';
 type StorageLocationContextType = {
   storageLocation: StorageLocation;
   setStorageLocation: (storageLocation: StorageLocation) => void;
@@ -15,8 +15,9 @@ export const StorageLocationProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [storageLocation, setStorageLocation] =
-    useState<StorageLocation>('imperial');
+  const [storageLocation, setStorageLocation] = useState<StorageLocation>(
+    StorageLocation.Imperial
+  );
 
   return (
     <StorageLocationContext.Provider

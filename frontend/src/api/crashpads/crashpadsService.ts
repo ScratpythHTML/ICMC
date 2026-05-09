@@ -1,4 +1,5 @@
 import getIcmcApiClient from '@http/getIcmcClient';
+import { StorageLocation } from '../common/enums';
 import type {
   AddCrashpadRequest,
   CrashpadDto,
@@ -12,7 +13,7 @@ export const getCrashpad = async (id: number): Promise<CrashpadDto> => {
 };
 
 export const getCrashpads = async (
-  storageLocation: string
+  storageLocation: StorageLocation
 ): Promise<CrashpadDto[]> => {
   const icmcClient = await getIcmcApiClient();
   const result = await icmcClient.get(

@@ -1,3 +1,5 @@
+import { StorageLocation } from '../common/enums';
+
 export interface AddCrashpadRequest {
   ToughTag: number;
   Brand?: string;
@@ -6,7 +8,7 @@ export interface AddCrashpadRequest {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
 }
 
 export interface UpdateCrashpadRequest {
@@ -18,7 +20,7 @@ export interface UpdateCrashpadRequest {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
 }
 
 export interface CrashpadDto {
@@ -30,5 +32,9 @@ export interface CrashpadDto {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
+  StorageLocation: StorageLocation;
+  LentTo?: number;
+  LentBy?: number;
+  ReturnedDate?: string;
 }

@@ -1,4 +1,5 @@
 import getIcmcApiClient from '@http/getIcmcClient';
+import { StorageLocation } from '../common/enums';
 import type {
   AddBelayDeviceRequest,
   BelayDeviceDto,
@@ -12,7 +13,7 @@ export const getBelayDevice = async (id: number): Promise<BelayDeviceDto> => {
 };
 
 export const getBelayDevices = async (
-  storageLocation: string
+  storageLocation: StorageLocation
 ): Promise<BelayDeviceDto[]> => {
   const icmcClient = await getIcmcApiClient();
   const result = await icmcClient.get(

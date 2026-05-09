@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { StorageLocation } from '../common/enums';
 import {
   addHarness,
   deleteHarness,
@@ -20,7 +21,7 @@ export function useGetHarness(id: number) {
   return query;
 }
 
-export function useGetHarnesses(storageLocation: string) {
+export function useGetHarnesses(storageLocation: StorageLocation) {
   const query = useQuery<HarnessDto[]>({
     queryKey: ['harnesses', storageLocation],
     queryFn: () => getHarnesses(storageLocation),

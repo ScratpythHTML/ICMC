@@ -45,7 +45,10 @@ public class GetBelayDevicesService : IGetBelayDevicesService
             LastInspection = bd.LastInspection,
             NextInspection = bd.NextInspection,
             InspectedBy = bd.InspectedBy,
-            StorageLocation = bd.StorageLocation
+            StorageLocation = bd.StorageLocation,
+            LentTo = bd.LentTo,
+            LentBy = bd.LentBy,
+            ReturnedDate = bd.ReturnedDate
 
         }).Where(bd => bd.StorageLocation == request.storageLocation).ToArrayAsync(cancellationToken);
 

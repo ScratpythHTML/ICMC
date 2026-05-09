@@ -1,3 +1,5 @@
+import { StorageLocation } from '../common/enums';
+
 export interface AddCarabinerRequest {
   ToughTag: number;
   Brand?: string;
@@ -6,7 +8,7 @@ export interface AddCarabinerRequest {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
 }
 
 export interface UpdateCarabinerRequest {
@@ -18,7 +20,7 @@ export interface UpdateCarabinerRequest {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
 }
 
 export interface CarabinerDto {
@@ -30,5 +32,9 @@ export interface CarabinerDto {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
+  StorageLocation: StorageLocation;
+  LentTo?: number;
+  LentBy?: number;
+  ReturnedDate?: string;
 }

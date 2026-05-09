@@ -12,3 +12,8 @@ export enum Size {
   XL = 500,
   XXL = 600,
 }
+
+export enum StorageLocation {
+  Imperial = 0,
+  Westway = 100,
+}

@@ -48,7 +48,15 @@ public class CarabinerDto
   /// </summary>
   public StorageLocation StorageLocation { get; set; }
   /// <summary>
-  /// Gets or sets the User navigation property.
+  /// Gets or sets the CID of the member who was lent the gear item.
   /// </summary>
-  public virtual User? User { get; set; }
+  public int? LentTo { get; set; }
+  /// <summary>
+  /// Gets or sets the CID of the committee member who lent the geat item.
+  /// </summary>
+  public int? LentBy { get; set; }
+  /// <summary>
+  /// The date a user returned a borrowed item.
+  /// </summary>
+  public DateTimeOffset? ReturnedDate { get; set; }
 }

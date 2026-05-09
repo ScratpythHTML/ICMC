@@ -1,4 +1,5 @@
 import getIcmcApiClient from '@http/getIcmcClient';
+import { StorageLocation } from '../common/enums';
 import type {
   AddRopeRequest,
   RopeDto,
@@ -12,7 +13,7 @@ export const getRope = async (id: number): Promise<RopeDto> => {
 };
 
 export const getRopes = async (
-  storageLocation: string
+  storageLocation: StorageLocation
 ): Promise<RopeDto[]> => {
   const icmcClient = await getIcmcApiClient();
   const result = await icmcClient.get(

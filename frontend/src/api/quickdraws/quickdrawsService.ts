@@ -1,4 +1,5 @@
 import getIcmcApiClient from '@http/getIcmcClient';
+import { StorageLocation } from '../common/enums';
 import type {
   AddQuickdrawRequest,
   QuickdrawDto,
@@ -12,7 +13,7 @@ export const getQuickdraw = async (id: number): Promise<QuickdrawDto> => {
 };
 
 export const getQuickdraws = async (
-  storageLocation: string
+  storageLocation: StorageLocation
 ): Promise<QuickdrawDto[]> => {
   const icmcClient = await getIcmcApiClient();
   const result = await icmcClient.get(

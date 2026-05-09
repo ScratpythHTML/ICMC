@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { StorageLocation } from '../common/enums';
 import {
   addCrashpad,
   deleteCrashpad,
@@ -20,7 +21,7 @@ export function useGetCrashpad(id: number) {
   return query;
 }
 
-export function useGetCrashpads(storageLocation: string) {
+export function useGetCrashpads(storageLocation: StorageLocation) {
   const query = useQuery<CrashpadDto[]>({
     queryKey: ['crashpads', storageLocation],
     queryFn: () => getCrashpads(storageLocation),

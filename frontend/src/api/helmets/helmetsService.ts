@@ -1,4 +1,5 @@
 import getIcmcApiClient from '@http/getIcmcClient';
+import { StorageLocation } from '../common/enums';
 import type {
   AddHelmetRequest,
   HelmetDto,
@@ -12,7 +13,7 @@ export const getHelmet = async (id: number): Promise<HelmetDto> => {
 };
 
 export const getHelmets = async (
-  storageLocation: string
+  storageLocation: StorageLocation
 ): Promise<HelmetDto[]> => {
   const icmcClient = await getIcmcApiClient();
   const result = await icmcClient.get(

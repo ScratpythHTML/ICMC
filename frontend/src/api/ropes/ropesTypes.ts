@@ -1,3 +1,5 @@
+import { StorageLocation } from '../common/enums';
+
 export interface AddRopeRequest {
   ToughTag: number;
   Brand?: string;
@@ -6,7 +8,7 @@ export interface AddRopeRequest {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
   Length?: number;
 }
 
@@ -19,7 +21,7 @@ export interface UpdateRopeRequest {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
   Length?: number;
 }
 
@@ -32,6 +34,10 @@ export interface RopeDto {
   ManufacturerExpiry?: string;
   LastInspection?: string;
   NextInspection?: string;
-  InspectedBy?: string;
+  InspectedBy?: number;
   Length?: number;
+  StorageLocation: StorageLocation;
+  LentTo?: number;
+  LentBy?: number;
+  ReturnedDate?: string;
 }

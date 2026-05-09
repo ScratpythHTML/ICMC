@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { StorageLocation } from '../common/enums';
 import {
   addQuickdraw,
   deleteQuickdraw,
@@ -20,7 +21,7 @@ export function useGetQuickdraw(id: number) {
   return query;
 }
 
-export function useGetQuickdraws(storageLocation: string) {
+export function useGetQuickdraws(storageLocation: StorageLocation) {
   const query = useQuery<QuickdrawDto[]>({
     queryKey: ['quickdraws', storageLocation],
     queryFn: () => getQuickdraws(storageLocation),

@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { StorageLocation } from '../common/enums';
 import {
   addCarabiner,
   deleteCarabiner,
@@ -20,7 +21,7 @@ export function useGetCarabiner(id: number) {
   return query;
 }
 
-export function useGetCarabiners(storageLocation: string) {
+export function useGetCarabiners(storageLocation: StorageLocation) {
   const query = useQuery<CarabinerDto[]>({
     queryKey: ['carabiners', storageLocation],
     queryFn: () => getCarabiners(storageLocation),

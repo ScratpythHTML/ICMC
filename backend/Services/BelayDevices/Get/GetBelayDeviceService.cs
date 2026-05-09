@@ -34,8 +34,19 @@ public class GetBelayDeviceService : IGetBelayDeviceService
         .Where(bd => bd.Id == request.Id)
         .Select(bd => new BelayDeviceDto
         {
-          Id = request.Id,
-          ToughTag = bd.ToughTag
+          Id = bd.Id,
+          ToughTag = bd.ToughTag,
+          Brand = bd.Brand,
+          Model = bd.Model,
+          DateOfPurchase = bd.DateOfPurchase,
+          ManufacturerExpiry = bd.ManufacturerExpiry,
+          LastInspection = bd.LastInspection,
+          NextInspection = bd.NextInspection,
+          InspectedBy = bd.InspectedBy,
+          StorageLocation = bd.StorageLocation,
+          LentTo = bd.LentTo,
+          LentBy = bd.LentBy,
+          ReturnedDate = bd.ReturnedDate
         })
         .FirstOrDefaultAsync(cancellationToken)
         .ConfigureAwait(false);

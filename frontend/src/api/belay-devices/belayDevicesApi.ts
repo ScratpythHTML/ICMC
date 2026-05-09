@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { StorageLocation } from '../common/enums';
 import {
   addBelayDevice,
   deleteBelayDevice,
@@ -9,7 +10,6 @@ import {
 import type {
   AddBelayDeviceRequest,
   BelayDeviceDto,
-  StorageLocation,
   UpdateBelayDeviceRequest,
 } from './belayDevicesTypes';
 

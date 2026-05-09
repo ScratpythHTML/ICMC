@@ -34,7 +34,7 @@ public class GetQuickdrawService : IGetQuickdrawService
         .Where(q => q.Id == request.Id)
         .Select(q => new QuickdrawDto
         {
-          Id = request.Id,
+          Id = q.Id,
           ToughTag = q.ToughTag,
           Brand = q.Brand,
           Model = q.Model,
@@ -42,7 +42,11 @@ public class GetQuickdrawService : IGetQuickdrawService
           ManufacturerExpiry = q.ManufacturerExpiry,
           LastInspection = q.LastInspection,
           NextInspection = q.NextInspection,
-          InspectedBy = q.InspectedBy
+          InspectedBy = q.InspectedBy,
+          StorageLocation = q.StorageLocation,
+          LentTo = q.LentTo,
+          LentBy = q.LentBy,
+          ReturnedDate = q.ReturnedDate
         })
         .FirstOrDefaultAsync(cancellationToken)
         .ConfigureAwait(false);

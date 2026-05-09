@@ -1,4 +1,6 @@
 // import { AppRoutes } from '@navigation/appRoutes';
+import ImperialBelayDeviceComponent from '@components/imperial/ImperialBelayDeviceComponent';
+import ImperialBelayDevicesComponent from '@components/imperial/ImperialBelayDevicesComponent';
 import Account from '@pages/Account';
 import Home from '@pages/Home';
 import Imperial from '@pages/Imperial';
@@ -12,6 +14,8 @@ export type RootStackParamList = {
   Imperial: undefined;
   Westway: undefined;
   Home: undefined;
+  ImperialBelayDevicesComponent: undefined;
+  ImperialBelayDeviceComponent: { id: number };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -27,6 +31,14 @@ const BootRouter = () => {
       <Stack.Screen name="Imperial" component={Imperial} />
       <Stack.Screen name="Westway" component={Westway} />
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen
+        name="ImperialBelayDevicesComponent"
+        component={ImperialBelayDevicesComponent}
+      />
+      <Stack.Screen
+        name="ImperialBelayDeviceComponent"
+        component={ImperialBelayDeviceComponent}
+      />
     </Stack.Navigator>
   );
 };

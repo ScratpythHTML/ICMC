@@ -47,7 +47,10 @@ public class GetRopesService : IGetRopesService
             NextInspection = r.NextInspection,
             InspectedBy = r.InspectedBy,
             Length = r.Length,
-            StorageLocation = r.StorageLocation
+            StorageLocation = r.StorageLocation,
+            LentTo = r.LentTo,
+            LentBy = r.LentBy,
+            ReturnedDate = r.ReturnedDate
         }).Where(r => r.StorageLocation == request.storageLocation).ToArrayAsync(cancellationToken);
 
         if (result == null)

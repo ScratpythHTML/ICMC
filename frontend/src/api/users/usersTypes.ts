@@ -1,5 +1,5 @@
 export interface AddUserRequest {
-  CID?: string;
+  CID: number;
   FirstName?: string;
   SecondName?: string;
   UserEmail?: string;
@@ -7,8 +7,7 @@ export interface AddUserRequest {
 }
 
 export interface UpdateUserRequest {
-  UserId: string;
-  CID?: string;
+  CID: number;
   FirstName?: string;
   SecondName?: string;
   UserEmail?: string;
@@ -16,8 +15,7 @@ export interface UpdateUserRequest {
 }
 
 export interface UserDto {
-  UserId: string;
-  CID?: string;
+  CID: number;
   FirstName?: string;
   SecondName?: string;
   UserEmail?: string;
