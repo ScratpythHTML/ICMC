@@ -14,7 +14,7 @@ const Login = () => {
 
   const handleOnPress = () => {
     if (passwordRef.current === 'ICMC') {
-      navigation.navigate('Account');
+      navigation.navigate('Home');
     }
   };
 

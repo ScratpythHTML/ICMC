@@ -9,6 +9,7 @@ import {
 import type {
   AddBelayDeviceRequest,
   BelayDeviceDto,
+  StorageLocation,
   UpdateBelayDeviceRequest,
 } from './belayDevicesTypes';
 
@@ -20,7 +21,7 @@ export function useGetBelayDevice(id: number) {
   return query;
 }
 
-export function useGetBelayDevices(storageLocation: string) {
+export function useGetBelayDevices(storageLocation: StorageLocation) {
   const query = useQuery<BelayDeviceDto[]>({
     queryKey: ['belay-devices', storageLocation],
     queryFn: () => getBelayDevices(storageLocation),

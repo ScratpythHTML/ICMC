@@ -9,6 +9,7 @@ export const colours = {
   blue: '#25aae2',
   green: '#707e40',
   black: '#000000',
+  whiteOpacity: 'rgba(255, 255, 255, 0.05)',
 };
 
 export const spacing = {

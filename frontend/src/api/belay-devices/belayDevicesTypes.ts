@@ -32,3 +32,5 @@ export interface BelayDeviceDto {
   nextInspection?: string;
   inspectedBy?: string;
 }
+
+export type StorageLocation = 'imperial' | 'westway';
