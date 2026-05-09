@@ -1,33 +1,113 @@
 import type { RootStackParamList } from '@navigation/BootRouter';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
-import { colours, fonts, spacing } from '@styles/variables';
-import { StyleSheet, Text, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { colours, spacing } from '@styles/variables';
+import BackgroundComponent from '@ui/BackgroundComponent';
+import { Card } from '@ui/Card';
+import HeaderComponent from '@ui/HeaderComponent';
+import { Body, Heading } from '@ui/Typography';
+import { LogOut, Settings, User } from 'lucide-react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const Account = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.component, { paddingTop: insets.top }]}>
-      <Text style={styles.title}>Account</Text>
-    </View>
+    <BackgroundComponent>
+      <HeaderComponent />
+      <View style={styles.container}>
+        <View style={styles.profileSection}>
+          <View style={styles.avatarContainer}>
+            <User size={64} color="#fff" />
+          </View>
+          <Heading style={styles.userName}>Member Name</Heading>
+          <Body style={styles.userRole}>ICMC Committee</Body>
+        </View>
+
+        <Card style={styles.menuSection}>
+          <TouchableOpacity style={styles.menuItem}>
+            <Settings size={20} color="#fff" style={styles.menuIcon} />
+            <Body style={styles.menuText}>Preferences</Body>
+          </TouchableOpacity>
+          <View style={styles.divider} />
+          <TouchableOpacity
+            style={styles.menuItem}
+            onPress={() => navigation.navigate('Login')}
+          >
+            <LogOut
+              size={20}
+              color={colours.purpleLight}
+              style={styles.menuIcon}
+            />
+            <Body style={[styles.menuText, { color: colours.purpleLight }]}>
+              Logout
+            </Body>
+          </TouchableOpacity>
+        </Card>
+
+        <View style={styles.footer}>
+          <Body style={styles.version}>v1.0.0</Body>
+        </View>
+      </View>
+    </BackgroundComponent>
   );
 };
+
 const styles = StyleSheet.create({
-  component: {
+  container: {
     flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    paddingHorizontal: spacing.medium,
-    gap: spacing.medium,
-    width: '100%',
-    backgroundColor: colours.purpleLight,
+    padding: spacing.medium,
   },
-  title: {
-    fontFamily: fonts.regular,
-    fontSize: fonts.sizeExtraLarge,
-    textAlign: 'center',
+  profileSection: {
+    alignItems: 'center',
+    marginVertical: spacing.xxLarge,
+  },
+  avatarContainer: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: spacing.medium,
+  },
+  userName: {
+    color: '#fff',
+    marginBottom: 0,
+  },
+  userRole: {
+    color: '#fff',
+    opacity: 0.7,
+  },
+  menuSection: {
+    marginTop: spacing.large,
+    padding: 0,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: spacing.medium,
+  },
+  menuIcon: {
+    marginRight: spacing.medium,
+  },
+  menuText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    marginHorizontal: spacing.medium,
+  },
+  footer: {
+    marginTop: 'auto',
+    alignItems: 'center',
+    paddingBottom: spacing.large,
+  },
+  version: {
+    color: '#fff',
+    opacity: 0.5,
+    fontSize: 12,
   },
 });
 

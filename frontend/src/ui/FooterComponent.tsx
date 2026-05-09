@@ -1,39 +1,43 @@
-import { borderRadius, spacing } from '@styles/variables';
+import { borderRadius, colours, spacing } from '@styles/variables';
 import { Plus } from 'lucide-react-native';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { Label } from './Typography';
 
 const FooterComponent = ({ onRightPress }: { onRightPress: () => void }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.rightSection}>
-        <Pressable style={styles.button} onPress={onRightPress}>
-          <Plus size={16} />
-          <Text>Add</Text>
-        </Pressable>
-      </View>
+      <Pressable style={styles.addButton} onPress={onRightPress}>
+        <Plus size={24} color="#fff" />
+        <Label style={styles.label}>Add Gear</Label>
+      </Pressable>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    borderWidth: 1,
+    padding: spacing.medium,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  rightSection: {
-    flex: 1,
-    borderWidth: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
-  },
-  button: {
-    gap: spacing.small,
-    borderWidth: 1,
+  addButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: colours.purple,
     borderRadius: borderRadius.xxLarge,
-    paddingVertical: spacing.small,
-    paddingHorizontal: spacing.medium,
+    paddingVertical: spacing.regular,
+    paddingHorizontal: spacing.xLarge,
+    gap: spacing.small,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 8,
+  },
+  label: {
+    color: '#fff',
+    marginBottom: 0,
+    fontWeight: '700',
   },
 });
 

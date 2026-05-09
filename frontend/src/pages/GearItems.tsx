@@ -10,63 +10,101 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native';
+import { colours, spacing } from '@styles/variables';
 import BackgroundComponent from '@ui/BackgroundComponent';
-import { BubbleComponent } from '@ui/BubbleComponent';
+import { Badge } from '@ui/Badge';
+import { Card } from '@ui/Card';
 import FooterComponent from '@ui/FooterComponent';
 import HeaderComponent from '@ui/HeaderComponent';
+import { Body, Subheading } from '@ui/Typography';
+import { getGearCategoryLabel } from '@utils/enumHelpers';
+import { Edit2, Trash2 } from 'lucide-react-native';
 import { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const GearItems = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, 'GearItems'>>();
   const { gearCategory, storageLocation } = route.params;
-  const { data: gearItems } = useGetGearItems({
+  const { data: gearItems, isLoading } = useGetGearItems({
     gearCategory,
     storageLocation,
   });
-  const handleOnPress = (gi: GearItemDto) => () => {
-    navigation.navigate('GearItem', { id: gi.id });
-  };
+
   const [addItemModalVisible, setAddItemModalVisible] = useState(false);
   const [updateItemModalVisible, setUpdateItemModalVisible] = useState(false);
   const [deleteItemModalVisible, setDeleteItemModalVisible] = useState(false);
   const [gearItemId, setGearItemId] = useState(0);
 
+  const handleOnPress = (id: number) => {
+    navigation.navigate('GearItem', { id });
+  };
+
+  const renderItem = ({ item }: { item: GearItemDto }) => (
+    <TouchableOpacity
+      onPress={() => handleOnPress(item.id)}
+      activeOpacity={0.7}
+    >
+      <Card style={styles.card}>
+        <View style={styles.cardHeader}>
+          <View style={styles.titleContainer}>
+            <Subheading style={styles.brand}>{item.brand}</Subheading>
+            <Body style={styles.model}>{item.model || 'Unknown Model'}</Body>
+          </View>
+          <Badge label={`#${item.toughTag}`} backgroundColor={colours.yellow} />
+        </View>
+
+        <View style={styles.cardFooter}>
+          <Badge
+            label={getGearCategoryLabel(item.gearCategory)}
+            backgroundColor={colours.whiteOpacity}
+            color={
+              colours.whiteOpacity === 'rgba(255, 255, 255, 0.05)'
+                ? '#fff'
+                : colours.black
+            }
+          />
+          <View style={styles.actions}>
+            <TouchableOpacity
+              onPress={() => {
+                setGearItemId(item.id);
+                setUpdateItemModalVisible(true);
+              }}
+              style={styles.actionButton}
+            >
+              <Edit2 size={18} color={colours.blue} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setGearItemId(item.id);
+                setDeleteItemModalVisible(true);
+              }}
+              style={styles.actionButton}
+            >
+              <Trash2 size={18} color={colours.purpleLight} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Card>
+    </TouchableOpacity>
+  );
+
   return (
     <BackgroundComponent>
       <HeaderComponent />
-      <View style={styles.items}>
-        {gearItems?.map((gi) => (
-          <TouchableOpacity key={gi.id} onPress={handleOnPress(gi)}>
-            <BubbleComponent style={styles.bubble}>
-              <Text>{gi.brand}</Text>
-              <View style={styles.options}>
-                <TouchableOpacity
-                  onPress={() => {
-                    setUpdateItemModalVisible(true);
-                    setGearItemId(gi.id);
-                  }}
-                >
-                  <BubbleComponent style={styles.bubble}>
-                    <Text>Update</Text>
-                  </BubbleComponent>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    setDeleteItemModalVisible(true);
-                    setGearItemId(gi.id);
-                  }}
-                >
-                  <BubbleComponent style={styles.bubble}>
-                    <Text>Delete</Text>
-                  </BubbleComponent>
-                </TouchableOpacity>
-              </View>
-            </BubbleComponent>
-          </TouchableOpacity>
-        ))}
-      </View>
+      <FlatList
+        data={gearItems}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={styles.listContent}
+        ListEmptyComponent={
+          !isLoading ? (
+            <View style={styles.emptyContainer}>
+              <Body>No gear items found.</Body>
+            </View>
+          ) : null
+        }
+      />
       <FooterComponent onRightPress={() => setAddItemModalVisible(true)} />
       <UpdateGearItemModalComponent
         modalVisible={updateItemModalVisible}
@@ -87,16 +125,49 @@ const GearItems = () => {
 };
 
 const styles = StyleSheet.create({
-  items: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  listContent: {
+    padding: spacing.medium,
+    gap: spacing.medium,
   },
-  bubble: {
-    padding: 40,
+  card: {
+    marginBottom: spacing.small,
   },
-  options: {
+  cardHeader: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: spacing.medium,
+  },
+  titleContainer: {
+    flex: 1,
+    marginRight: spacing.small,
+  },
+  brand: {
+    marginBottom: 0,
+    color: '#fff',
+  },
+  model: {
+    opacity: 0.8,
+    color: '#fff',
+  },
+  cardFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: spacing.small,
+  },
+  actions: {
+    flexDirection: 'row',
+    gap: spacing.medium,
+  },
+  actionButton: {
+    padding: spacing.xSmall,
+  },
+  emptyContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 100,
   },
 });
 
