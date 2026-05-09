@@ -1,0 +1,10 @@
+# Ignore backend for frontend builds
+backend/
+
+# Standard ignores
+node_modules/
+.expo/
+.vscode/
+bin/
+obj/
+*.local.json

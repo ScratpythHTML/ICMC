@@ -27,6 +27,11 @@
     },
     "scheme": "icmc",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true
+    "newArchEnabled": true,
+    "extra": {
+      "eas": {
+        "projectId": "df5e47f3-d973-42c1-a97b-6efa52d30fc4"
+      }
+    }
   }
 }
