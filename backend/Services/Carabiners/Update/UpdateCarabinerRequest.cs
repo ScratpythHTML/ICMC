@@ -16,6 +16,6 @@ namespace Services.Carabiners.Update;
 /// <param name="LastInspection"></param>
 /// <param name="NextInspection"></param>
 /// <param name="InspectedBy"></param>
-public record UpdateCarabinerRequest(int Id, int? ToughTag, string? Brand, int? Model, DateTimeOffset? DateOfPurchase, DateTimeOffset? ManufacturerExpiry, DateTimeOffset? LastInspection, DateTimeOffset? NextInspection, Guid? InspectedBy) : IRequest<CommandResult>
+public record UpdateCarabinerRequest(int Id, int? ToughTag, string? Brand, int? Model, DateTimeOffset? DateOfPurchase, DateTimeOffset? ManufacturerExpiry, DateTimeOffset? LastInspection, DateTimeOffset? NextInspection, int? InspectedBy) : IRequest<CommandResult>
 {
 }

@@ -38,9 +38,21 @@ public class GearItem
   /// </summary>
   public DateTimeOffset? NextInspection { get; set; }
   /// <summary>
-  /// Gets of sets the User ID of the committee member who inspected the piece of gear.
+  /// Gets or sets the CID of the committee member who inspected the piece of gear.
   /// </summary>
-  public Guid? InspectedBy { get; set; }
+  public int? InspectedBy { get; set; }
+  /// <summary>
+  /// Gets or sets the CID of the member who was lent the gear item.
+  /// </summary>
+  public int? LentTo { get; set; }
+  /// <summary>
+  /// Gets or sets the CID of the committee member who lent the geat item.
+  /// </summary>
+  public int? LentBy { get; set; }
+  /// <summary>
+  /// The date a user returned a borrowed item.
+  /// </summary>
+  public DateTimeOffset? ReturnedDate { get; set; }
   /// <summary>
   /// Gets or sets the User navigation property.
   /// </summary>

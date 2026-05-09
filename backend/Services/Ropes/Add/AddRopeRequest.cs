@@ -16,6 +16,6 @@ namespace Services.Ropes.Add;
 /// <param name="NextInspection"></param>
 /// <param name="InspectedBy"></param>
 /// <param name="Length"></param>
-public record AddRopeRequest(int? ToughTag, string? Brand, int? Model, DateTimeOffset? DateOfPurchase, DateTimeOffset? ManufacturerExpiry, DateTimeOffset? LastInspection, DateTimeOffset? NextInspection, Guid? InspectedBy, int? Length) : IRequest<CommandResult>
+public record AddRopeRequest(int? ToughTag, string? Brand, int? Model, DateTimeOffset? DateOfPurchase, DateTimeOffset? ManufacturerExpiry, DateTimeOffset? LastInspection, DateTimeOffset? NextInspection, int? InspectedBy, int? Length) : IRequest<CommandResult>
 {
 }

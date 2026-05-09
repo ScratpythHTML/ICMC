@@ -14,28 +14,25 @@ namespace Api.Controllers;
 public class UsersController : ControllerBase
 {
   private readonly IGetUserService _getUserService;
-  private readonly IGetUsersService _getUsersService;
   private readonly IDeleteUserService _deleteUserService;
   private readonly IAddUserService _addUserService;
   private readonly IUpdateUserService _updateUserService;
 
   public UsersController(
     IGetUserService getUserService,
-    IGetUsersService getUsersService,
     IDeleteUserService deleteUserService,
     IAddUserService addUserService,
     IUpdateUserService updateUserService
   )
   {
     _getUserService = getUserService;
-    _getUsersService = getUsersService;
     _deleteUserService = deleteUserService;
     _addUserService = addUserService;
     _updateUserService = updateUserService;
   }
 
   [HttpGet("{id}")]
-  public async Task<IActionResult> GetUser(Guid id, CancellationToken cancellationToken)
+  public async Task<IActionResult> GetUser(int id, CancellationToken cancellationToken)
   {
     var request = new GetUserRequest(id);
     var result = await _getUserService.Handle(request, cancellationToken).ConfigureAwait(false);
@@ -48,20 +45,8 @@ public class UsersController : ControllerBase
     return NotFound(result.Errors);
   }
 
-  [HttpGet]
-  public async Task<IActionResult> GetUsers(CancellationToken cancellationToken)
-  {
-    var request = new GetUsersRequest();
-    var result = await _getUsersService.Handle(request, cancellationToken).ConfigureAwait(false);
-    if (result.IsSuccess)
-    {
-      return Ok(result.Output);
-    }
-    return BadRequest(result.Errors);
-  }
-
   [HttpDelete("{id}")]
-  public async Task<IActionResult> DeleteUser(Guid id, CancellationToken cancellationToken)
+  public async Task<IActionResult> DeleteUser(int id, CancellationToken cancellationToken)
   {
     var request = new DeleteUserRequest(id);
     var result = await _deleteUserService.Handle(request, cancellationToken);
@@ -88,9 +73,9 @@ public class UsersController : ControllerBase
 
 
   [HttpPatch("{id}")]
-  public async Task<IActionResult> UpdateUser(Guid id, UpdateUserRequest request, CancellationToken cancellationToken)
+  public async Task<IActionResult> UpdateUser(int id, UpdateUserRequest request, CancellationToken cancellationToken)
   {
-    if (id != request.UserId)
+    if (id != request.CID)
     {
       return BadRequest("Id in URL must match Id in request body");
     }

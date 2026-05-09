@@ -1,6 +1,6 @@
 using Audacia.Commands;
-using MediatR;
 using Domain.Entities;
+using MediatR;
 
 namespace Services.Harnesses.Update;
 
@@ -18,6 +18,6 @@ namespace Services.Harnesses.Update;
 /// <param name="InspectedBy"></param>
 /// <param name="Size"></param>
 /// <param name="Sex"></param>
-public record UpdateHarnessRequest(int Id, int? ToughTag, string? Brand, int? Model, DateTimeOffset? DateOfPurchase, DateTimeOffset? ManufacturerExpiry, DateTimeOffset? LastInspection, DateTimeOffset? NextInspection, Guid? InspectedBy, Size? Size, Sex? Sex) : IRequest<CommandResult>
+public record UpdateHarnessRequest(int Id, int? ToughTag, string? Brand, int? Model, DateTimeOffset? DateOfPurchase, DateTimeOffset? ManufacturerExpiry, DateTimeOffset? LastInspection, DateTimeOffset? NextInspection, int? InspectedBy, Size? Size, Sex? Sex) : IRequest<CommandResult>
 {
 }

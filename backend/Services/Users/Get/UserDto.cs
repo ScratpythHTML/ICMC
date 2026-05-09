@@ -8,13 +8,9 @@ namespace Services.Users.Get;
 public class UserDto
 {
   /// <summary>
-  /// Gets or sets the ID of the user.
-  /// </summary>
-  public Guid UserId { get; set; }
-  /// <summary>
   /// Gets or sets the College ID (CID) of the user.
   /// </summary>
-  public string? CID { get; set; }
+  public int CID { get; set; }
   /// <summary>
   /// Gets or sets the first name of the user.
   /// </summary>

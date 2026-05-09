@@ -37,7 +37,7 @@ public class UpdateUserService : IUpdateUserService
         }
 
         var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.UserId == Guid.Parse(request.UserId), cancellationToken)
+            .FirstOrDefaultAsync(u => u.CID == request.CID, cancellationToken)
             .ConfigureAwait(false);
 
         if (user == null)
@@ -45,7 +45,6 @@ public class UpdateUserService : IUpdateUserService
             return CommandResult.Failure("User not found");
         }
 
-        user.CID = request.CID ?? user.CID;
         user.FirstName = request.FirstName ?? user.FirstName;
         user.IsAdmin = request.IsAdmin ?? user.IsAdmin;
         user.SecondName = request.SecondName ?? user.SecondName;

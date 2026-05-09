@@ -1,5 +1,5 @@
-using EntityFramework;
 using Audacia.Commands;
+using EntityFramework;
 using Microsoft.EntityFrameworkCore;
 
 namespace Services.Users.Get;
@@ -31,10 +31,9 @@ public class GetUserService : IGetUserService
       throw new ArgumentNullException();
     }
     var result = await _context.Users
-        .Where(u => u.UserId == request.UserId)
+        .Where(u => u.CID == request.CID)
         .Select(u => new UserDto
         {
-          UserId = request.UserId,
           CID = u.CID,
           FirstName = u.FirstName,
           SecondName = u.SecondName,

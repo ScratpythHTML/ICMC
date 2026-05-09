@@ -1,6 +1,6 @@
 using Audacia.Commands;
-using MediatR;
 using Domain.Entities;
+using MediatR;
 
 namespace Services.Helmets.Update;
 
@@ -17,6 +17,6 @@ namespace Services.Helmets.Update;
 /// <param name="NextInspection"></param>
 /// <param name="InspectedBy"></param>
 /// <param name="Size"></param>
-public record UpdateHelmetRequest(int Id, int? ToughTag, string? Brand, int? Model, DateTimeOffset? DateOfPurchase, DateTimeOffset? ManufacturerExpiry, DateTimeOffset? LastInspection, DateTimeOffset? NextInspection, Guid? InspectedBy, Size? Size) : IRequest<CommandResult>
+public record UpdateHelmetRequest(int Id, int? ToughTag, string? Brand, int? Model, DateTimeOffset? DateOfPurchase, DateTimeOffset? ManufacturerExpiry, DateTimeOffset? LastInspection, DateTimeOffset? NextInspection, int? InspectedBy, Size? Size) : IRequest<CommandResult>
 {
 }

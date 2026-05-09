@@ -42,7 +42,7 @@ public class HarnessDto
   /// <summary>
   /// Gets of sets the User ID of the committee member who inspected of the harness.
   /// </summary>
-  public Guid? InspectedBy { get; set; }
+  public int? InspectedBy { get; set; }
   /// <summary>
   /// The size of the harness.
   /// </summary>

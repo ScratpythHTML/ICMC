@@ -122,7 +122,6 @@ public static class IcmcApiServiceCollectionExtensions
             .AddTransient<IAddUserService, AddUserService>()
             .AddTransient<IDeleteUserService, DeleteUserService>()
             .AddTransient<IGetUserService, GetUserService>()
-            .AddTransient<IGetUsersService, GetUsersService>()
             .AddTransient<IUpdateUserService, UpdateUserService>();
     }
 }

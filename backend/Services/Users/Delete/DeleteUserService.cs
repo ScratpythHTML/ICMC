@@ -34,7 +34,7 @@ public class DeleteUserService : IDeleteUserService
       throw new ArgumentNullException();
     }
     var result = await _context.Users
-        .FirstOrDefaultAsync(u => u.UserId == request.UserId)
+        .FirstOrDefaultAsync(u => u.CID == request.CID)
         .ConfigureAwait(false);
 
     if (result == null)

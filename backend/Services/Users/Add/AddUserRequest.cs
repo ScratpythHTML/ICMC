@@ -12,6 +12,6 @@ namespace Services.Users.Add;
 /// <param name="SecondName"></param>
 /// <param name="UserEmail"></param>
 /// <param name="IsAdmin"></param>
-public record AddUserRequest(string? CID, string? FirstName, string? SecondName, string? UserEmail, bool? IsAdmin) : IRequest<CommandResult>
+public record AddUserRequest(int CID, string? FirstName, string? SecondName, string? UserEmail, bool? IsAdmin) : IRequest<CommandResult>
 {
 }

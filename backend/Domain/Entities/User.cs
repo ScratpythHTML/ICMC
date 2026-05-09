@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Domain.Entities;
 
 /// <summary>
@@ -6,13 +8,10 @@ namespace Domain.Entities;
 public class User
 {
   /// <summary>
-  /// Gets or sets the user ID.
-  /// </summary>
-  public Guid UserId { get; set; }
-  /// <summary>
   /// Gets or sets the College ID (CID) of the user.
   /// </summary>
-  public string? CID { get; set; }
+  [Key]
+  public int CID { get; set; }
   /// <summary>
   /// Gets or sets the first name of the user.
   /// </summary>

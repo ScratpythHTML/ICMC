@@ -42,7 +42,7 @@ public class BelayDeviceDto
   /// <summary>
   /// Gets of sets the User ID of the committee member who inspected the belay device.
   /// </summary>
-  public Guid? InspectedBy { get; set; }
+  public int? InspectedBy { get; set; }
   /// <summary>
   /// Gets or sets the location where a piece of gear is stored.
   /// </summary>

@@ -3,6 +3,7 @@ using System;
 using EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EntityFramework.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20260509105849_IncludeLendingLogicAndCID")]
+    partial class IncludeLendingLogicAndCID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,7 +69,12 @@ namespace EntityFramework.Migrations
                     b.Property<int?>("ToughTag")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("UserCID")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserCID");
 
                     b.ToTable("BelayDevices");
                 });
@@ -115,7 +123,12 @@ namespace EntityFramework.Migrations
                     b.Property<int?>("ToughTag")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("UserCID")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserCID");
 
                     b.ToTable("Carabiners");
                 });
@@ -164,7 +177,12 @@ namespace EntityFramework.Migrations
                     b.Property<int?>("ToughTag")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("UserCID")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserCID");
 
                     b.ToTable("Crashpads");
                 });
@@ -219,7 +237,12 @@ namespace EntityFramework.Migrations
                     b.Property<int?>("ToughTag")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("UserCID")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserCID");
 
                     b.ToTable("Harnesses");
                 });
@@ -271,7 +294,12 @@ namespace EntityFramework.Migrations
                     b.Property<int?>("ToughTag")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("UserCID")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserCID");
 
                     b.ToTable("Helmets");
                 });
@@ -320,7 +348,12 @@ namespace EntityFramework.Migrations
                     b.Property<int?>("ToughTag")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("UserCID")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserCID");
 
                     b.ToTable("Quickdraws");
                 });
@@ -372,7 +405,12 @@ namespace EntityFramework.Migrations
                     b.Property<int?>("ToughTag")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("UserCID")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserCID");
 
                     b.ToTable("Ropes");
                 });
@@ -400,6 +438,69 @@ namespace EntityFramework.Migrations
                     b.HasKey("CID");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Domain.Entities.BelayDevice", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserCID");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Carabiner", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserCID");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Crashpad", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserCID");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Harness", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserCID");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Helmet", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserCID");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Quickdraw", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserCID");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Rope", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserCID");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
