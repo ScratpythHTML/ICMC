@@ -1,9 +1,7 @@
 using Audacia.Commands;
 using Domain.Entities;
 using EntityFramework;
-using Services.GearItems.Add;
-
-namespace Services.BelayDevices.Add;
+namespace Services.GearItems.Add;
 
 /// <summary>
 /// The service that adds a gear item.
@@ -40,7 +38,7 @@ public class AddGearItemService : IAddGearItemService
         var gearItem = new GearItem
         {
             Brand = request.Brand,
-            DateOfPurchase = DateTime.UtcNow,
+            DateOfPurchase = request.DateOfPurchase,
             GearCategory = request.GearCategory,
             InspectedBy = request.InspectedBy,
             LastInspection = request.LastInspection,

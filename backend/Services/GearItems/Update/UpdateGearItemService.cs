@@ -42,7 +42,7 @@ public class UpdateGearItemService : IUpdateGearItemService
 
         if (gearItem == null)
         {
-            return CommandResult.Failure("Belay device not found");
+            return CommandResult.Failure("Gear item not found");
         }
 
         gearItem.Brand = request.Brand ?? gearItem.Brand;

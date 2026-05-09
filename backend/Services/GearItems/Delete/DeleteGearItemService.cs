@@ -2,9 +2,7 @@ using Audacia.Commands;
 using EntityFramework;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Services.GearItems.Delete;
-
-namespace Services.BelayDevices.Delete;
+namespace Services.GearItems.Delete;
 
 /// <summary>
 /// The service that deletes a gear item.
@@ -40,7 +38,7 @@ public class DeleteGearItemService : IDeleteGearItemService
 
     if (result == null)
     {
-      return CommandResult.Failure("Belay device not found.");
+      return CommandResult.Failure("Gear item not found.");
     }
 
     _context.GearItems.Remove(result);
