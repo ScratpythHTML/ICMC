@@ -17,7 +17,9 @@ export const DatePicker = ({ label, value, onChange }: DatePickerProps) => {
 
   const currentDate = value ? new Date(value) : new Date();
   // Ensure we have a valid date
-  const validDate = isNaN(currentDate.getTime()) ? new Date() : currentDate;
+  const validDate = Number.isNaN(currentDate.getTime())
+    ? new Date()
+    : currentDate;
 
   const handleOnChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
     if (Platform.OS === 'android') {
