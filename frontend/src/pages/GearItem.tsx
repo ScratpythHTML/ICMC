@@ -4,7 +4,7 @@ import { type RouteProp, useRoute } from '@react-navigation/native';
 import BackgroundComponent from '@ui/BackgroundComponent';
 import { BubbleComponent } from '@ui/BubbleComponent';
 import HeaderComponent from '@ui/HeaderComponent';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 
 const GearItem = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'GearItem'>>();
@@ -14,7 +14,9 @@ const GearItem = () => {
     <BackgroundComponent>
       <HeaderComponent />
       <View>
-        <BubbleComponent>{gearItem?.brand}</BubbleComponent>
+        <BubbleComponent>
+          <Text>{gearItem?.brand}</Text>
+        </BubbleComponent>
       </View>
     </BackgroundComponent>
   );

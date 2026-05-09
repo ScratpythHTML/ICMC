@@ -36,9 +36,9 @@ public class GearItemsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetGearItem([FromRoute] int id, [FromQuery] GearCategory? gearCategory, [FromQuery] StorageLocation? storageLocation, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetGearItem([FromRoute] int id, CancellationToken cancellationToken)
     {
-        var request = new GetGearItemRequest(id, gearCategory, storageLocation);
+        var request = new GetGearItemRequest(id);
         var result = await _getGearItemService.Handle(request, cancellationToken).ConfigureAwait(false);
 
         if (result.IsSuccess)

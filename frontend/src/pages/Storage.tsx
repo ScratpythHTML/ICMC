@@ -17,11 +17,11 @@ const Storage = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'Storage'>>();
   const { storageLocation } = route.params;
 
-  const gearCategories = Object.keys(GearCategory).filter((key) =>
-    Number(key)
-  ) as (keyof typeof GearCategory)[];
+  const gearCategories = Object.values(GearCategory).filter(
+    (v) => typeof v === 'number'
+  );
 
-  const handleOnPress = (gc: GearCategory) => {
+  const handleOnPress = (gc: GearCategory) => () => {
     navigation.navigate('GearItems', {
       gearCategory: gc,
       storageLocation: storageLocation,
@@ -34,10 +34,7 @@ const Storage = () => {
       <View>
         <Text style={styles.title}>{storageLocation}</Text>
         {gearCategories.map((gc) => (
-          <TouchableOpacity
-            key={gc}
-            onPress={() => handleOnPress(GearCategory[gc])}
-          >
+          <TouchableOpacity key={gc} onPress={handleOnPress(gc)}>
             <BubbleComponent>
               <Text>{GearCategory[gc]}</Text>
             </BubbleComponent>

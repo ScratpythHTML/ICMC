@@ -1,20 +1,21 @@
+import type { GearItemDto } from '@api/gear-items/gearItemsTypes';
 import { FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { BubbleComponent } from './BubbleComponent';
 
 export type GridItem = {
-  label?: string;
+  label?: any | undefined;
 };
 
 type GridComponentProps = {
-  items: GridItem[];
-  //   onPress: () => void;
+  items: GearItemDto[];
+  onPress: () => void;
 };
 
-const GridComponent = ({ items }: GridComponentProps) => {
-  const renderGearCategory = ({ item }: { item: GridItem }) => (
-    <TouchableOpacity>
+const GridComponent = ({ items, onPress }: GridComponentProps) => {
+  const renderGearCategory = ({ item }: { item: GearItemDto }) => (
+    <TouchableOpacity onPress={onPress}>
       <BubbleComponent style={styles.bubble}>
-        <Text>{item.label}</Text>
+        <Text>{item.brand}</Text>
       </BubbleComponent>
     </TouchableOpacity>
   );

@@ -29,6 +29,7 @@ const HeaderComponent = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    borderWidth: 1,
   },
   leftSection: {
     flex: 1,
