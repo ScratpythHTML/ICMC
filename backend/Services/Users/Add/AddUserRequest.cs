@@ -1,17 +1,17 @@
 using Audacia.Commands;
+using Domain.Entities;
 using MediatR;
-
 
 namespace Services.Users.Add;
 
 /// <summary>
 /// A request to add a user.
 /// </summary>
-/// <param name="CID"></param>
-/// <param name="FirstName"></param>
-/// <param name="SecondName"></param>
-/// <param name="UserEmail"></param>
-/// <param name="IsAdmin"></param>
-public record AddUserRequest(int CID, string? FirstName, string? SecondName, string? UserEmail, bool? IsAdmin) : IRequest<CommandResult>
-{
-}
+public record AddUserRequest(
+    int CID,
+    string? Email,
+    string? FirstName,
+    bool? IsAdmin,
+    MemberType? MemberType,
+    string? Surname
+) : IRequest<CommandResult>;

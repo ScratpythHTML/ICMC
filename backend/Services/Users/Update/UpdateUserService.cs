@@ -46,9 +46,10 @@ public class UpdateUserService : IUpdateUserService
         }
 
         user.FirstName = request.FirstName ?? user.FirstName;
+        user.Email = request.Email ?? user.Email;
         user.IsAdmin = request.IsAdmin ?? user.IsAdmin;
-        user.SecondName = request.SecondName ?? user.SecondName;
-        user.UserEmail = request.UserEmail ?? user.UserEmail;
+        user.MemberType = request.MemberType ?? user.MemberType;
+        user.Surname = request.Surname ?? user.Surname;
 
         await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 

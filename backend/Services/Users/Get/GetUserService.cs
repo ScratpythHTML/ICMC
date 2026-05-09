@@ -36,9 +36,10 @@ public class GetUserService : IGetUserService
         {
           CID = u.CID,
           FirstName = u.FirstName,
-          SecondName = u.SecondName,
-          UserEmail = u.UserEmail,
-          IsAdmin = u.IsAdmin
+          Email = u.Email,
+          IsAdmin = u.IsAdmin,
+          MemberType = u.MemberType,
+          Surname = u.Surname,
         })
         .FirstOrDefaultAsync(cancellationToken)
         .ConfigureAwait(false);

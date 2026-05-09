@@ -40,9 +40,10 @@ public class AddUserService : IAddUserService
         {
             CID = request.CID,
             FirstName = request.FirstName,
-            SecondName = request.SecondName,
-            UserEmail = request.UserEmail,
-            IsAdmin = request.IsAdmin
+            Email = request.Email,
+            IsAdmin = request.IsAdmin,
+            MemberType = request.MemberType,
+            Surname = request.Surname
         };
 
         _context.Users.Add(user);
