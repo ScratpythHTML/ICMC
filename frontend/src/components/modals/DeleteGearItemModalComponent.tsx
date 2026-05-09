@@ -1,4 +1,7 @@
-import { useAddGearItem } from '@api/gear-items/gearItemsApi';
+import {
+  useAddGearItem,
+  useDeleteGearItem,
+} from '@api/gear-items/gearItemsApi';
 import type { AddGearItemRequest } from '@api/gear-items/gearItemsTypes';
 import type { RootStackParamList } from '@navigation/BootRouter';
 import { type RouteProp, useRoute } from '@react-navigation/native';
@@ -15,28 +18,20 @@ import {
   View,
 } from 'react-native';
 
-const AddGearItemModalComponent = ({
+const DeleteGearItemModalComponent = ({
   modalVisible,
   setModalVisible,
+  gearItemId,
 }: {
   modalVisible: boolean;
   setModalVisible: (value: boolean) => void;
+  gearItemId: number;
 }) => {
-  const route = useRoute<RouteProp<RootStackParamList, 'GearItems'>>();
-  const { gearCategory, storageLocation } = route.params;
-  const toughTagRef = useRef<string>('');
-  const { mutateAsync: addGearItem } = useAddGearItem();
-  const handleChangeText = (value: string) => {
-    toughTagRef.current = value;
-  };
+  const { mutateAsync: deleteGearItem } = useDeleteGearItem();
   const handleOnPress = async () => {
-    const request: AddGearItemRequest = {
-      toughTag: Number(toughTagRef.current),
-      gearCategory: gearCategory,
-      storageLocation: storageLocation,
-    };
     try {
-      await addGearItem(request);
+      await deleteGearItem(gearItemId);
+      setModalVisible(false);
     } catch (e) {
       console.error(e);
     }
@@ -45,18 +40,9 @@ const AddGearItemModalComponent = ({
     <Modal visible={modalVisible} transparent={true}>
       <BackgroundComponent>
         <View style={styles.container}>
-          <Text>ToughTag:</Text>
-          <TextInput
-            style={styles.passwordInputCard}
-            placeholder="e.g. 112"
-            placeholderTextColor={colours.black}
-            onChangeText={handleChangeText}
-          />
-        </View>
-        <View style={styles.container}>
           <TouchableOpacity onPress={() => handleOnPress()}>
             <BubbleComponent style={styles.bubble}>
-              <Text>Submit</Text>
+              <Text>Delete</Text>
             </BubbleComponent>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setModalVisible(false)}>
@@ -94,4 +80,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddGearItemModalComponent;
+export default DeleteGearItemModalComponent;

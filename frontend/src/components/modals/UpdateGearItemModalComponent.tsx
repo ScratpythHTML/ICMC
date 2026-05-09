@@ -1,5 +1,11 @@
-import { useAddGearItem } from '@api/gear-items/gearItemsApi';
-import type { AddGearItemRequest } from '@api/gear-items/gearItemsTypes';
+import {
+  useAddGearItem,
+  useUpdateGearItem,
+} from '@api/gear-items/gearItemsApi';
+import type {
+  AddGearItemRequest,
+  UpdateGearItemRequest,
+} from '@api/gear-items/gearItemsTypes';
 import type { RootStackParamList } from '@navigation/BootRouter';
 import { type RouteProp, useRoute } from '@react-navigation/native';
 import { borderRadius, colours } from '@styles/variables';
@@ -15,28 +21,33 @@ import {
   View,
 } from 'react-native';
 
-const AddGearItemModalComponent = ({
+const UpdateGearItemModalComponent = ({
   modalVisible,
   setModalVisible,
+  gearItemId,
 }: {
   modalVisible: boolean;
   setModalVisible: (value: boolean) => void;
+  gearItemId: number;
 }) => {
   const route = useRoute<RouteProp<RootStackParamList, 'GearItems'>>();
   const { gearCategory, storageLocation } = route.params;
   const toughTagRef = useRef<string>('');
-  const { mutateAsync: addGearItem } = useAddGearItem();
+  const { mutateAsync: updateGearItem } = useUpdateGearItem();
   const handleChangeText = (value: string) => {
     toughTagRef.current = value;
   };
+  console.log(gearItemId);
   const handleOnPress = async () => {
-    const request: AddGearItemRequest = {
+    const request: UpdateGearItemRequest = {
+      id: gearItemId,
       toughTag: Number(toughTagRef.current),
       gearCategory: gearCategory,
       storageLocation: storageLocation,
     };
     try {
-      await addGearItem(request);
+      await updateGearItem({ id: gearItemId, request });
+      setModalVisible(false);
     } catch (e) {
       console.error(e);
     }
@@ -94,4 +105,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddGearItemModalComponent;
+export default UpdateGearItemModalComponent;
