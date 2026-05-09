@@ -6,7 +6,7 @@ import type {
   UserDto,
 } from './usersTypes';
 
-export function useGetUser(id: string) {
+export function useGetUser(id: number) {
   const query = useQuery<UserDto>({
     queryKey: ['users', id],
     queryFn: () => getUser(id),
@@ -23,7 +23,7 @@ export function useAddUser() {
 
 export function useDeleteUser() {
   const mutation = useMutation({
-    mutationFn: (id: string) => deleteUser(id),
+    mutationFn: (id: number) => deleteUser(id),
   });
   return mutation;
 }
@@ -34,7 +34,7 @@ export function useUpdateUser() {
       id,
       request,
     }: {
-      id: string;
+      id: number;
       request: UpdateUserRequest;
     }) => updateUser(id, request),
   });

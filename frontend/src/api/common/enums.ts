@@ -17,3 +17,18 @@ export enum StorageLocation {
   Imperial = 0,
   Westway = 100,
 }
+
+export enum GearCategory {
+  BelayDevice = 0,
+  Carabiner = 100,
+  Crashpad = 200,
+  Harness = 300,
+  Helmet = 400,
+  Quickdraw = 500,
+  Rope = 600,
+}
+
+export enum MemberType {
+  FullMember = 0,
+  SocialMember = 100,
+}

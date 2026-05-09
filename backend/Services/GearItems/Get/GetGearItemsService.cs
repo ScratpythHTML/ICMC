@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Services.GearItems.Get;
 
 /// <summary>
-/// The service that gets all belay devices.
+/// The service that gets all gear items.
 /// </summary>
 public class GetGearItemsService : IGetGearItemsService
 {
@@ -20,7 +20,7 @@ public class GetGearItemsService : IGetGearItemsService
     }
 
     /// <summary>
-    /// The asynchronous method that gets all belay devices.
+    /// The asynchronous method that gets all gear items.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
@@ -33,11 +33,13 @@ public class GetGearItemsService : IGetGearItemsService
             throw new ArgumentNullException();
         }
 
-        var result = await _context.GearItems.Select(gi => new GearItemDto
+        var result = await _context.GearItems
+        .Where(gi => (request.GearCategory == null || gi.GearCategory == request.GearCategory) && (request.StorageLocation == null || gi.StorageLocation == request.StorageLocation))
+        .Select(gi => new GearItemDto
         {
             Brand = gi.Brand,
             DateOfPurchase = gi.DateOfPurchase,
-            GearCategory = request.gearCategory,
+            GearCategory = gi.GearCategory,
             Id = gi.Id,
             InspectedBy = gi.InspectedBy,
             LastInspection = gi.LastInspection,
@@ -51,7 +53,7 @@ public class GetGearItemsService : IGetGearItemsService
             ReturnedDate = gi.ReturnedDate,
             Sex = gi.Sex,
             Size = gi.Size,
-            StorageLocation = request.storageLocation,
+            StorageLocation = gi.StorageLocation,
             ToughTag = gi.ToughTag,
 
         }).ToArrayAsync(cancellationToken);

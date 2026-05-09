@@ -4,7 +4,7 @@ using MediatR;
 namespace Services.GearItems.Get;
 
 /// <summary>
-/// The inferface for the service that gets a gear item.
+/// The interface for the service that gets a gear item.
 /// </summary>
 public interface IGetGearItemService : IRequestHandler<GetGearItemRequest, CommandResult<GearItemDto>>
 {

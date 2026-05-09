@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Services.GearItems.Get;
 
 /// <summary>
-/// The service that gets a belay device.
+/// The service that gets a gear item.
 /// </summary>
 public class GetGearItemService : IGetGearItemService
 {
@@ -31,7 +31,7 @@ public class GetGearItemService : IGetGearItemService
       throw new ArgumentNullException();
     }
     var result = await _context.GearItems
-        .Where(gi => gi.Id == request.Id)
+        .Where(gi => gi.Id == request.Id && (request.GearCategory == null || gi.GearCategory == request.GearCategory) && (request.StorageLocation == null || gi.StorageLocation == request.StorageLocation))
         .Select(gi => new GearItemDto
         {
           Brand = gi.Brand,

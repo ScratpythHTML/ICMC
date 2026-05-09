@@ -36,9 +36,9 @@ public class GearItemsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetGearItem(int id, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetGearItem([FromRoute] int id, [FromQuery] GearCategory? gearCategory, [FromQuery] StorageLocation? storageLocation, CancellationToken cancellationToken)
     {
-        var request = new GetGearItemRequest(id);
+        var request = new GetGearItemRequest(id, gearCategory, storageLocation);
         var result = await _getGearItemService.Handle(request, cancellationToken).ConfigureAwait(false);
 
         if (result.IsSuccess)
@@ -50,7 +50,7 @@ public class GearItemsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetGearItems(GetGearItemsRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetGearItems([FromQuery] GetGearItemsRequest request, CancellationToken cancellationToken)
     {
         var result = await _getGearItemsService.Handle(request, cancellationToken).ConfigureAwait(false);
         if (result.IsSuccess)
