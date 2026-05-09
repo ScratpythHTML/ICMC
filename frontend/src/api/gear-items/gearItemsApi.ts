@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   addGearItem,
   deleteGearItem,
@@ -30,20 +30,30 @@ export function useGetGearItems(request: GetGearItemsRequest) {
 }
 
 export function useAddGearItem() {
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (request: AddGearItemRequest) => addGearItem(request),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['gear-items'] });
+    },
   });
   return mutation;
 }
 
 export function useDeleteGearItem() {
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (id: number) => deleteGearItem(id),
+    onSuccess: (_, id) => {
+      queryClient.invalidateQueries({ queryKey: ['gear-item', id] });
+      queryClient.invalidateQueries({ queryKey: ['gear-items'] });
+    },
   });
   return mutation;
 }
 
 export function useUpdateGearItem() {
+  const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: ({
       id,
@@ -52,6 +62,10 @@ export function useUpdateGearItem() {
       id: number;
       request: UpdateGearItemRequest;
     }) => updateGearItem(id, request),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['gear-item', variables.id] });
+      queryClient.invalidateQueries({ queryKey: ['gear-items'] });
+    },
   });
   return mutation;
 }

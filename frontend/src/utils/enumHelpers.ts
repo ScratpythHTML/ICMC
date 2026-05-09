@@ -1,3 +1,4 @@
+import { colours } from '@styles/variables';
 import { GearCategory, Sex, Size, StorageLocation } from '../api/common/enums';
 
 export const getGearCategoryLabel = (category?: GearCategory): string => {
@@ -77,3 +78,57 @@ export const formatDate = (dateString?: string): string => {
     return 'Invalid Date';
   }
 };
+
+export const getInspectionStatus = (nextInspection?: string) => {
+  if (!nextInspection) return { label: 'No Inspection', color: colours.grey };
+
+  const today = new Date();
+  const inspectionDate = new Date(nextInspection);
+  const diffTime = inspectionDate.getTime() - today.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays < 0) {
+    return { label: 'Overdue', color: colours.purpleLight }; // Red-ish
+  }
+  if (diffDays <= 30) {
+    return { label: 'Due Soon', color: colours.orangeLight }; // Orange
+  }
+  return { label: 'OK', color: colours.green }; // Green
+};
+
+export const getLendingStatus = (lentTo?: number) => {
+  if (lentTo && lentTo > 0) {
+    return { label: 'Lent Out', color: colours.purpleLight }; // Red-ish
+  }
+  return { label: 'Available', color: colours.green }; // Green
+};
+
+export const getSizeOptions = () => [
+  { label: 'XXS', value: Size.XXS },
+  { label: 'XS', value: Size.XS },
+  { label: 'S', value: Size.S },
+  { label: 'M', value: Size.M },
+  { label: 'L', value: Size.L },
+  { label: 'XL', value: Size.XL },
+  { label: 'XXL', value: Size.XXL },
+];
+
+export const getSexOptions = () => [
+  { label: 'Male', value: Sex.Male },
+  { label: 'Female', value: Sex.Female },
+];
+
+export const getStorageLocationOptions = () => [
+  { label: 'Imperial', value: StorageLocation.Imperial },
+  { label: 'Westway', value: StorageLocation.Westway },
+];
+
+export const getGearCategoryOptions = () => [
+  { label: 'Belay Device', value: GearCategory.BelayDevice },
+  { label: 'Carabiner', value: GearCategory.Carabiner },
+  { label: 'Crashpad', value: GearCategory.Crashpad },
+  { label: 'Harness', value: GearCategory.Harness },
+  { label: 'Helmet', value: GearCategory.Helmet },
+  { label: 'Quickdraw', value: GearCategory.Quickdraw },
+  { label: 'Rope', value: GearCategory.Rope },
+];

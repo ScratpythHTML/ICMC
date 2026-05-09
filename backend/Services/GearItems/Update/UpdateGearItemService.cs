@@ -49,7 +49,6 @@ public class UpdateGearItemService : IUpdateGearItemService
         gearItem.DateOfPurchase = request.DateOfPurchase ?? gearItem.DateOfPurchase;
         gearItem.GearCategory = request.GearCategory ?? gearItem.GearCategory;
         gearItem.InspectedBy = request.InspectedBy ?? gearItem.InspectedBy;
-        gearItem.InspectedBy = request.InspectedBy ?? gearItem.InspectedBy;
         gearItem.LastInspection = request.LastInspection ?? gearItem.LastInspection;
         gearItem.Length = request.Length ?? gearItem.Length;
         gearItem.LentBy = request.LentBy ?? gearItem.LentBy;
@@ -58,6 +57,7 @@ public class UpdateGearItemService : IUpdateGearItemService
         gearItem.ManufacturerExpiry = request.ManufacturerExpiry ?? gearItem.ManufacturerExpiry;
         gearItem.Model = request.Model ?? gearItem.Model;
         gearItem.NextInspection = request.NextInspection ?? gearItem.NextInspection;
+        gearItem.ReturnedDate = request.ReturnedDate ?? gearItem.ReturnedDate;
         gearItem.Sex = request.Sex ?? gearItem.Sex;
         gearItem.Size = request.Size ?? gearItem.Size;
         gearItem.StorageLocation = request.StorageLocation ?? gearItem.StorageLocation;

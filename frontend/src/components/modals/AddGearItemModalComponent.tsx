@@ -2,18 +2,22 @@ import { useAddGearItem } from '@api/gear-items/gearItemsApi';
 import type { AddGearItemRequest } from '@api/gear-items/gearItemsTypes';
 import type { RootStackParamList } from '@navigation/BootRouter';
 import { type RouteProp, useRoute } from '@react-navigation/native';
-import { borderRadius, colours } from '@styles/variables';
+import { spacing } from '@styles/variables';
 import BackgroundComponent from '@ui/BackgroundComponent';
-import { BubbleComponent } from '@ui/BubbleComponent';
-import { useRef } from 'react';
+import { Button } from '@ui/Button';
+import { Card } from '@ui/Card';
+import { DatePicker } from '@ui/DatePicker';
+import { Dropdown } from '@ui/Dropdown';
+import { Input } from '@ui/Input';
+import { Heading, Subheading } from '@ui/Typography';
 import {
-  Modal,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+  getGearCategoryOptions,
+  getSexOptions,
+  getSizeOptions,
+  getStorageLocationOptions,
+} from '@utils/enumHelpers';
+import { useState } from 'react';
+import { Modal, ScrollView, StyleSheet, View } from 'react-native';
 
 const AddGearItemModalComponent = ({
   modalVisible,
@@ -24,73 +28,198 @@ const AddGearItemModalComponent = ({
 }) => {
   const route = useRoute<RouteProp<RootStackParamList, 'GearItems'>>();
   const { gearCategory, storageLocation } = route.params;
-  const toughTagRef = useRef<string>('');
+
+  const [formData, setFormData] = useState<Partial<AddGearItemRequest>>({
+    toughTag: 0,
+    gearCategory: gearCategory,
+    storageLocation: storageLocation,
+  });
+
   const { mutateAsync: addGearItem } = useAddGearItem();
-  const handleChangeText = (value: string) => {
-    toughTagRef.current = value;
+
+  const handleInputChange = (
+    key: keyof AddGearItemRequest,
+    value: string | number
+  ) => {
+    setFormData((prev) => ({ ...prev, [key]: value }));
   };
+
   const handleOnPress = async () => {
-    const request: AddGearItemRequest = {
-      toughTag: Number(toughTagRef.current),
-      gearCategory: gearCategory,
-      storageLocation: storageLocation,
-    };
     try {
-      await addGearItem(request);
+      await addGearItem(formData as AddGearItemRequest);
+      setModalVisible(false);
     } catch (e) {
       console.error(e);
     }
   };
+
   return (
-    <Modal visible={modalVisible} transparent={true}>
+    <Modal visible={modalVisible} animationType="slide">
       <BackgroundComponent>
-        <View style={styles.container}>
-          <Text>ToughTag:</Text>
-          <TextInput
-            style={styles.passwordInputCard}
-            placeholder="e.g. 112"
-            placeholderTextColor={colours.black}
-            onChangeText={handleChangeText}
-          />
-        </View>
-        <View style={styles.container}>
-          <TouchableOpacity onPress={() => handleOnPress()}>
-            <BubbleComponent style={styles.bubble}>
-              <Text>Submit</Text>
-            </BubbleComponent>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setModalVisible(false)}>
-            <BubbleComponent style={styles.bubble}>
-              <Text>Close</Text>
-            </BubbleComponent>
-          </TouchableOpacity>
-        </View>
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <Heading style={styles.title}>Add New Gear</Heading>
+
+          <Card style={styles.section}>
+            <Subheading style={styles.sectionTitle}>Identification</Subheading>
+            <Input
+              label="ToughTag #"
+              placeholder="e.g. 112"
+              keyboardType="numeric"
+              onChangeText={(v) => handleInputChange('toughTag', Number(v))}
+            />
+            <Input
+              label="Brand"
+              placeholder="e.g. Petzl"
+              onChangeText={(v) => handleInputChange('brand', v)}
+            />
+            <Input
+              label="Model"
+              placeholder="e.g. Grigri"
+              onChangeText={(v) => handleInputChange('model', v)}
+            />
+          </Card>
+
+          <Card style={styles.section}>
+            <Subheading style={styles.sectionTitle}>Classification</Subheading>
+            <Dropdown
+              label="Gear Category"
+              options={getGearCategoryOptions()}
+              selectedValue={formData.gearCategory}
+              onValueChange={(v) => handleInputChange('gearCategory', v)}
+            />
+            <Dropdown
+              label="Storage Location"
+              options={getStorageLocationOptions()}
+              selectedValue={formData.storageLocation}
+              onValueChange={(v) => handleInputChange('storageLocation', v)}
+            />
+          </Card>
+
+          <Card style={styles.section}>
+            <Subheading style={styles.sectionTitle}>
+              Physical Details
+            </Subheading>
+            <Dropdown
+              label="Size"
+              options={[{ label: 'None', value: -1 }, ...getSizeOptions()]}
+              selectedValue={formData.size ?? -1}
+              onValueChange={(v) =>
+                handleInputChange('size', v === -1 ? undefined : v)
+              }
+            />
+            <Dropdown
+              label="Sex"
+              options={[{ label: 'Unisex', value: -1 }, ...getSexOptions()]}
+              selectedValue={formData.sex ?? -1}
+              onValueChange={(v) =>
+                handleInputChange('sex', v === -1 ? undefined : v)
+              }
+            />
+            <Input
+              label="Length (m)"
+              placeholder="e.g. 60"
+              keyboardType="numeric"
+              onChangeText={(v) => handleInputChange('length', Number(v))}
+            />
+          </Card>
+
+          <Card style={styles.section}>
+            <Subheading style={styles.sectionTitle}>
+              Dates & Inspection
+            </Subheading>
+            <DatePicker
+              label="Date of Purchase"
+              value={formData.dateOfPurchase}
+              onChange={(v) => handleInputChange('dateOfPurchase', v)}
+            />
+            <DatePicker
+              label="Manufacturer Expiry"
+              value={formData.manufacturerExpiry}
+              onChange={(v) => handleInputChange('manufacturerExpiry', v)}
+            />
+            <DatePicker
+              label="Last Inspection"
+              value={formData.lastInspection}
+              onChange={(v) => handleInputChange('lastInspection', v)}
+            />
+            <DatePicker
+              label="Next Inspection"
+              value={formData.nextInspection}
+              onChange={(v) => handleInputChange('nextInspection', v)}
+            />
+            <Input
+              label="Inspected By (User ID)"
+              placeholder="e.g. 1"
+              keyboardType="numeric"
+              onChangeText={(v) => handleInputChange('inspectedBy', Number(v))}
+            />
+          </Card>
+
+          <Card style={styles.section}>
+            <Subheading style={styles.sectionTitle}>
+              Lending Initial State
+            </Subheading>
+            <Input
+              label="Lent To (User ID)"
+              placeholder="e.g. 2"
+              keyboardType="numeric"
+              onChangeText={(v) => handleInputChange('lentTo', Number(v))}
+            />
+            <Input
+              label="Lent By (User ID)"
+              placeholder="e.g. 1"
+              keyboardType="numeric"
+              onChangeText={(v) => handleInputChange('lentBy', Number(v))}
+            />
+            <DatePicker
+              label="Lent Date"
+              value={formData.lentDate}
+              onChange={(v) => handleInputChange('lentDate', v)}
+            />
+          </Card>
+
+          <View style={styles.actions}>
+            <Button
+              title="Add Gear Item"
+              onPress={handleOnPress}
+              variant="primary"
+            />
+            <Button
+              title="Cancel"
+              onPress={() => setModalVisible(false)}
+              variant="ghost"
+            />
+          </View>
+        </ScrollView>
       </BackgroundComponent>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 20,
+  scrollContent: {
+    padding: spacing.medium,
+    paddingBottom: spacing.xxLarge,
   },
-  passwordInputCard: {
-    borderRadius: borderRadius.xxLarge,
-    borderWidth: 2,
-    padding: 20,
-    borderColor: colours.orangeDark,
+  title: {
+    color: '#fff',
+    textAlign: 'center',
+    marginVertical: spacing.large,
   },
-  loginButton: {
-    borderWidth: 2,
-    padding: 20,
-    borderRadius: borderRadius.xxLarge,
+  section: {
+    marginBottom: spacing.medium,
   },
-  bubble: {
-    padding: 40,
+  sectionTitle: {
+    color: '#fff',
+    fontSize: 16,
+    marginBottom: spacing.medium,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255, 255, 255, 0.2)',
+    paddingBottom: spacing.xSmall,
+  },
+  actions: {
+    gap: spacing.medium,
+    marginTop: spacing.large,
   },
 });
 
