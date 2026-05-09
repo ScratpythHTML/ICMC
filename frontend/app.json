@@ -3,7 +3,28 @@
     "name": "ICMC",
     "slug": "icmc",
     "version": "1.0.0",
-    "orientation": "default",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#707e40"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.icmc.gearapp"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#707e40"
+      },
+      "package": "com.icmc.gearapp",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
     "scheme": "icmc",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true

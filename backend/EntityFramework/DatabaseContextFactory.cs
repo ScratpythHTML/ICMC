@@ -11,7 +11,7 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
 {
     public DatabaseContext CreateDbContext(string[] args)
     {
-        var path = "../Api/appsettings.local.json";
+        var path = "../Api/appsettings.json";
         var stream = File.OpenRead(path);
         var document = JsonDocument.Parse(stream);
         var connectionStrings = document.RootElement.GetProperty("ConnectionStrings");
