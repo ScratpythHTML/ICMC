@@ -53,12 +53,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'column',
   },
-  items: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '80%',
-  },
   bubble: {
     borderWidth: 1,
     flex: 1,

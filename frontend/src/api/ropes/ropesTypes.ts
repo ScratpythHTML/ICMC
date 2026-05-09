@@ -1,43 +1,43 @@
 import { StorageLocation } from '../common/enums';
 
 export interface AddRopeRequest {
-  ToughTag: number;
-  Brand?: string;
-  Model?: number;
-  DateOfPurchase?: string;
-  ManufacturerExpiry?: string;
-  LastInspection?: string;
-  NextInspection?: string;
-  InspectedBy?: number;
-  Length?: number;
+  toughTag: number;
+  brand?: string;
+  model?: number;
+  dateOfPurchase?: string;
+  manufacturerExpiry?: string;
+  lastInspection?: string;
+  nextInspection?: string;
+  inspectedBy?: number;
+  length?: number;
 }
 
 export interface UpdateRopeRequest {
-  Id: number;
-  ToughTag?: number;
-  Brand?: string;
-  Model?: number;
-  DateOfPurchase?: string;
-  ManufacturerExpiry?: string;
-  LastInspection?: string;
-  NextInspection?: string;
-  InspectedBy?: number;
-  Length?: number;
+  id: number;
+  toughTag?: number;
+  brand?: string;
+  model?: number;
+  dateOfPurchase?: string;
+  manufacturerExpiry?: string;
+  lastInspection?: string;
+  nextInspection?: string;
+  inspectedBy?: number;
+  length?: number;
 }
 
 export interface RopeDto {
-  Id: number;
-  ToughTag?: number;
-  Brand?: string;
-  Model?: number;
-  DateOfPurchase?: string;
-  ManufacturerExpiry?: string;
-  LastInspection?: string;
-  NextInspection?: string;
-  InspectedBy?: number;
-  Length?: number;
-  StorageLocation: StorageLocation;
-  LentTo?: number;
-  LentBy?: number;
-  ReturnedDate?: string;
+  id: number;
+  toughTag?: number;
+  brand?: string;
+  model?: number;
+  dateOfPurchase?: string;
+  manufacturerExpiry?: string;
+  lastInspection?: string;
+  nextInspection?: string;
+  inspectedBy?: number;
+  length?: number;
+  storageLocation: StorageLocation;
+  lentTo?: number;
+  lentBy?: number;
+  returnedDate?: string;
 }

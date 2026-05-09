@@ -1,40 +1,40 @@
 import { StorageLocation } from '../common/enums';
 
 export interface AddQuickdrawRequest {
-  ToughTag: number;
-  Brand?: string;
-  Model?: number;
-  DateOfPurchase?: string;
-  ManufacturerExpiry?: string;
-  LastInspection?: string;
-  NextInspection?: string;
-  InspectedBy?: number;
+  toughTag: number;
+  brand?: string;
+  model?: number;
+  dateOfPurchase?: string;
+  manufacturerExpiry?: string;
+  lastInspection?: string;
+  nextInspection?: string;
+  inspectedBy?: number;
 }
 
 export interface UpdateQuickdrawRequest {
-  Id: number;
-  ToughTag?: number;
-  Brand?: string;
-  Model?: number;
-  DateOfPurchase?: string;
-  ManufacturerExpiry?: string;
-  LastInspection?: string;
-  NextInspection?: string;
-  InspectedBy?: number;
+  id: number;
+  toughTag?: number;
+  brand?: string;
+  model?: number;
+  dateOfPurchase?: string;
+  manufacturerExpiry?: string;
+  lastInspection?: string;
+  nextInspection?: string;
+  inspectedBy?: number;
 }
 
 export interface QuickdrawDto {
-  Id: number;
-  ToughTag?: number;
-  Brand?: string;
-  Model?: number;
-  DateOfPurchase?: string;
-  ManufacturerExpiry?: string;
-  LastInspection?: string;
-  NextInspection?: string;
-  InspectedBy?: number;
-  StorageLocation: StorageLocation;
-  LentTo?: number;
-  LentBy?: number;
-  ReturnedDate?: string;
+  id: number;
+  toughTag?: number;
+  brand?: string;
+  model?: number;
+  dateOfPurchase?: string;
+  manufacturerExpiry?: string;
+  lastInspection?: string;
+  nextInspection?: string;
+  inspectedBy?: number;
+  storageLocation: StorageLocation;
+  lentTo?: number;
+  lentBy?: number;
+  returnedDate?: string;
 }

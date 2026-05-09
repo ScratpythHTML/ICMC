@@ -1,5 +1,5 @@
-import { useGetCarabiners } from '@api/carabiners/carabinersApi';
-import type { CarabinerDto } from '@api/carabiners/carabinersTypes';
+import { useGetQuickdraws } from '@api/quickdraws/quickdrawsApi';
+import type { QuickdrawDto } from '@api/quickdraws/quickdrawsTypes';
 import { StorageLocation } from '@api/common/enums';
 import type { RootStackParamList } from '@navigation/BootRouter';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
@@ -14,13 +14,13 @@ import {
   View,
 } from 'react-native';
 
-const WestwayCarabinersComponent = () => {
+const WestwayQuickdrawsComponent = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const { data: carabiners } = useGetCarabiners(StorageLocation.Westway);
-  const handleOnPress = (item: CarabinerDto) => {
-    navigation.navigate('WestwayCarabinerComponent', { id: item.id });
+  const { data: quickdraws } = useGetQuickdraws(StorageLocation.Westway);
+  const handleOnPress = (item: QuickdrawDto) => {
+    navigation.navigate('WestwayQuickdrawComponent', { id: item.id });
   };
-  const renderGearItem = ({ item }: { item: CarabinerDto }) => (
+  const renderGearItem = ({ item }: { item: QuickdrawDto }) => (
     <TouchableOpacity onPress={() => handleOnPress(item)}>
       <BubbleComponent style={styles.bubble}>
         <Text>{item.brand}</Text>
@@ -30,7 +30,7 @@ const WestwayCarabinersComponent = () => {
   return (
     <BackgroundComponent>
       <View style={styles.container}>
-        <FlatList data={carabiners} renderItem={renderGearItem} />
+        <FlatList data={quickdraws} renderItem={renderGearItem} />
       </View>
     </BackgroundComponent>
   );
@@ -53,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WestwayCarabinersComponent;
+export default WestwayQuickdrawsComponent;

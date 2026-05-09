@@ -1,45 +1,50 @@
-import type { BelayDeviceDto } from '@api/belay-devices/belayDevicesTypes';
-import ImperialBelayDevicesComponent from '@components/imperial/ImperialBelayDevicesComponent';
-import { colours, fonts } from '@styles/variables';
+import type { RootStackParamList } from '@navigation/BootRouter';
+import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import BackgroundComponent from '@ui/BackgroundComponent';
-import GridComponent from '@ui/GridComponent';
+import { BubbleComponent } from '@ui/BubbleComponent';
 import HeaderComponent from '@ui/HeaderComponent';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const Westway = () => {
-  const gearCategories = [
-    {
-      label: 'Belay Devices',
-    },
-    {
-      label: 'Carabiners',
-    },
-    {
-      label: 'Crashpads',
-    },
-    {
-      label: 'Harnesses',
-    },
-    {
-      label: 'Helmets',
-    },
-    {
-      label: 'Ropes',
-    },
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  const categories = [
+    { label: 'Belay Devices', route: 'WestwayBelayDevicesComponent' as keyof RootStackParamList },
+    { label: 'Carabiners', route: 'WestwayCarabinersComponent' as keyof RootStackParamList },
+    { label: 'Crashpads', route: 'WestwayCrashpadsComponent' as keyof RootStackParamList },
+    { label: 'Harnesses', route: 'WestwayHarnessesComponent' as keyof RootStackParamList },
+    { label: 'Helmets', route: 'WestwayHelmetsComponent' as keyof RootStackParamList },
+    { label: 'Quickdraws', route: 'WestwayQuickdrawsComponent' as keyof RootStackParamList },
+    { label: 'Ropes', route: 'WestwayRopesComponent' as keyof RootStackParamList },
   ];
+
   return (
     <BackgroundComponent>
       <HeaderComponent />
-      <View style={styles.container}>
-        <GridComponent items={gearCategories} />
-      </View>
+      <ScrollView contentContainerStyle={styles.container}>
+        {categories.map((category) => (
+          <TouchableOpacity 
+            key={category.label} 
+            onPress={() => navigation.navigate(category.route as any)}
+          >
+            <BubbleComponent style={styles.bubble}>
+              <Text>{category.label}</Text>
+            </BubbleComponent>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
     </BackgroundComponent>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    padding: 20,
+    gap: 20,
   },
+  bubble: {
+    padding: 20,
+    alignItems: 'center',
+  }
 });
 export default Westway;

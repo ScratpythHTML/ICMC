@@ -1,46 +1,46 @@
 import type { Sex, Size, StorageLocation } from '../common/enums';
 
 export interface AddHarnessRequest {
-  ToughTag: number;
-  Brand?: string;
-  Model?: number;
-  DateOfPurchase?: string;
-  ManufacturerExpiry?: string;
-  LastInspection?: string;
-  NextInspection?: string;
-  InspectedBy?: number;
-  Size?: Size;
-  Sex?: Sex;
+  toughTag: number;
+  brand?: string;
+  model?: number;
+  dateOfPurchase?: string;
+  manufacturerExpiry?: string;
+  lastInspection?: string;
+  nextInspection?: string;
+  inspectedBy?: number;
+  size?: Size;
+  sex?: Sex;
 }
 
 export interface UpdateHarnessRequest {
-  Id: number;
-  ToughTag?: number;
-  Brand?: string;
-  Model?: number;
-  DateOfPurchase?: string;
-  ManufacturerExpiry?: string;
-  LastInspection?: string;
-  NextInspection?: string;
-  InspectedBy?: number;
-  Size?: Size;
-  Sex?: Sex;
+  id: number;
+  toughTag?: number;
+  brand?: string;
+  model?: number;
+  dateOfPurchase?: string;
+  manufacturerExpiry?: string;
+  lastInspection?: string;
+  nextInspection?: string;
+  inspectedBy?: number;
+  size?: Size;
+  sex?: Sex;
 }
 
 export interface HarnessDto {
-  Id: number;
-  ToughTag?: number;
-  Brand?: string;
-  Model?: number;
-  DateOfPurchase?: string;
-  ManufacturerExpiry?: string;
-  LastInspection?: string;
-  NextInspection?: string;
-  InspectedBy?: number;
-  Size?: Size;
-  Sex?: Sex;
-  StorageLocation: StorageLocation;
-  LentTo?: number;
-  LentBy?: number;
-  ReturnedDate?: string;
+  id: number;
+  toughTag?: number;
+  brand?: string;
+  model?: number;
+  dateOfPurchase?: string;
+  manufacturerExpiry?: string;
+  lastInspection?: string;
+  nextInspection?: string;
+  inspectedBy?: number;
+  size?: Size;
+  sex?: Sex;
+  storageLocation: StorageLocation;
+  lentTo?: number;
+  lentBy?: number;
+  returnedDate?: string;
 }

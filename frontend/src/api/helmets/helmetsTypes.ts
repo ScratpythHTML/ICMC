@@ -1,43 +1,43 @@
 import type { Size, StorageLocation } from '../common/enums';
 
 export interface AddHelmetRequest {
-  ToughTag: number;
-  Brand?: string;
-  Model?: number;
-  DateOfPurchase?: string;
-  ManufacturerExpiry?: string;
-  LastInspection?: string;
-  NextInspection?: string;
-  InspectedBy?: number;
-  Size?: Size;
+  toughTag: number;
+  brand?: string;
+  model?: number;
+  dateOfPurchase?: string;
+  manufacturerExpiry?: string;
+  lastInspection?: string;
+  nextInspection?: string;
+  inspectedBy?: number;
+  size?: Size;
 }
 
 export interface UpdateHelmetRequest {
-  Id: number;
-  ToughTag?: number;
-  Brand?: string;
-  Model?: number;
-  DateOfPurchase?: string;
-  ManufacturerExpiry?: string;
-  LastInspection?: string;
-  NextInspection?: string;
-  InspectedBy?: number;
-  Size?: Size;
+  id: number;
+  toughTag?: number;
+  brand?: string;
+  model?: number;
+  dateOfPurchase?: string;
+  manufacturerExpiry?: string;
+  lastInspection?: string;
+  nextInspection?: string;
+  inspectedBy?: number;
+  size?: Size;
 }
 
 export interface HelmetDto {
-  Id: number;
-  ToughTag?: number;
-  Brand?: string;
-  Model?: number;
-  DateOfPurchase?: string;
-  ManufacturerExpiry?: string;
-  LastInspection?: string;
-  NextInspection?: string;
-  InspectedBy?: number;
-  Size?: Size;
-  StorageLocation: StorageLocation;
-  LentTo?: number;
-  LentBy?: number;
-  ReturnedDate?: string;
+  id: number;
+  toughTag?: number;
+  brand?: string;
+  model?: number;
+  dateOfPurchase?: string;
+  manufacturerExpiry?: string;
+  lastInspection?: string;
+  nextInspection?: string;
+  inspectedBy?: number;
+  size?: Size;
+  storageLocation: StorageLocation;
+  lentTo?: number;
+  lentBy?: number;
+  returnedDate?: string;
 }

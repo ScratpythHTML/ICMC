@@ -3,30 +3,48 @@ import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import BackgroundComponent from '@ui/BackgroundComponent';
 import { BubbleComponent } from '@ui/BubbleComponent';
 import HeaderComponent from '@ui/HeaderComponent';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const Imperial = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const handleOnPress = () => {
-    navigation.navigate('ImperialBelayDevicesComponent');
-  };
+
+  const categories = [
+    { label: 'Belay Devices', route: 'ImperialBelayDevicesComponent' as keyof RootStackParamList },
+    { label: 'Carabiners', route: 'ImperialCarabinersComponent' as keyof RootStackParamList },
+    { label: 'Crashpads', route: 'ImperialCrashpadsComponent' as keyof RootStackParamList },
+    { label: 'Harnesses', route: 'ImperialHarnessesComponent' as keyof RootStackParamList },
+    { label: 'Helmets', route: 'ImperialHelmetsComponent' as keyof RootStackParamList },
+    { label: 'Quickdraws', route: 'ImperialQuickdrawsComponent' as keyof RootStackParamList },
+    { label: 'Ropes', route: 'ImperialRopesComponent' as keyof RootStackParamList },
+  ];
+
   return (
     <BackgroundComponent>
       <HeaderComponent />
-      <View style={styles.container}>
-        <TouchableOpacity onPress={handleOnPress}>
-          <BubbleComponent>
-            <Text>Belay Devices</Text>
-          </BubbleComponent>
-        </TouchableOpacity>
-      </View>
+      <ScrollView contentContainerStyle={styles.container}>
+        {categories.map((category) => (
+          <TouchableOpacity 
+            key={category.label} 
+            onPress={() => navigation.navigate(category.route as any)}
+          >
+            <BubbleComponent style={styles.bubble}>
+              <Text>{category.label}</Text>
+            </BubbleComponent>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
     </BackgroundComponent>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    padding: 20,
+    gap: 20,
   },
+  bubble: {
+    padding: 20,
+    alignItems: 'center',
+  }
 });
 export default Imperial;

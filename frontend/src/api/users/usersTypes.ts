@@ -1,23 +1,23 @@
 export interface AddUserRequest {
-  CID: number;
-  FirstName?: string;
-  SecondName?: string;
-  UserEmail?: string;
-  IsAdmin?: boolean;
+  cid: number;
+  firstName?: string;
+  secondName?: string;
+  userEmail?: string;
+  isAdmin?: boolean;
 }
 
 export interface UpdateUserRequest {
-  CID: number;
-  FirstName?: string;
-  SecondName?: string;
-  UserEmail?: string;
-  IsAdmin?: boolean;
+  cid: number;
+  firstName?: string;
+  secondName?: string;
+  userEmail?: string;
+  isAdmin?: boolean;
 }
 
 export interface UserDto {
-  CID: number;
-  FirstName?: string;
-  SecondName?: string;
-  UserEmail?: string;
-  IsAdmin?: boolean;
+  cid: number;
+  firstName?: string;
+  secondName?: string;
+  userEmail?: string;
+  isAdmin?: boolean;
 }
