@@ -14,6 +14,6 @@ namespace Services.Users.Update;
 /// <param name="IsAdmin"></param>
 /// <param name="MemberType"></param>
 /// <param name="Surname"></param>
-public record UpdateUserRequest(int CID, string? FirstName, string? Email, bool? IsAdmin, MemberType? MemberType, string? Surname) : IRequest<CommandResult>
+public record UpdateUserRequest(string CID, string? FirstName, string? Email, bool? IsAdmin, MemberType? MemberType, string? Surname) : IRequest<CommandResult>
 {
 }

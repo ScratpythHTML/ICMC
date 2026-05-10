@@ -32,7 +32,7 @@ public class UsersController : ControllerBase
   }
 
   [HttpGet("{id}")]
-  public async Task<IActionResult> GetUser(int id, CancellationToken cancellationToken)
+  public async Task<IActionResult> GetUser(string id, CancellationToken cancellationToken)
   {
     var request = new GetUserRequest(id);
     var result = await _getUserService.Handle(request, cancellationToken).ConfigureAwait(false);
@@ -46,7 +46,7 @@ public class UsersController : ControllerBase
   }
 
   [HttpDelete("{id}")]
-  public async Task<IActionResult> DeleteUser(int id, CancellationToken cancellationToken)
+  public async Task<IActionResult> DeleteUser(string id, CancellationToken cancellationToken)
   {
     var request = new DeleteUserRequest(id);
     var result = await _deleteUserService.Handle(request, cancellationToken);
@@ -73,7 +73,7 @@ public class UsersController : ControllerBase
 
 
   [HttpPatch("{id}")]
-  public async Task<IActionResult> UpdateUser(int id, UpdateUserRequest request, CancellationToken cancellationToken)
+  public async Task<IActionResult> UpdateUser(string id, UpdateUserRequest request, CancellationToken cancellationToken)
   {
     if (id != request.CID)
     {

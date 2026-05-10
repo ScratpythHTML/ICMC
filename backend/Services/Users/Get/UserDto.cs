@@ -10,7 +10,7 @@ public class UserDto
   /// <summary>
   /// Gets or sets the College ID (CID) of the user.
   /// </summary>
-  public int CID { get; set; }
+  public required string CID { get; set; }
   /// <summary>
   /// Gets or sets the imperial email address of the user.
   /// </summary>

@@ -7,4 +7,4 @@ namespace Services.Users.Get;
 /// A request to get a user by CID.
 /// </summary>
 /// <param name="CID"></param>
-public record GetUserRequest(int CID) : IRequest<CommandResult<UserDto>>;
+public record GetUserRequest(string CID) : IRequest<CommandResult<UserDto>>;

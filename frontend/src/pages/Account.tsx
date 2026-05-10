@@ -1,3 +1,4 @@
+import { useUserContext } from '@contexts/UserContext';
 import type { RootStackParamList } from '@navigation/BootRouter';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import { colours, spacing } from '@styles/variables';
@@ -10,6 +11,12 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 const Account = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { user, setUser } = useUserContext();
+
+  const handleLogout = () => {
+    setUser(null);
+    navigation.navigate('Login');
+  };
 
   return (
     <BackgroundComponent>
@@ -19,8 +26,12 @@ const Account = () => {
           <View style={styles.avatarContainer}>
             <User size={64} color="#fff" />
           </View>
-          <Heading style={styles.userName}>Member Name</Heading>
-          <Body style={styles.userRole}>ICMC Committee</Body>
+          <Heading style={styles.userName}>
+            {user ? `${user.firstName} ${user.surname}` : 'Guest'}
+          </Heading>
+          <Body style={styles.userRole}>
+            {user?.isAdmin ? 'Administrator' : 'ICMC Member'}
+          </Body>
         </View>
 
         <Card style={styles.menuSection}>
@@ -29,10 +40,7 @@ const Account = () => {
             <Body style={styles.menuText}>Preferences</Body>
           </TouchableOpacity>
           <View style={styles.divider} />
-          <TouchableOpacity
-            style={styles.menuItem}
-            onPress={() => navigation.navigate('Login')}
-          >
+          <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
             <LogOut
               size={20}
               color={colours.purpleLight}

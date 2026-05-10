@@ -1,7 +1,7 @@
 import { MemberType } from '../common/enums';
 
 export interface AddUserRequest {
-  cid: number;
+  cid: string;
   email?: string;
   firstName?: string;
   surname?: string;
@@ -10,7 +10,7 @@ export interface AddUserRequest {
 }
 
 export interface UpdateUserRequest {
-  cid: number;
+  cid: string;
   email?: string;
   firstName?: string;
   surname?: string;
@@ -19,7 +19,7 @@ export interface UpdateUserRequest {
 }
 
 export interface UserDto {
-  cid: number;
+  cid: string;
   email?: string;
   firstName?: string;
   surname?: string;

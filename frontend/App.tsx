@@ -10,10 +10,10 @@ import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { QueryClientProvider } from '@tanstack/react-query';
 import BackgroundComponent from '@ui/BackgroundComponent';
 import * as SplashScreen from 'expo-splash-screen';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StorageLocationProvider } from './src/contexts/StorageLocationContext';
+import { UserProvider } from './src/contexts/UserContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -45,7 +45,7 @@ export default function App() {
   return (
     <SafeAreaProvider onLayout={onLayoutRootView}>
       <QueryClientProvider client={queryClient}>
-        <StorageLocationProvider>
+        <UserProvider>
           <View style={styles.backgroundLayer}>
             <BackgroundComponent />
           </View>
@@ -54,7 +54,7 @@ export default function App() {
               <BootRouter />
             </NavigationContainer>
           </View>
-        </StorageLocationProvider>
+        </UserProvider>
       </QueryClientProvider>
     </SafeAreaProvider>
   );

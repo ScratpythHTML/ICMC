@@ -16,11 +16,11 @@ public class Logbook
     /// <summary>
     /// The CID of the member the piece of gear was lent to.
     /// </summary>
-    public int LentTo { get; set; }
+    public string? LentTo { get; set; }
     /// <summary>
     /// The CID of the committee member that lent the piece of gear.
     /// </summary>
-    public int LentBy { get; set; }
+    public string? LentBy { get; set; }
     /// <summary>
     /// The date when the piece of gear was lent out.
     /// </summary>

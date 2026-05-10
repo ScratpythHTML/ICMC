@@ -96,8 +96,8 @@ export const getInspectionStatus = (nextInspection?: string) => {
   return { label: 'OK', color: colours.green }; // Green
 };
 
-export const getLendingStatus = (lentTo?: number) => {
-  if (lentTo && lentTo > 0) {
+export const getLendingStatus = (lentTo?: string) => {
+  if (lentTo) {
     return { label: 'Lent Out', color: colours.purpleLight }; // Red-ish
   }
   return { label: 'Available', color: colours.green }; // Green

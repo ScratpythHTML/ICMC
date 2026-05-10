@@ -9,6 +9,7 @@
       "@pages/*": ["./src/pages/*"],
       "@http/*": ["./src/http/*"],
       "@config/*": ["./src/config/*"],
+      "@contexts/*": ["./src/contexts/*"],
       "@navigation/*": ["./src/navigation/*"],
       "@styles/*": ["./src/styles/*"],
       "@ui/*": ["./src/ui/*"],

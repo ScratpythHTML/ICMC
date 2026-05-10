@@ -4,6 +4,7 @@ import {
   useUpdateGearItem,
 } from '@api/gear-items/gearItemsApi';
 import type { UpdateGearItemRequest } from '@api/gear-items/gearItemsTypes';
+import { useUserContext } from '@contexts/UserContext';
 import type { RootStackParamList } from '@navigation/BootRouter';
 import {
   type NavigationProp,
@@ -41,6 +42,7 @@ const GearItem = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute<RouteProp<RootStackParamList, 'GearItem'>>();
   const { id } = route.params;
+  const { user } = useUserContext();
   const { data: gearItem, isLoading } = useGetGearItem(id);
   const { mutateAsync: updateGearItem } = useUpdateGearItem();
   const { mutateAsync: deleteGearItem } = useDeleteGearItem();
@@ -230,10 +232,10 @@ const GearItem = () => {
               />
               <Input
                 label="Inspected By (User ID)"
-                value={editedItem.inspectedBy?.toString()}
+                value={editedItem.inspectedBy}
                 keyboardType="numeric"
                 onChangeText={(v) =>
-                  handleInputChange('inspectedBy', Number(v))
+                  handleInputChange('inspectedBy', v)
                 }
               />
             </>
@@ -266,15 +268,15 @@ const GearItem = () => {
             <>
               <Input
                 label="Lent To (User ID)"
-                value={editedItem.lentTo?.toString()}
+                value={editedItem.lentTo}
                 keyboardType="numeric"
-                onChangeText={(v) => handleInputChange('lentTo', Number(v))}
+                onChangeText={(v) => handleInputChange('lentTo', v)}
               />
               <Input
                 label="Lent By (User ID)"
-                value={editedItem.lentBy?.toString()}
+                value={editedItem.lentBy}
                 keyboardType="numeric"
-                onChangeText={(v) => handleInputChange('lentBy', Number(v))}
+                onChangeText={(v) => handleInputChange('lentBy', v)}
               />
               <DatePicker
                 label="Lent Date"
@@ -304,35 +306,37 @@ const GearItem = () => {
           )}
         </Card>
 
-        <View style={styles.actions}>
-          {isEditing ? (
-            <>
-              <Button
-                title="Save Changes"
-                onPress={handleSave}
-                variant="primary"
-              />
-              <Button
-                title="Cancel"
-                onPress={() => setIsEditing(false)}
-                variant="ghost"
-              />
-            </>
-          ) : (
-            <>
-              <Button
-                title="Edit Item"
-                variant="secondary"
-                onPress={() => setIsEditing(true)}
-              />
-              <Button
-                title="Delete Item"
-                variant="danger"
-                onPress={() => setShowDeleteConfirm(true)}
-              />
-            </>
-          )}
-        </View>
+        {user?.isAdmin && (
+          <View style={styles.actions}>
+            {isEditing ? (
+              <>
+                <Button
+                  title="Save Changes"
+                  onPress={handleSave}
+                  variant="primary"
+                />
+                <Button
+                  title="Cancel"
+                  onPress={() => setIsEditing(false)}
+                  variant="ghost"
+                />
+              </>
+            ) : (
+              <>
+                <Button
+                  title="Edit Item"
+                  variant="secondary"
+                  onPress={() => setIsEditing(true)}
+                />
+                <Button
+                  title="Delete Item"
+                  variant="danger"
+                  onPress={() => setShowDeleteConfirm(true)}
+                />
+              </>
+            )}
+          </View>
+        )}
       </ScrollView>
 
       <ConfirmToast

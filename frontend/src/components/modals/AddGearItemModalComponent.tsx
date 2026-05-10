@@ -151,7 +151,7 @@ const AddGearItemModalComponent = ({
               label="Inspected By (User ID)"
               placeholder="e.g. 1"
               keyboardType="numeric"
-              onChangeText={(v) => handleInputChange('inspectedBy', Number(v))}
+              onChangeText={(v) => handleInputChange('inspectedBy', v)}
             />
           </Card>
 
@@ -163,13 +163,13 @@ const AddGearItemModalComponent = ({
               label="Lent To (User ID)"
               placeholder="e.g. 2"
               keyboardType="numeric"
-              onChangeText={(v) => handleInputChange('lentTo', Number(v))}
+              onChangeText={(v) => handleInputChange('lentTo', v)}
             />
             <Input
               label="Lent By (User ID)"
               placeholder="e.g. 1"
               keyboardType="numeric"
-              onChangeText={(v) => handleInputChange('lentBy', Number(v))}
+              onChangeText={(v) => handleInputChange('lentBy', v)}
             />
             <DatePicker
               label="Lent Date"

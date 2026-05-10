@@ -8,7 +8,7 @@ namespace Services.Users.Add;
 /// A request to add a user.
 /// </summary>
 public record AddUserRequest(
-    int CID,
+    string CID,
     string? Email,
     string? FirstName,
     bool? IsAdmin,

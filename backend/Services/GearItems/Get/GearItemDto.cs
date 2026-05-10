@@ -30,7 +30,7 @@ public class GearItemDto
   /// <summary>
   /// Gets or sets the CID of the committee member who inspected the piece of gear.
   /// </summary>
-  public int? InspectedBy { get; set; }
+  public string? InspectedBy { get; set; }
 
   /// <summary>
   /// Gets or sets the date of the last inspection of the piece of gear.
@@ -45,7 +45,7 @@ public class GearItemDto
   /// <summary>
   /// Gets or sets the CID of the committee member who lent the geat item.
   /// </summary>
-  public int? LentBy { get; set; }
+  public string? LentBy { get; set; }
 
   /// <summary>
   /// The date a user was lent a piece of gear.
@@ -55,7 +55,7 @@ public class GearItemDto
   /// <summary>
   /// Gets or sets the CID of the member who was lent the piece of gear.
   /// </summary>
-  public int? LentTo { get; set; }
+  public string? LentTo { get; set; }
 
   /// <summary>
   /// Gets or sets the expiry date of the piece of gear cited by the manufacturer.
