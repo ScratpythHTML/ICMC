@@ -1,8 +1,7 @@
-using System.Text.Json;
-
 using EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 /// <summary>
 /// Creates <see cref="DatabaseContext"/> instances for design-time tooling.
@@ -11,12 +10,14 @@ public class DatabaseContextFactory : IDesignTimeDbContextFactory<DatabaseContex
 {
     public DatabaseContext CreateDbContext(string[] args)
     {
-        var path = "../Api/appsettings.json";
-        var stream = File.OpenRead(path);
-        var document = JsonDocument.Parse(stream);
-        var connectionStrings = document.RootElement.GetProperty("ConnectionStrings");
-        var databaseConnectionString = connectionStrings.GetProperty("DatabaseContext").GetString();
-        var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>().UseNpgsql(databaseConnectionString);
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../Api"))
+            .AddJsonFile("appsettings.json", optional: false)
+            .AddJsonFile("appsettings.local.json", optional: true)
+            .Build();
+
+        var connectionString = configuration.GetConnectionString("DatabaseContext");
+        var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>().UseNpgsql(connectionString);
         return new DatabaseContext(optionsBuilder.Options);
     }
 }
