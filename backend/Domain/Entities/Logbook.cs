@@ -6,7 +6,7 @@ namespace Domain.Entities;
 public class Logbook
 {
     /// <summary>
-    /// The ID of the gear log.
+    /// The ID of the log entry.
     /// </summary>
     public int Id { get; set; }
     /// <summary>
@@ -14,13 +14,33 @@ public class Logbook
     /// </summary>
     public int GearItemId { get; set; }
     /// <summary>
+    /// Gets or sets the navigation property of the associated Gear Item.
+    /// </summary>
+    public GearItem? GearItem { get; set; }
+    /// <summary>
+    /// Gets or sets the Id of the committee member who inspected the piece of gear.
+    /// </summary>
+    public int? InspectedByUserId { get; set; }
+    /// <summary>
+    /// Gets or sets the navigation property to the associated User.
+    /// </summary>
+    public User? InspectedByUser { get; set; }
+    /// <summary>
     /// The CID of the member the piece of gear was lent to.
     /// </summary>
-    public string? LentTo { get; set; }
+    public int? LentToUserId { get; set; }
+    /// <summary>
+    /// Gets or sets the navigation property of the associated User.
+    /// </summary>
+    public User? LentToUser { get; set; }
     /// <summary>
     /// The CID of the committee member that lent the piece of gear.
     /// </summary>
-    public string? LentBy { get; set; }
+    public int? LentByUserId { get; set; }
+    /// <summary>
+    /// Gets or sets the navigation property of the associated User.
+    /// </summary>
+    public User? LentByUser { get; set; }
     /// <summary>
     /// The date when the piece of gear was lent out.
     /// </summary>

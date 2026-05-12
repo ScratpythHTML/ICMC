@@ -19,9 +19,9 @@ public class User
   public string? Email { get; set; }
 
   /// <summary>
-  /// Gets or sets the first name of the user.
+  /// Gets or sets the full name of the user.
   /// </summary>
-  public string? FirstName { get; set; }
+  public string? FullName { get; set; }
 
   /// <summary>
   /// Gets or sets a value indicating if a user is an admin.
@@ -32,9 +32,4 @@ public class User
   /// Gets or sets the member type of a user.
   /// </summary>
   public MemberType? MemberType { get; set; }
-
-  /// <summary>
-  /// Gets or sets the second name of the user.
-  /// </summary>
-  public string? Surname { get; set; }
 }

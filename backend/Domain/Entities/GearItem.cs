@@ -12,7 +12,7 @@ public class GearItem
   /// <summary>
   /// Gets or sets the tough tag ID of the piece of gear.
   /// </summary>
-  public int? ToughTag { get; set; }
+  public string? ToughTag { get; set; }
   /// <summary>
   /// Gets or sets the brand of the piece of gear.
   /// </summary>
@@ -38,17 +38,29 @@ public class GearItem
   /// </summary>
   public DateTimeOffset? NextInspection { get; set; }
   /// <summary>
-  /// Gets or sets the CID of the committee member who inspected the piece of gear.
+  /// Gets or sets the Id of the committee member who inspected the piece of gear.
   /// </summary>
-  public string? InspectedBy { get; set; }
+  public int? InspectedByUserId { get; set; }
   /// <summary>
-  /// Gets or sets the CID of the member who was lent the piece of gear.
+  /// Gets or sets the navigation property to the associated User.
   /// </summary>
-  public string? LentTo { get; set; }
+  public User? InspectedByUser { get; set; }
   /// <summary>
-  /// Gets or sets the CID of the committee member who lent the geat item.
+  /// Gets or sets the Id of the member who was lent the piece of gear.
   /// </summary>
-  public string? LentBy { get; set; }
+  public int? LentToUserId { get; set; }
+  /// <summary>
+  /// Gets or sets the navigation property to the associated User.
+  /// </summary>
+  public User? LentToUser { get; set; }
+  /// <summary>
+  /// Gets or sets the Id of the committee member who lent the geat item.
+  /// </summary>
+  public int? LentByUserId { get; set; }
+  /// <summary>
+  /// Gets or sets the navigation property of the associated User.
+  /// </summary>
+  public User? LentByUser { get; set; }
   /// <summary>
   /// The date a user was lent a piece of gear.
   /// </summary>
@@ -57,6 +69,10 @@ public class GearItem
   /// The date a user returned a borrowed item.
   /// </summary>
   public DateTimeOffset? ReturnedDate { get; set; }
+  /// <summary>
+  /// The date a user should return the gear item by.
+  /// </summary>
+  public DateTimeOffset? ExpectedReturnDate { get; set; }
   /// <summary>
   /// Gets or sets the location where a piece of gear is stored.
   /// </summary>
@@ -74,7 +90,11 @@ public class GearItem
   /// </summary>
   public int? Length { get; set; }
   /// <summary>
-  /// The category of the item of gear.
+  /// The category of the piece of gear.
   /// </summary>
   public GearCategory GearCategory { get; set; }
+  /// <summary>
+  /// The URL of the image of the piece of gear.
+  /// </summary>
+  public string? ImageUrl { get; set; }
 }
