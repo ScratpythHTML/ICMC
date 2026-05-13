@@ -43,6 +43,9 @@ jobs:
           eas-cache: true
           token: ${{ secrets.EXPO_TOKEN }}
 
+      - name: Install EAS CLI
+        run: npm install -g eas-cli
+
       - name: Install dependencies
         working-directory: frontend
         run: npm install
