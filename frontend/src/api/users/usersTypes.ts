@@ -9,6 +9,7 @@ export interface AddUserRequest {
 }
 
 export interface SearchUsersRequest {
+  search?: string;
   cid?: string;
   email?: string;
   fullName?: string;

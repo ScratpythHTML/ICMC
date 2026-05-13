@@ -36,12 +36,25 @@ public class SearchUsersService : ISearchUsersService
             throw new ArgumentNullException(nameof(request));
         }
 
-        var result = await _context.Users
+        var query = _context.Users.AsQueryable();
+
+        if (!string.IsNullOrEmpty(request.Search))
+        {
+            var searchTerm = request.Search.ToLower();
+            query = query.Where(u =>
+                (u.CID != null && u.CID.ToLower().Contains(searchTerm)) ||
+                (u.Email != null && u.Email.ToLower().Contains(searchTerm)) ||
+                (u.FullName != null && u.FullName.ToLower().Contains(searchTerm))
+            );
+        }
+
+        var result = await query
             .Where(u =>
                 (string.IsNullOrEmpty(request.CID) || (u.CID != null && u.CID.StartsWith(request.CID))) &&
                 (string.IsNullOrEmpty(request.Email) || (u.Email != null && u.Email.StartsWith(request.Email))) &&
-                (request.IsAdmin == null) || (request.IsAdmin == u.IsAdmin) &&
-                (request.MemberType == null) || (request.MemberType == u.MemberType)
+                (string.IsNullOrEmpty(request.FullName) || (u.FullName != null && u.FullName.ToLower().Contains(request.FullName.ToLower()))) &&
+                (request.IsAdmin == null || request.IsAdmin == u.IsAdmin) &&
+                (request.MemberType == null || request.MemberType == u.MemberType)
             ).Select(u =>
                 new UserDto(
                     u.Id,

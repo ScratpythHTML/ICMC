@@ -10,7 +10,6 @@ import {
 import { colours, spacing } from '@styles/variables';
 import BackgroundComponent from '@ui/BackgroundComponent';
 import { Card } from '@ui/Card';
-import HeaderComponent from '@ui/HeaderComponent';
 import { Body, Heading, Label } from '@ui/Typography';
 import {
   getGearCategoryLabel,
@@ -118,7 +117,6 @@ const Storage = () => {
 
   return (
     <BackgroundComponent>
-      <HeaderComponent />
       <View style={styles.header}>
         <Heading style={styles.title}>
           {getStorageLocationLabel(storageLocation)}

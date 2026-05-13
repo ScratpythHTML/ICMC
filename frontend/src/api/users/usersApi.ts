@@ -1,5 +1,5 @@
 import queryClient from '@api/queryClient';
-import { type QueryKey, useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   addUser,
   deleteUser,
@@ -14,53 +14,53 @@ import type {
   UserDto,
 } from './usersTypes';
 
-export function getUsersKey(id?: number): QueryKey {
+export function getUsersKey(id?: number): any[] {
   return ['users', id];
 }
 
 export function useGetUser(id: number) {
-  const query = useQuery<UserDto>({
+  return useQuery<UserDto>({
     queryKey: getUsersKey(id),
     queryFn: () => getUser(id),
   });
-  return query;
 }
 
 export function useSearchUsers(request: SearchUsersRequest) {
-  const query = useQuery<UserDto[]>({
-    queryKey: getUsersKey(),
+  return useQuery<UserDto[]>({
+    queryKey: ['users', request],
     queryFn: () => searchUsers(request),
+    enabled: !!(request.cid || request.fullName || request.email),
   });
-  return query;
 }
 
 export function useAddUser() {
-  const mutation = useMutation({
+  const qc = useQueryClient();
+  return useMutation({
     mutationFn: (request: AddUserRequest) => addUser(request),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: getUsersKey() });
+      qc.invalidateQueries({ queryKey: ['users'] });
     },
   });
-  return mutation;
 }
 
 export function useDeleteUser() {
-  const mutation = useMutation({
+  const qc = useQueryClient();
+  return useMutation({
     mutationFn: (id: number) => deleteUser(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: getUsersKey() });
+      qc.invalidateQueries({ queryKey: ['users'] });
     },
   });
-  return mutation;
 }
 
 export function useUpdateUser() {
-  const mutation = useMutation({
+  const qc = useQueryClient();
+  return useMutation({
     mutationFn: ({ id, request }: { id: number; request: UpdateUserRequest }) =>
       updateUser(id, request),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: getUsersKey() });
+      qc.invalidateQueries({ queryKey: ['users'] });
+      qc.invalidateQueries({ queryKey: ['gear-items'] });
     },
   });
-  return mutation;
 }

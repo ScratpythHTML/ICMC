@@ -20,7 +20,6 @@ import { Card } from '@ui/Card';
 import { ConfirmToast } from '@ui/ConfirmToast';
 import { DatePicker } from '@ui/DatePicker';
 import { Dropdown } from '@ui/Dropdown';
-import HeaderComponent from '@ui/HeaderComponent';
 import { InfoRow } from '@ui/InfoRow';
 import { Input } from '@ui/Input';
 import { Body, Heading, Subheading } from '@ui/Typography';
@@ -85,7 +84,6 @@ const GearItem = () => {
   if (isLoading) {
     return (
       <BackgroundComponent>
-        <HeaderComponent />
         <View style={styles.center}>
           <Body>Loading...</Body>
         </View>
@@ -96,7 +94,6 @@ const GearItem = () => {
   if (!gearItem) {
     return (
       <BackgroundComponent>
-        <HeaderComponent />
         <View style={styles.center}>
           <Body>Gear item not found.</Body>
         </View>
@@ -106,7 +103,6 @@ const GearItem = () => {
 
   return (
     <BackgroundComponent>
-      <HeaderComponent />
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.header}>
           {isEditing ? (

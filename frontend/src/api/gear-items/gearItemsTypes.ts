@@ -26,19 +26,19 @@ export interface UpdateGearItemRequest {
   id: number;
   brand?: string;
   dateOfPurchase?: string;
-  expectedReturnDate?: string;
+  expectedReturnDate?: string | null;
   gearCategory?: GearCategory;
-  imageUrl?: string;
-  inspectedByUserId?: number;
-  lastInspection?: string;
-  lentByUserId?: number;
-  lentDate?: string;
-  lentToUserId?: number;
+  imageUrl?: string | null;
+  inspectedByUserId?: number | null;
+  lastInspection?: string | null;
+  lentByUserId?: number | null;
+  lentDate?: string | null;
+  lentToUserId?: number | null;
   length?: number;
-  manufacturerExpiry?: string;
+  manufacturerExpiry?: string | null;
   model?: string;
-  nextInspection?: string;
-  returnedDate?: string;
+  nextInspection?: string | null;
+  returnedDate?: string | null;
   sex?: Sex;
   size?: Size;
   storageLocation?: StorageLocation;
@@ -58,6 +58,7 @@ export interface GearItemDto {
   lentByUserId?: number;
   lentDate?: string;
   lentToUserId?: number;
+  lentToUserName?: string;
   manufacturerExpiry?: string;
   model?: string;
   nextInspection?: string;
@@ -69,6 +70,7 @@ export interface GearItemDto {
 }
 
 export interface SearchGearItemsRequest {
+  search?: string;
   brand?: string;
   dateOfPurchase?: string;
   expectedReturnDate?: string;
@@ -79,6 +81,7 @@ export interface SearchGearItemsRequest {
   lentByUserId?: number;
   lentDate?: string;
   lentToUserId?: number;
+  lentToUserName?: string;
   manufacturerExpiry?: string;
   model?: string;
   nextInspection?: string;

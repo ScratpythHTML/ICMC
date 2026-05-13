@@ -16,7 +16,13 @@ export const searchGearItems = async (
   request: SearchGearItemsRequest
 ): Promise<GearItemDto[]> => {
   const icmcClient = await getIcmcApiClient();
-  const result = await icmcClient.get('/gear-items', { params: request });
+  
+  // Filter out empty strings and null values
+  const params = Object.fromEntries(
+    Object.entries(request).filter(([_, v]) => v !== '' && v !== null && v !== undefined)
+  );
+
+  const result = await icmcClient.get('/gear-items', { params });
   return result.data;
 };
 

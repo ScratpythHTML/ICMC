@@ -1,13 +1,12 @@
 import { useUserContext } from '@contexts/UserContext';
 import type { RootStackParamList } from '@navigation/BootRouter';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
-import { colours, spacing } from '@styles/variables';
+import { colours, spacing, borderRadius } from '@styles/variables';
 import BackgroundComponent from '@ui/BackgroundComponent';
 import { Card } from '@ui/Card';
-import HeaderComponent from '@ui/HeaderComponent';
-import { Body, Heading } from '@ui/Typography';
-import { LogOut, Settings, User } from 'lucide-react-native';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Body, Heading, Subheading, Label } from '@ui/Typography';
+import { LogOut, Settings, User, Shield, Mail, Hash } from 'lucide-react-native';
+import { StyleSheet, TouchableOpacity, View, ScrollView } from 'react-native';
 
 const Account = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -15,79 +14,131 @@ const Account = () => {
 
   const handleLogout = () => {
     setUser(null);
-    navigation.navigate('Login');
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' }],
+    });
   };
 
   return (
     <BackgroundComponent>
-      <HeaderComponent />
-      <View style={styles.container}>
-        <View style={styles.profileSection}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.profileHeader}>
           <View style={styles.avatarContainer}>
-            <User size={64} color="#fff" />
+            <User size={48} color={colours.blue} />
           </View>
-          <Heading style={styles.userName}>
-            {user?.fullName || 'Guest'}
-          </Heading>
-          <Body style={styles.userRole}>
-            {user?.isAdmin ? 'Administrator' : 'ICMC Member'}
-          </Body>
+          <View style={styles.profileInfo}>
+            <Heading style={styles.userName}>{user?.fullName || 'Guest'}</Heading>
+            <View style={styles.roleBadge}>
+              <Shield size={12} color={user?.isAdmin ? colours.purple : colours.blue} />
+              <Label style={styles.roleText}>{user?.isAdmin ? 'ADMINISTRATOR' : 'MEMBER'}</Label>
+            </View>
+          </View>
         </View>
 
+        <Subheading style={styles.sectionTitle}>Details</Subheading>
+        <Card style={styles.detailsCard}>
+          <View style={styles.detailRow}>
+            <Mail size={18} color={colours.textMuted} />
+            <View>
+              <Label>Email</Label>
+              <Body>{user?.email || 'N/A'}</Body>
+            </View>
+          </View>
+          <View style={styles.divider} />
+          <View style={styles.detailRow}>
+            <Hash size={18} color={colours.textMuted} />
+            <View>
+              <Label>CID</Label>
+              <Body>{user?.cid || 'N/A'}</Body>
+            </View>
+          </View>
+        </Card>
+
+        <Subheading style={styles.sectionTitle}>Settings</Subheading>
         <Card style={styles.menuSection}>
           <TouchableOpacity style={styles.menuItem}>
-            <Settings size={20} color="#fff" style={styles.menuIcon} />
-            <Body style={styles.menuText}>Preferences</Body>
+            <Settings size={20} color={colours.textPrimary} style={styles.menuIcon} />
+            <Body style={styles.menuText}>App Preferences</Body>
           </TouchableOpacity>
           <View style={styles.divider} />
           <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
             <LogOut
               size={20}
-              color={colours.purpleLight}
+              color={colours.pink}
               style={styles.menuIcon}
             />
-            <Body style={[styles.menuText, { color: colours.purpleLight }]}>
-              Logout
+            <Body style={[styles.menuText, { color: colours.pink }]}>
+              Sign Out
             </Body>
           </TouchableOpacity>
         </Card>
 
         <View style={styles.footer}>
-          <Body style={styles.version}>v1.0.0</Body>
+          <Label style={styles.version}>VERSION 2.0.0 (MUTED REDESIGN)</Label>
         </View>
-      </View>
+      </ScrollView>
     </BackgroundComponent>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: spacing.medium,
   },
-  profileSection: {
+  profileHeader: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: spacing.xxLarge,
+    gap: spacing.medium,
+    marginVertical: spacing.large,
   },
   avatarContainer: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: colours.surface,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: spacing.medium,
+    borderWidth: 1,
+    borderColor: colours.whiteOpacity,
+  },
+  profileInfo: {
+    flex: 1,
   },
   userName: {
-    color: '#fff',
-    marginBottom: 0,
+    marginBottom: spacing.xxSmall,
   },
-  userRole: {
-    color: '#fff',
-    opacity: 0.7,
+  roleBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xSmall,
+    backgroundColor: colours.whiteOpacity,
+    paddingHorizontal: spacing.small,
+    paddingVertical: spacing.xxSmall,
+    borderRadius: 4,
+    alignSelf: 'flex-start',
+  },
+  roleText: {
+    fontSize: 10,
+    fontWeight: '700',
+  },
+  sectionTitle: {
+    marginTop: spacing.large,
+    marginBottom: spacing.small,
+    fontSize: 14,
+    color: colours.textMuted,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  detailsCard: {
+    gap: spacing.medium,
+  },
+  detailRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.medium,
   },
   menuSection: {
-    marginTop: spacing.large,
     padding: 0,
   },
   menuItem: {
@@ -99,23 +150,22 @@ const styles = StyleSheet.create({
     marginRight: spacing.medium,
   },
   menuText: {
-    color: '#fff',
     fontSize: 16,
+    fontWeight: '600',
   },
   divider: {
     height: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: colours.whiteOpacity,
     marginHorizontal: spacing.medium,
   },
   footer: {
-    marginTop: 'auto',
+    marginTop: spacing.xxxLarge,
     alignItems: 'center',
     paddingBottom: spacing.large,
   },
   version: {
-    color: '#fff',
-    opacity: 0.5,
-    fontSize: 12,
+    fontSize: 10,
+    letterSpacing: 1,
   },
 });
 

@@ -10,6 +10,7 @@ namespace Services.Users.Search;
 /// </summary>
 public record SearchUsersRequest
 (
+    string? Search,
     string? CID,
     string? Email,
     string? FullName,

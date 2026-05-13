@@ -47,6 +47,7 @@ public class GetGearItemService : IGetGearItemService
           gi.LentByUserId,
           gi.LentDate,
           gi.LentToUserId,
+          gi.LentToUser != null ? gi.LentToUser.FullName : null,
           gi.ManufacturerExpiry,
           gi.Model,
           gi.NextInspection,

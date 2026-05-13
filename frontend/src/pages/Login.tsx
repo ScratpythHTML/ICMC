@@ -1,15 +1,14 @@
-import { searchUsers } from '@api/users/usersService';
+import { useUserContext } from '@contexts/UserContext';
 import type { RootStackParamList } from '@navigation/BootRouter';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
-import { borderRadius, spacing } from '@styles/variables';
+import { colours, spacing, borderRadius } from '@styles/variables';
 import BackgroundComponent from '@ui/BackgroundComponent';
-import { Button } from '@ui/Button';
 import { Card } from '@ui/Card';
 import { Body, Heading } from '@ui/Typography';
-import { User } from 'lucide-react-native';
+import { User, LogIn } from 'lucide-react-native';
 import { useState } from 'react';
-import { ActivityIndicator, StyleSheet, TextInput, View } from 'react-native';
-import { useUserContext } from '../contexts/UserContext';
+import { ActivityIndicator, StyleSheet, TextInput, View, TouchableOpacity } from 'react-native';
+import { searchUsers } from '@api/users/usersService';
 
 const Login = () => {
   const [cid, setCid] = useState<string>('');
@@ -29,11 +28,14 @@ const Login = () => {
 
     try {
       const users = await searchUsers({ cid });
+      
       if (users && users.length > 0) {
         const user = users[0];
-        console.log(user);
         setUser(user);
-        navigation.navigate('Home');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Main' }],
+        });
       } else {
         setError('Invalid CID or user not found');
       }
@@ -48,39 +50,45 @@ const Login = () => {
     <BackgroundComponent>
       <View style={styles.container}>
         <View style={styles.header}>
-          <Heading style={styles.title}>ICMC Inventory</Heading>
-          <Body style={styles.subtitle}>Enter CID to continue</Body>
+          <Heading style={styles.title}>ICMC</Heading>
+          <Body style={styles.subtitle}>Inventory Management</Body>
         </View>
 
         <Card style={styles.loginCard}>
           <View style={styles.inputContainer}>
             <User
               size={20}
-              color="rgba(255, 255, 255, 0.5)"
+              color={colours.textMuted}
               style={styles.inputIcon}
             />
             <TextInput
               style={styles.input}
               placeholder="College ID (CID)"
-              placeholderTextColor="rgba(255, 255, 255, 0.4)"
+              placeholderTextColor={colours.textMuted}
               onChangeText={setCid}
               value={cid}
               autoFocus
               autoCapitalize="none"
+              keyboardAppearance="dark"
             />
           </View>
 
           {error && <Body style={styles.errorText}>{error}</Body>}
 
-          <Button
-            title={isLoading ? '' : 'Login'}
+          <TouchableOpacity 
+            style={[styles.button, isLoading && styles.buttonDisabled]} 
             onPress={handleOnPress}
-            variant="primary"
-            style={styles.button}
             disabled={isLoading}
           >
-            {isLoading && <ActivityIndicator color="#fff" />}
-          </Button>
+            {isLoading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <>
+                <LogIn size={20} color="#fff" />
+                <Body style={styles.buttonText}>Sign In</Body>
+              </>
+            )}
+          </TouchableOpacity>
         </Card>
       </View>
     </BackgroundComponent>
@@ -95,17 +103,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
-    marginBottom: spacing.xxLarge,
+    marginBottom: spacing.xxxLarge,
     alignItems: 'center',
   },
   title: {
-    color: '#fff',
-    fontSize: 36,
-    marginBottom: spacing.xSmall,
+    fontSize: 48,
+    marginBottom: 0,
+    color: colours.blue,
+    fontWeight: '800',
   },
   subtitle: {
-    color: '#fff',
-    opacity: 0.7,
+    letterSpacing: 4,
+    textTransform: 'uppercase',
+    fontSize: 10,
+    color: colours.textMuted,
+    marginTop: spacing.xxSmall,
   },
   loginCard: {
     width: '100%',
@@ -114,12 +126,12 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: colours.surfaceLight,
     borderRadius: borderRadius.medium,
     paddingHorizontal: spacing.medium,
     marginBottom: spacing.large,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: colours.whiteOpacity,
   },
   inputIcon: {
     marginRight: spacing.small,
@@ -127,18 +139,31 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     height: 50,
-    color: '#fff',
+    color: colours.textPrimary,
     fontSize: 16,
   },
   button: {
     width: '100%',
     height: 50,
+    backgroundColor: colours.purple,
+    borderRadius: borderRadius.medium,
+    flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
+    gap: spacing.small,
+  },
+  buttonDisabled: {
+    opacity: 0.6,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: '700',
   },
   errorText: {
-    color: '#ff6b6b',
+    color: colours.error,
     marginBottom: spacing.medium,
     textAlign: 'center',
+    fontSize: 14,
   },
 });
 

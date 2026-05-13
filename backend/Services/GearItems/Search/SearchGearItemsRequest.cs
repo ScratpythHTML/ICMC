@@ -8,6 +8,7 @@ namespace Services.GearItems.Search;
 /// <summary>
 /// Request to search all gear items given search parameters.
 /// </summary>
+/// <param name="Search"></param>
 /// <param name="Brand"></param>
 /// <param name="DateOfPurchase"></param>
 /// <param name="ExpectedReturnDate"></param>
@@ -27,6 +28,7 @@ namespace Services.GearItems.Search;
 /// <param name="StorageLocation"></param>
 /// <param name="ToughTag"></param>
 public record SearchGearItemsRequest(
+    string? Search,
     string? Brand,
     DateTimeOffset? DateOfPurchase,
     DateTimeOffset? ExpectedReturnDate,

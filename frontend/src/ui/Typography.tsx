@@ -1,4 +1,4 @@
-import { fonts, spacing } from '@styles/variables';
+import { fonts, spacing, colours } from '@styles/variables';
 import type React from 'react';
 import { StyleSheet, Text, type TextProps } from 'react-native';
 
@@ -10,10 +10,10 @@ interface TypographyProps extends TextProps {
 export const Heading = ({
   children,
   style,
-  color,
+  color = colours.textPrimary,
   ...props
 }: TypographyProps) => (
-  <Text style={[styles.heading, color ? { color } : {}, style]} {...props}>
+  <Text style={[styles.heading, { color }, style]} {...props}>
     {children}
   </Text>
 );
@@ -21,16 +21,21 @@ export const Heading = ({
 export const Subheading = ({
   children,
   style,
-  color,
+  color = colours.textPrimary,
   ...props
 }: TypographyProps) => (
-  <Text style={[styles.subheading, color ? { color } : {}, style]} {...props}>
+  <Text style={[styles.subheading, { color }, style]} {...props}>
     {children}
   </Text>
 );
 
-export const Body = ({ children, style, color, ...props }: TypographyProps) => (
-  <Text style={[styles.body, color ? { color } : {}, style]} {...props}>
+export const Body = ({ 
+  children, 
+  style, 
+  color = colours.textSecondary, 
+  ...props 
+}: TypographyProps) => (
+  <Text style={[styles.body, { color }, style]} {...props}>
     {children}
   </Text>
 );
@@ -38,10 +43,10 @@ export const Body = ({ children, style, color, ...props }: TypographyProps) => (
 export const Label = ({
   children,
   style,
-  color,
+  color = colours.textMuted,
   ...props
 }: TypographyProps) => (
-  <Text style={[styles.label, color ? { color } : {}, style]} {...props}>
+  <Text style={[styles.label, { color }, style]} {...props}>
     {children}
   </Text>
 );
@@ -49,10 +54,10 @@ export const Label = ({
 export const Caption = ({
   children,
   style,
-  color,
+  color = colours.textMuted,
   ...props
 }: TypographyProps) => (
-  <Text style={[styles.caption, color ? { color } : {}, style]} {...props}>
+  <Text style={[styles.caption, { color }, style]} {...props}>
     {children}
   </Text>
 );
@@ -76,7 +81,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.regular,
     fontSize: fonts.sizeSmall,
     textTransform: 'uppercase',
-    opacity: 0.7,
+    letterSpacing: 1,
   },
   caption: {
     fontFamily: fonts.light,

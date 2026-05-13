@@ -23,6 +23,28 @@ export const getGearCategoryLabel = (category?: GearCategory): string => {
   }
 };
 
+export const getGearCategoryColor = (category?: GearCategory): string => {
+  if (category === undefined) return colours.textMuted;
+  switch (category) {
+    case GearCategory.BelayDevice:
+      return colours.blue;
+    case GearCategory.Carabiner:
+      return colours.teal;
+    case GearCategory.Crashpad:
+      return colours.warning;
+    case GearCategory.Harness:
+      return colours.purple;
+    case GearCategory.Helmet:
+      return colours.pink;
+    case GearCategory.Quickdraw:
+      return colours.success;
+    case GearCategory.Rope:
+      return colours.blue;
+    default:
+      return colours.textMuted;
+  }
+};
+
 export const getSexLabel = (sex?: Sex): string => {
   if (sex === undefined) return 'Unisex';
   switch (sex) {

@@ -1,18 +1,32 @@
 export const colours = {
-  purpleLight: '#c94e6d',
-  orangeDark: '#e46850',
-  purple: '#b3437d',
-  purpleDark: '#9d4381',
-  orangeLight: '#ed8722',
-  grey: '#bdbec0',
-  yellow: '#fdd10c',
-  blue: '#25aae2',
-  green: '#707e40',
-  black: '#000000',
+  // Muted background colors
+  background: '#121212',
+  surface: '#1E1E1E',
+  surfaceLight: '#2C2C2C',
+  
+  // Refined palette hints
+  pink: '#E91E63',
+  purple: '#9C27B0',
+  blue: '#2196F3',
+  teal: '#009688',
+  
+  // Functional colors
+  success: '#4CAF50',
+  error: '#F44336',
+  warning: '#FFC107',
+  
+  // Text colors
+  textPrimary: '#FFFFFF',
+  textSecondary: '#B0B0B0',
+  textMuted: '#757575',
+  
+  // Overlays
   whiteOpacity: 'rgba(255, 255, 255, 0.05)',
+  whiteOpacityStrong: 'rgba(255, 255, 255, 0.1)',
 };
 
 export const spacing = {
+  xxSmall: 2,
   xSmall: 4,
   small: 8,
   regular: 12,
@@ -20,6 +34,7 @@ export const spacing = {
   large: 24,
   xLarge: 32,
   xxLarge: 40,
+  xxxLarge: 60,
 };
 
 export const fonts = {
@@ -31,7 +46,8 @@ export const fonts = {
   sizeRegular: 14,
   sizeMedium: 16,
   sizeLarge: 20,
-  sizeExtraLarge: 24,
+  sizeExtraLarge: 28,
+  sizeDisplay: 34,
 };
 
 export const borderRadius = {
@@ -39,5 +55,6 @@ export const borderRadius = {
   medium: 8,
   large: 16,
   xLarge: 24,
-  xxLarge: 120,
+  xxLarge: 32,
+  round: 100,
 };

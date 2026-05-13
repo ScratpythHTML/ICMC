@@ -16,6 +16,7 @@ namespace Services.GearItems.Dtos;
 /// <param name="InspectedByUserId"></param>
 /// <param name="LentToUserId"></param>
 /// <param name="LentByUserId"></param>
+/// <param name="LentToUserName"></param>
 /// <param name="LentDate"></param>
 /// <param name="ReturnedDate"></param>
 /// <param name="ExpectedReturnDate"></param>
@@ -38,6 +39,7 @@ public record GearItemDto(
     int? LentByUserId,
     DateTimeOffset? LentDate,
     int? LentToUserId,
+    string? LentToUserName,
     DateTimeOffset? ManufacturerExpiry,
     string? Model,
     DateTimeOffset? NextInspection,

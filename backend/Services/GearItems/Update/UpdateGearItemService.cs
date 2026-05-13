@@ -47,19 +47,19 @@ public class UpdateGearItemService : IUpdateGearItemService
 
         gearItem.Brand = request.Brand ?? gearItem.Brand;
         gearItem.DateOfPurchase = request.DateOfPurchase ?? gearItem.DateOfPurchase;
-        gearItem.ExpectedReturnDate = request.ExpectedReturnDate ?? gearItem.ExpectedReturnDate;
+        gearItem.ExpectedReturnDate = request.ExpectedReturnDate;
         gearItem.GearCategory = request.GearCategory ?? gearItem.GearCategory;
-        gearItem.InspectedByUserId = request.InspectedByUserId ?? gearItem.InspectedByUserId;
+        gearItem.InspectedByUserId = request.InspectedByUserId;
         gearItem.ImageUrl = request.ImageUrl ?? gearItem.ImageUrl;
-        gearItem.LastInspection = request.LastInspection ?? gearItem.LastInspection;
+        gearItem.LastInspection = request.LastInspection;
         gearItem.Length = request.Length ?? gearItem.Length;
-        gearItem.LentByUserId = request.LentByUserId ?? gearItem.LentByUserId;
-        gearItem.LentDate = request.LentDate ?? gearItem.LentDate;
-        gearItem.LentToUserId = request.LentToUserId ?? gearItem.LentToUserId;
+        gearItem.LentByUserId = request.LentByUserId;
+        gearItem.LentDate = request.LentDate;
+        gearItem.LentToUserId = request.LentToUserId;
         gearItem.ManufacturerExpiry = request.ManufacturerExpiry ?? gearItem.ManufacturerExpiry;
         gearItem.Model = request.Model ?? gearItem.Model;
-        gearItem.NextInspection = request.NextInspection ?? gearItem.NextInspection;
-        gearItem.ReturnedDate = request.ReturnedDate ?? gearItem.ReturnedDate;
+        gearItem.NextInspection = request.NextInspection;
+        gearItem.ReturnedDate = request.ReturnedDate;
         gearItem.Sex = request.Sex ?? gearItem.Sex;
         gearItem.Size = request.Size ?? gearItem.Size;
         gearItem.StorageLocation = request.StorageLocation ?? gearItem.StorageLocation;
