@@ -1,5 +1,6 @@
 using Audacia.Commands;
 using MediatR;
+using Services.Users.Dtos;
 
 namespace Services.Users.Get;
 

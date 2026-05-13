@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Services.Users.Add;
 using Services.Users.Delete;
 using Services.Users.Get;
+using Services.Users.Search;
 using Services.Users.Update;
 
 namespace Api.Controllers;
@@ -17,22 +18,25 @@ public class UsersController : ControllerBase
   private readonly IDeleteUserService _deleteUserService;
   private readonly IAddUserService _addUserService;
   private readonly IUpdateUserService _updateUserService;
+  private readonly ISearchUsersService _searchUsersService;
 
   public UsersController(
     IGetUserService getUserService,
     IDeleteUserService deleteUserService,
     IAddUserService addUserService,
-    IUpdateUserService updateUserService
+    IUpdateUserService updateUserService,
+    ISearchUsersService searchUsersService
   )
   {
     _getUserService = getUserService;
     _deleteUserService = deleteUserService;
     _addUserService = addUserService;
     _updateUserService = updateUserService;
+    _searchUsersService = searchUsersService;
   }
 
   [HttpGet("{id}")]
-  public async Task<IActionResult> GetUser(string id, CancellationToken cancellationToken)
+  public async Task<IActionResult> GetUser(int id, CancellationToken cancellationToken)
   {
     var request = new GetUserRequest(id);
     var result = await _getUserService.Handle(request, cancellationToken).ConfigureAwait(false);
@@ -45,8 +49,20 @@ public class UsersController : ControllerBase
     return NotFound(result.Errors);
   }
 
+  [HttpGet]
+  public async Task<IActionResult> SearchUsers(SearchUsersRequest request, CancellationToken cancellationToken)
+  {
+    var result = await _searchUsersService.Handle(request, cancellationToken).ConfigureAwait(false);
+    if (result.IsSuccess)
+    {
+      return Ok(result.Output);
+    }
+
+    return NotFound(result.Errors);
+  }
+
   [HttpDelete("{id}")]
-  public async Task<IActionResult> DeleteUser(string id, CancellationToken cancellationToken)
+  public async Task<IActionResult> DeleteUser(int id, CancellationToken cancellationToken)
   {
     var request = new DeleteUserRequest(id);
     var result = await _deleteUserService.Handle(request, cancellationToken);
@@ -73,9 +89,9 @@ public class UsersController : ControllerBase
 
 
   [HttpPatch("{id}")]
-  public async Task<IActionResult> UpdateUser(string id, UpdateUserRequest request, CancellationToken cancellationToken)
+  public async Task<IActionResult> UpdateUser(int id, UpdateUserRequest request, CancellationToken cancellationToken)
   {
-    if (id != request.CID)
+    if (id != request.Id)
     {
       return BadRequest("Id in URL must match Id in request body");
     }

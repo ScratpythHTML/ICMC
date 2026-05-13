@@ -10,8 +10,7 @@ namespace Services.Users.Add;
 public record AddUserRequest(
     string CID,
     string? Email,
-    string? FirstName,
+    string? FullName,
     bool? IsAdmin,
-    MemberType? MemberType,
-    string? Surname
+    MemberType? MemberType
 ) : IRequest<CommandResult>;

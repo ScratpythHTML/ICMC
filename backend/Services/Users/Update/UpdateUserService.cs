@@ -37,7 +37,7 @@ public class UpdateUserService : IUpdateUserService
         }
 
         var user = await _context.Users
-            .FirstOrDefaultAsync(u => u.CID == request.CID, cancellationToken)
+            .FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken)
             .ConfigureAwait(false);
 
         if (user == null)
@@ -45,11 +45,11 @@ public class UpdateUserService : IUpdateUserService
             return CommandResult.Failure("User not found");
         }
 
-        user.FirstName = request.FirstName ?? user.FirstName;
+        user.CID = request.CID ?? user.CID;
+        user.FullName = request.FullName ?? user.FullName;
         user.Email = request.Email ?? user.Email;
         user.IsAdmin = request.IsAdmin ?? user.IsAdmin;
         user.MemberType = request.MemberType ?? user.MemberType;
-        user.Surname = request.Surname ?? user.Surname;
 
         await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 

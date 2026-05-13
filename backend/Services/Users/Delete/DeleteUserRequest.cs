@@ -4,7 +4,7 @@ using MediatR;
 namespace Services.Users.Delete;
 
 /// <summary>
-/// A request to delete a user by CID.
+/// A request to delete a user by Id.
 /// </summary>
-/// <param name="CID"></param>
-public record DeleteUserRequest(string CID) : IRequest<CommandResult>;
+/// <param name="Id"></param>
+public record DeleteUserRequest(int Id) : IRequest<CommandResult>;

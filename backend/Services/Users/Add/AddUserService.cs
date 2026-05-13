@@ -39,11 +39,10 @@ public class AddUserService : IAddUserService
         var user = new User
         {
             CID = request.CID,
-            FirstName = request.FirstName,
+            FullName = request.FullName,
             Email = request.Email,
             IsAdmin = request.IsAdmin,
             MemberType = request.MemberType,
-            Surname = request.Surname
         };
 
         _context.Users.Add(user);

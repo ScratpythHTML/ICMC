@@ -37,7 +37,7 @@ public class SearchGearItemsService : ISearchGearItemsService
         var query = _context.GearItems.AsQueryable();
 
         query = query.Where(gi =>
-            (request.Brand == null || string.IsNullOrEmpty(request.Brand) || (gi.Brand != null && gi.Brand.StartsWith(request.Brand))) &&
+            (string.IsNullOrEmpty(request.Brand) || (gi.Brand != null && gi.Brand.StartsWith(request.Brand))) &&
             (request.DateOfPurchase == null || gi.DateOfPurchase == request.DateOfPurchase) &&
             (request.ExpectedReturnDate == null || gi.ExpectedReturnDate == request.ExpectedReturnDate) &&
             (request.GearCategory == null || gi.GearCategory == request.GearCategory) &&
@@ -48,13 +48,13 @@ public class SearchGearItemsService : ISearchGearItemsService
             (request.LentToUserId == null || gi.LentToUserId == request.LentToUserId) &&
             (request.LentByUserId == null || gi.LentByUserId == request.LentByUserId) &&
             (request.ManufacturerExpiry == null || gi.ManufacturerExpiry == request.ManufacturerExpiry) &&
-            (request.Model == null || string.IsNullOrEmpty(request.Model) || (gi.Model != null && gi.Model.StartsWith(request.Model))) &&
+            (string.IsNullOrEmpty(request.Model) || (gi.Model != null && gi.Model.StartsWith(request.Model))) &&
             (request.NextInspection == null || gi.NextInspection == request.NextInspection) &&
             (request.ReturnedDate == null || gi.ReturnedDate == request.ReturnedDate) &&
             (request.Size == null || gi.Size == request.Size) &&
             (request.Sex == null || gi.Sex == request.Sex) &&
             (request.StorageLocation == null || gi.StorageLocation == request.StorageLocation) &&
-            (request.ToughTag == null || string.IsNullOrEmpty(request.ToughTag) || (gi.ToughTag != null && gi.ToughTag.StartsWith(request.ToughTag)))
+            (string.IsNullOrEmpty(request.ToughTag) || (gi.ToughTag != null && gi.ToughTag.StartsWith(request.ToughTag)))
         );
 
         var result = await query

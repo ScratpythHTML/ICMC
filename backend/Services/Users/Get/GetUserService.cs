@@ -1,6 +1,7 @@
 using Audacia.Commands;
 using EntityFramework;
 using Microsoft.EntityFrameworkCore;
+using Services.Users.Dtos;
 
 namespace Services.Users.Get;
 
@@ -31,16 +32,16 @@ public class GetUserService : IGetUserService
       throw new ArgumentNullException();
     }
     var result = await _context.Users
-        .Where(u => u.CID == request.CID)
+        .Where(u => u.Id == request.Id)
         .Select(u => new UserDto
-        {
-          CID = u.CID,
-          FirstName = u.FirstName,
-          Email = u.Email,
-          IsAdmin = u.IsAdmin,
-          MemberType = u.MemberType,
-          Surname = u.Surname,
-        })
+        (
+          u.Id,
+          u.CID,
+          u.FullName,
+          u.Email,
+          u.IsAdmin,
+          u.MemberType
+        ))
         .FirstOrDefaultAsync(cancellationToken)
         .ConfigureAwait(false);
     if (result == null)

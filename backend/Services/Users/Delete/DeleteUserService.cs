@@ -1,6 +1,5 @@
 using Audacia.Commands;
 using EntityFramework;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Services.Users.Delete;
@@ -34,7 +33,7 @@ public class DeleteUserService : IDeleteUserService
       throw new ArgumentNullException();
     }
     var result = await _context.Users
-        .FirstOrDefaultAsync(u => u.CID == request.CID)
+        .FirstOrDefaultAsync(u => u.Id == request.Id)
         .ConfigureAwait(false);
 
     if (result == null)
