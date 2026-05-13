@@ -7,6 +7,8 @@ const defaultQueryConfig = {
   staleTime: 300000,
 };
 
-export const queryClient = new QueryClient({
+const queryClient = new QueryClient({
   defaultOptions: { queries: defaultQueryConfig },
 });
+
+export default queryClient;

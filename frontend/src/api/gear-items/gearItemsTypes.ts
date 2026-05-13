@@ -1,36 +1,40 @@
 import type { GearCategory, Sex, Size, StorageLocation } from '../common/enums';
 
 export interface AddGearItemRequest {
-  toughTag: number;
   brand?: string;
-  model?: string;
   dateOfPurchase?: string;
-  manufacturerExpiry?: string;
-  lastInspection?: string;
-  nextInspection?: string;
-  inspectedBy?: string;
-  lentTo?: string;
-  lentBy?: string;
-  lentDate?: string;
-  returnedDate?: string;
-  storageLocation: StorageLocation;
-  size?: Size;
-  sex?: Sex;
-  length?: number;
+  expectedReturnDate?: string;
   gearCategory: GearCategory;
+  imageUrl?: string;
+  inspectedByUserId?: number;
+  lastInspection?: string;
+  lentByUserId?: number;
+  lentDate?: string;
+  lentToUserId?: number;
+  length?: number;
+  manufacturerExpiry?: string;
+  model?: string;
+  nextInspection?: string;
+  returnedDate?: string;
+  sex?: Sex;
+  size?: Size;
+  storageLocation: StorageLocation;
+  toughTag?: string;
 }
 
 export interface UpdateGearItemRequest {
   id: number;
   brand?: string;
   dateOfPurchase?: string;
+  expectedReturnDate?: string;
   gearCategory?: GearCategory;
-  inspectedBy?: string;
+  imageUrl?: string;
+  inspectedByUserId?: number;
   lastInspection?: string;
-  length?: number;
-  lentBy?: string;
+  lentByUserId?: number;
   lentDate?: string;
-  lentTo?: string;
+  lentToUserId?: number;
+  length?: number;
   manufacturerExpiry?: string;
   model?: string;
   nextInspection?: string;
@@ -38,31 +42,49 @@ export interface UpdateGearItemRequest {
   sex?: Sex;
   size?: Size;
   storageLocation?: StorageLocation;
-  toughTag?: number;
+  toughTag?: string;
 }
 
 export interface GearItemDto {
   id: number;
   brand?: string;
   dateOfPurchase?: string;
-  gearCategory: GearCategory;
-  inspectedBy?: string;
+  expectedReturnDate?: string;
+  gearCategory?: GearCategory;
+  imageUrl?: string;
+  inspectedByUserId?: number;
   lastInspection?: string;
   length?: number;
-  lentBy?: string;
+  lentByUserId?: number;
   lentDate?: string;
-  lentTo?: string;
+  lentToUserId?: number;
   manufacturerExpiry?: string;
   model?: string;
   nextInspection?: string;
   returnedDate?: string;
   sex?: Sex;
   size?: Size;
-  storageLocation: StorageLocation;
-  toughTag?: number;
+  storageLocation?: StorageLocation;
+  toughTag?: string;
 }
 
-export interface GetGearItemsRequest {
-  storageLocation?: StorageLocation;
+export interface SearchGearItemsRequest {
+  brand?: string;
+  dateOfPurchase?: string;
+  expectedReturnDate?: string;
   gearCategory?: GearCategory;
+  inspectedByUserId?: number;
+  lastInspection?: string;
+  length?: number;
+  lentByUserId?: number;
+  lentDate?: string;
+  lentToUserId?: number;
+  manufacturerExpiry?: string;
+  model?: string;
+  nextInspection?: string;
+  returnedDate?: string;
+  sex?: Sex;
+  size?: Size;
+  storageLocation?: StorageLocation;
+  toughTag?: string;
 }

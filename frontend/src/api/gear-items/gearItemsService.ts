@@ -2,7 +2,7 @@ import getIcmcApiClient from '@http/getIcmcClient';
 import type {
   AddGearItemRequest,
   GearItemDto,
-  GetGearItemsRequest,
+  SearchGearItemsRequest,
   UpdateGearItemRequest,
 } from './gearItemsTypes';
 
@@ -12,8 +12,8 @@ export const getGearItem = async (id: number): Promise<GearItemDto> => {
   return result.data;
 };
 
-export const getGearItems = async (
-  request: GetGearItemsRequest
+export const searchGearItems = async (
+  request: SearchGearItemsRequest
 ): Promise<GearItemDto[]> => {
   const icmcClient = await getIcmcApiClient();
   const result = await icmcClient.get('/gear-items', { params: request });

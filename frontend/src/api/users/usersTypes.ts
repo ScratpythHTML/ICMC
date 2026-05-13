@@ -1,28 +1,35 @@
-import { MemberType } from '../common/enums';
+import type { MemberType } from '@api/common/enums';
 
 export interface AddUserRequest {
   cid: string;
   email?: string;
-  firstName?: string;
-  surname?: string;
+  fullName?: string;
+  isAdmin?: boolean;
+  memberType?: MemberType;
+}
+
+export interface SearchUsersRequest {
+  cid?: string;
+  email?: string;
+  fullName?: string;
   isAdmin?: boolean;
   memberType?: MemberType;
 }
 
 export interface UpdateUserRequest {
-  cid: string;
+  id: number;
+  cid?: string;
   email?: string;
-  firstName?: string;
-  surname?: string;
+  fullName?: string;
   isAdmin?: boolean;
   memberType?: MemberType;
 }
 
 export interface UserDto {
-  cid: string;
+  id: number;
+  cid?: string;
   email?: string;
-  firstName?: string;
-  surname?: string;
+  fullName?: string;
   isAdmin?: boolean;
   memberType?: MemberType;
 }
