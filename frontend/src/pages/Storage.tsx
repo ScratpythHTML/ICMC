@@ -1,5 +1,5 @@
 import { GearCategory } from '@api/common/enums';
-import { useGetGearItems } from '@api/gear-items/gearItemsApi';
+import { useSearchGearItems } from '@api/gear-items/gearItemsApi';
 import type { RootStackParamList } from '@navigation/BootRouter';
 import {
   type NavigationProp,
@@ -25,7 +25,7 @@ const Storage = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'Storage'>>();
   const { storageLocation } = route.params;
 
-  const { data: allItems } = useGetGearItems({ storageLocation });
+  const { data: allItems } = useSearchGearItems({ storageLocation });
 
   const gearCategories = Object.values(GearCategory).filter(
     (v) => typeof v === 'number'
@@ -46,7 +46,7 @@ const Storage = () => {
         const cat = item.gearCategory;
         if (stats[cat]) {
           stats[cat].total++;
-          if (!item.lentTo) {
+          if (!item.lentToUserId) {
             stats[cat].available++;
           }
 

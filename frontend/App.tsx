@@ -1,4 +1,4 @@
-import { queryClient } from '@api/queryClient';
+import queryClient from '@api/queryClient';
 import {
   PlusJakartaSans_400Regular,
   PlusJakartaSans_600SemiBold,

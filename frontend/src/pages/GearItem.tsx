@@ -232,10 +232,10 @@ const GearItem = () => {
               />
               <Input
                 label="Inspected By (User ID)"
-                value={editedItem.inspectedBy}
+                value={editedItem.inspectedByUserId?.toString()}
                 keyboardType="numeric"
                 onChangeText={(v) =>
-                  handleInputChange('inspectedBy', v)
+                  handleInputChange('inspectedByUserId', Number(v))
                 }
               />
             </>
@@ -254,8 +254,8 @@ const GearItem = () => {
                 value={formatDate(gearItem.manufacturerExpiry)}
               />
               <InfoRow
-                label="Inspected By"
-                value={gearItem.inspectedBy || 'N/A'}
+                label="Inspected By ID"
+                value={gearItem.inspectedByUserId?.toString() || 'N/A'}
                 last
               />
             </>
@@ -268,15 +268,15 @@ const GearItem = () => {
             <>
               <Input
                 label="Lent To (User ID)"
-                value={editedItem.lentTo}
+                value={editedItem.lentToUserId?.toString()}
                 keyboardType="numeric"
-                onChangeText={(v) => handleInputChange('lentTo', v)}
+                onChangeText={(v) => handleInputChange('lentToUserId', Number(v))}
               />
               <Input
                 label="Lent By (User ID)"
-                value={editedItem.lentBy}
+                value={editedItem.lentByUserId?.toString()}
                 keyboardType="numeric"
-                onChangeText={(v) => handleInputChange('lentBy', v)}
+                onChangeText={(v) => handleInputChange('lentByUserId', Number(v))}
               />
               <DatePicker
                 label="Lent Date"
@@ -291,8 +291,8 @@ const GearItem = () => {
             </>
           ) : (
             <>
-              <InfoRow label="Lent To" value={gearItem.lentTo || 'N/A'} />
-              <InfoRow label="Lent By" value={gearItem.lentBy || 'N/A'} />
+              <InfoRow label="Lent To ID" value={gearItem.lentToUserId?.toString() || 'N/A'} />
+              <InfoRow label="Lent By ID" value={gearItem.lentByUserId?.toString() || 'N/A'} />
               <InfoRow
                 label="Lent Date"
                 value={formatDate(gearItem.lentDate)}

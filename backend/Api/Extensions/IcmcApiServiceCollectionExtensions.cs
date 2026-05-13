@@ -1,10 +1,12 @@
 using Services.GearItems.Add;
 using Services.GearItems.Delete;
 using Services.GearItems.Get;
+using Services.GearItems.Search;
 using Services.GearItems.Update;
 using Services.Users.Add;
 using Services.Users.Delete;
 using Services.Users.Get;
+using Services.Users.Search;
 using Services.Users.Update;
 
 public static class IcmcApiServiceCollectionExtensions
@@ -22,7 +24,7 @@ public static class IcmcApiServiceCollectionExtensions
             .AddTransient<IAddGearItemService, AddGearItemService>()
             .AddTransient<IDeleteGearItemService, DeleteGearItemService>()
             .AddTransient<IGetGearItemService, GetGearItemService>()
-            .AddTransient<IGetGearItemsService, GetGearItemsService>()
+            .AddTransient<ISearchGearItemsService, SearchGearItemsService>()
             .AddTransient<IUpdateGearItemService, UpdateGearItemService>();
     }
 
@@ -30,6 +32,7 @@ public static class IcmcApiServiceCollectionExtensions
     {
         return serviceCollection
             .AddTransient<IAddUserService, AddUserService>()
+            .AddTransient<ISearchUsersService, SearchUsersService>()
             .AddTransient<IDeleteUserService, DeleteUserService>()
             .AddTransient<IGetUserService, GetUserService>()
             .AddTransient<IUpdateUserService, UpdateUserService>();

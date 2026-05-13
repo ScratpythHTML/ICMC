@@ -1,5 +1,5 @@
 import { StorageLocation } from '@api/common/enums';
-import { useGetGearItems } from '@api/gear-items/gearItemsApi';
+import { useSearchGearItems } from '@api/gear-items/gearItemsApi';
 import type { RootStackParamList } from '@navigation/BootRouter';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import { colours, spacing } from '@styles/variables';
@@ -14,7 +14,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native';
 const Home = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const { data: allItems } = useGetGearItems({});
+  const { data: allItems } = useSearchGearItems({});
 
   const stats = useMemo(() => {
     const s = {
@@ -35,7 +35,7 @@ const Home = () => {
         const loc = item.storageLocation;
         if (s[loc]) {
           s[loc].total++;
-          if (!item.lentTo) s[loc].available++;
+          if (!item.lentToUserId) s[loc].available++;
           if (item.nextInspection) {
             const today = new Date();
             const inspectionDate = new Date(item.nextInspection);

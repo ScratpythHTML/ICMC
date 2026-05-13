@@ -36,7 +36,7 @@ public class UsersController : ControllerBase
   }
 
   [HttpGet("{id}")]
-  public async Task<IActionResult> GetUser(int id, CancellationToken cancellationToken)
+  public async Task<IActionResult> GetUser([FromRoute] int id, CancellationToken cancellationToken)
   {
     var request = new GetUserRequest(id);
     var result = await _getUserService.Handle(request, cancellationToken).ConfigureAwait(false);
@@ -50,7 +50,7 @@ public class UsersController : ControllerBase
   }
 
   [HttpGet]
-  public async Task<IActionResult> SearchUsers(SearchUsersRequest request, CancellationToken cancellationToken)
+  public async Task<IActionResult> SearchUsers([FromQuery] SearchUsersRequest request, CancellationToken cancellationToken)
   {
     var result = await _searchUsersService.Handle(request, cancellationToken).ConfigureAwait(false);
     if (result.IsSuccess)

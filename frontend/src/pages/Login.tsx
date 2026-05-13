@@ -1,4 +1,4 @@
-import { getUser } from '@api/users/usersService';
+import { searchUsers } from '@api/users/usersService';
 import type { RootStackParamList } from '@navigation/BootRouter';
 import { type NavigationProp, useNavigation } from '@react-navigation/native';
 import { borderRadius, spacing } from '@styles/variables';
@@ -28,12 +28,17 @@ const Login = () => {
     setError(null);
 
     try {
-      const user = await getUser(cid);
-      console.log(user);
-      setUser(user);
-      navigation.navigate('Home');
+      const users = await searchUsers({ cid });
+      if (users && users.length > 0) {
+        const user = users[0];
+        console.log(user);
+        setUser(user);
+        navigation.navigate('Home');
+      } else {
+        setError('Invalid CID or user not found');
+      }
     } catch (err) {
-      setError('Invalid CID or user not found');
+      setError('An error occurred during login');
     } finally {
       setIsLoading(false);
     }

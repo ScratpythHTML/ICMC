@@ -6,6 +6,9 @@ using Services.Users.Dtos;
 
 namespace Services.Users.Search;
 
+/// <summary>
+/// Service to search users.
+/// </summary>
 public class SearchUsersService : ISearchUsersService
 {
     private readonly DatabaseContext _context;

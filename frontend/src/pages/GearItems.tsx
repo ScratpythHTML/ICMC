@@ -1,4 +1,4 @@
-import { useGetGearItems } from '@api/gear-items/gearItemsApi';
+import { useSearchGearItems } from '@api/gear-items/gearItemsApi';
 import type { GearItemDto } from '@api/gear-items/gearItemsTypes';
 import AddGearItemModalComponent from '@components/modals/AddGearItemModalComponent';
 import { useUserContext } from '@contexts/UserContext';
@@ -31,7 +31,7 @@ const GearItems = () => {
   const route = useRoute<RouteProp<RootStackParamList, 'GearItems'>>();
   const { user } = useUserContext();
   const { gearCategory, storageLocation } = route.params;
-  const { data: gearItems, isLoading } = useGetGearItems({
+  const { data: gearItems, isLoading } = useSearchGearItems({
     gearCategory,
     storageLocation,
   });
@@ -43,7 +43,7 @@ const GearItems = () => {
     return gearItems.reduce(
       (acc, item) => {
         acc.total++;
-        if (!item.lentTo) acc.available++;
+        if (!item.lentToUserId) acc.available++;
         if (item.nextInspection) {
           const today = new Date();
           const inspectionDate = new Date(item.nextInspection);
@@ -63,7 +63,7 @@ const GearItems = () => {
 
   const renderItem = ({ item }: { item: GearItemDto }) => {
     const inspectionStatus = getInspectionStatus(item.nextInspection);
-    const lendingStatus = getLendingStatus(item.lentTo);
+    const lendingStatus = getLendingStatus(item.lentToUserId);
 
     return (
       <TouchableOpacity

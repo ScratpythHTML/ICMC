@@ -27,7 +27,7 @@ const Account = () => {
             <User size={64} color="#fff" />
           </View>
           <Heading style={styles.userName}>
-            {user ? `${user.firstName} ${user.surname}` : 'Guest'}
+            {user?.fullName || 'Guest'}
           </Heading>
           <Body style={styles.userRole}>
             {user?.isAdmin ? 'Administrator' : 'ICMC Member'}

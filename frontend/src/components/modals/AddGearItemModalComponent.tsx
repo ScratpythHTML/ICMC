@@ -30,7 +30,7 @@ const AddGearItemModalComponent = ({
   const { gearCategory, storageLocation } = route.params;
 
   const [formData, setFormData] = useState<Partial<AddGearItemRequest>>({
-    toughTag: 0,
+    toughTag: '',
     gearCategory: gearCategory,
     storageLocation: storageLocation,
   });
@@ -39,7 +39,7 @@ const AddGearItemModalComponent = ({
 
   const handleInputChange = (
     key: keyof AddGearItemRequest,
-    value: string | number
+    value: string | number | undefined
   ) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
@@ -65,7 +65,7 @@ const AddGearItemModalComponent = ({
               label="ToughTag #"
               placeholder="e.g. 112"
               keyboardType="numeric"
-              onChangeText={(v) => handleInputChange('toughTag', Number(v))}
+              onChangeText={(v) => handleInputChange('toughTag', v)}
             />
             <Input
               label="Brand"
@@ -151,7 +151,7 @@ const AddGearItemModalComponent = ({
               label="Inspected By (User ID)"
               placeholder="e.g. 1"
               keyboardType="numeric"
-              onChangeText={(v) => handleInputChange('inspectedBy', v)}
+              onChangeText={(v) => handleInputChange('inspectedByUserId', Number(v))}
             />
           </Card>
 
@@ -163,13 +163,13 @@ const AddGearItemModalComponent = ({
               label="Lent To (User ID)"
               placeholder="e.g. 2"
               keyboardType="numeric"
-              onChangeText={(v) => handleInputChange('lentTo', v)}
+              onChangeText={(v) => handleInputChange('lentToUserId', Number(v))}
             />
             <Input
               label="Lent By (User ID)"
               placeholder="e.g. 1"
               keyboardType="numeric"
-              onChangeText={(v) => handleInputChange('lentBy', v)}
+              onChangeText={(v) => handleInputChange('lentByUserId', Number(v))}
             />
             <DatePicker
               label="Lent Date"
