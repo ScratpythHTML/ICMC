@@ -1,6 +1,7 @@
 using Audacia.Commands;
 using EntityFramework;
 using Microsoft.EntityFrameworkCore;
+using Services.GearItems.Dtos;
 
 namespace Services.GearItems.Get;
 
@@ -33,26 +34,28 @@ public class GetGearItemService : IGetGearItemService
     var result = await _context.GearItems
         .Where(gi => gi.Id == request.Id)
         .Select(gi => new GearItemDto
-        {
-          Brand = gi.Brand,
-          DateOfPurchase = gi.DateOfPurchase,
-          GearCategory = gi.GearCategory,
-          Id = gi.Id,
-          InspectedBy = gi.InspectedBy,
-          LastInspection = gi.LastInspection,
-          Length = gi.Length,
-          LentBy = gi.LentBy,
-          LentDate = gi.LentDate,
-          LentTo = gi.LentTo,
-          ManufacturerExpiry = gi.ManufacturerExpiry,
-          Model = gi.Model,
-          NextInspection = gi.NextInspection,
-          ReturnedDate = gi.ReturnedDate,
-          Sex = gi.Sex,
-          Size = gi.Size,
-          StorageLocation = gi.StorageLocation,
-          ToughTag = gi.ToughTag
-        })
+        (
+          gi.Id,
+          gi.Brand,
+          gi.DateOfPurchase,
+          gi.ExpectedReturnDate,
+          gi.GearCategory,
+          gi.ImageUrl,
+          gi.InspectedByUserId,
+          gi.LastInspection,
+          gi.Length,
+          gi.LentByUserId,
+          gi.LentDate,
+          gi.LentToUserId,
+          gi.ManufacturerExpiry,
+          gi.Model,
+          gi.NextInspection,
+          gi.ReturnedDate,
+          gi.Sex,
+          gi.Size,
+          gi.StorageLocation,
+          gi.ToughTag
+        ))
         .FirstOrDefaultAsync(cancellationToken)
         .ConfigureAwait(false);
     if (result == null)

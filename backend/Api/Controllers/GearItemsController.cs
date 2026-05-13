@@ -1,8 +1,8 @@
-using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services.GearItems.Add;
 using Services.GearItems.Delete;
 using Services.GearItems.Get;
+using Services.GearItems.Search;
 using Services.GearItems.Update;
 
 namespace Api.Controllers;
@@ -15,21 +15,21 @@ namespace Api.Controllers;
 public class GearItemsController : ControllerBase
 {
     private readonly IGetGearItemService _getGearItemService;
-    private readonly IGetGearItemsService _getGearItemsService;
+    private readonly ISearchGearItemsService _searchGearItemsService;
     private readonly IDeleteGearItemService _deleteGearItemService;
     private readonly IAddGearItemService _addGearItemService;
     private readonly IUpdateGearItemService _updateGearItemService;
 
     public GearItemsController(
       IGetGearItemService getGearItemService,
-      IGetGearItemsService getGearItemsService,
+      ISearchGearItemsService searchGearItemsService,
       IDeleteGearItemService deleteGearItemService,
       IAddGearItemService addGearItemService,
       IUpdateGearItemService updateGearItemService
     )
     {
         _getGearItemService = getGearItemService;
-        _getGearItemsService = getGearItemsService;
+        _searchGearItemsService = searchGearItemsService;
         _deleteGearItemService = deleteGearItemService;
         _addGearItemService = addGearItemService;
         _updateGearItemService = updateGearItemService;
@@ -50,9 +50,9 @@ public class GearItemsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetGearItems([FromQuery] GetGearItemsRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> SearchGearItems([FromQuery] SearchGearItemsRequest request, CancellationToken cancellationToken)
     {
-        var result = await _getGearItemsService.Handle(request, cancellationToken).ConfigureAwait(false);
+        var result = await _searchGearItemsService.Handle(request, cancellationToken).ConfigureAwait(false);
         if (result.IsSuccess)
         {
             return Ok(result.Output);
@@ -104,5 +104,4 @@ public class GearItemsController : ControllerBase
 
         return BadRequest(result.Errors);
     }
-
 }
