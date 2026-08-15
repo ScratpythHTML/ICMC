@@ -11,6 +11,159 @@
             </button>
         </p>
     </form>
+
+    {{/* Members-only shortcut to the trip report builder. The password check
+         runs in the browser and is a speed bump, not access control. */}}
+    <div class="submit-widget widget">
+        <button type="button" class="submit-widget__open">{{ T "submit.open" | default "Add a trip report" }}</button>
+    </div>
+
+    <div class="submit-modal" id="submit-modal" hidden>
+        <div class="submit-modal__backdrop" data-close></div>
+        <div class="submit-modal__box" role="dialog" aria-modal="true" aria-labelledby="submit-modal-title">
+            <button type="button" class="submit-modal__close" data-close aria-label="Close">&times;</button>
+
+            {{/* Step one: the password. */}}
+            <form class="submit-modal__step" id="submit-modal-password">
+                <h2 id="submit-modal-title">Club password</h2>
+                <p>Adding a trip report is for club members.</p>
+                <input type="password" id="submit-modal-input" autocomplete="current-password"
+                       placeholder="Password" aria-label="Club password" />
+                <p class="submit-modal__error" role="alert" hidden></p>
+                <div class="submit-modal__actions">
+                    <button type="button" class="submit-modal__secondary" data-close>Exit</button>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+
+            {{/* Step two: the document, shown once the password is right. */}}
+            <div class="submit-modal__step" id="submit-modal-file" hidden>
+                <h2>Choose your Word document</h2>
+                <p>Pick the .docx file with your trip report in it.</p>
+                <div class="submit-modal__drop" id="submit-modal-drop">
+                    <strong>Drop your .docx here</strong>
+                    <span>or click to browse</span>
+                </div>
+                <input type="file" id="submit-modal-picker" accept=".docx" hidden />
+                <p class="submit-modal__error" id="submit-modal-file-error" role="alert" hidden></p>
+                <div class="submit-modal__actions">
+                    <button type="button" class="submit-modal__secondary" data-close>Exit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ "submit/gate.js" | relURL }}"></script>
+    <script>
+    (function () {
+        var openButton = document.querySelector(".submit-widget__open");
+        var modal = document.getElementById("submit-modal");
+        if (!openButton || !modal) return;
+
+        var passwordStep = document.getElementById("submit-modal-password");
+        var fileStep = document.getElementById("submit-modal-file");
+        var password = document.getElementById("submit-modal-input");
+        var picker = document.getElementById("submit-modal-picker");
+        var drop = document.getElementById("submit-modal-drop");
+        var passwordError = passwordStep.querySelector(".submit-modal__error");
+        var fileError = document.getElementById("submit-modal-file-error");
+        var lastFocused = null;
+
+        function show(step) {
+            passwordStep.hidden = step !== "password";
+            fileStep.hidden = step !== "file";
+        }
+
+        function open() {
+            lastFocused = document.activeElement;
+            modal.hidden = false;
+            document.body.classList.add("submit-modal-open");
+
+            // Someone who already gave the password this visit goes straight
+            // to picking a document.
+            if (window.icmcGate.isUnlocked()) {
+                show("file");
+            } else {
+                show("password");
+                password.value = "";
+                passwordError.hidden = true;
+                password.focus();
+            }
+        }
+
+        function close() {
+            modal.hidden = true;
+            document.body.classList.remove("submit-modal-open");
+            if (lastFocused) lastFocused.focus();
+        }
+
+        openButton.addEventListener("click", open);
+
+        modal.addEventListener("click", function (event) {
+            if (event.target.hasAttribute("data-close")) close();
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && !modal.hidden) close();
+        });
+
+        passwordStep.addEventListener("submit", function (event) {
+            event.preventDefault();
+            passwordError.hidden = true;
+
+            window.icmcGate.check(password.value).then(function (ok) {
+                if (!ok) {
+                    passwordError.textContent = "That password is not right.";
+                    passwordError.hidden = false;
+                    password.select();
+                    return;
+                }
+                window.icmcGate.remember();
+                show("file");
+            }).catch(function () {
+                passwordError.textContent = "This needs a secure (https) connection.";
+                passwordError.hidden = false;
+            });
+        });
+
+        drop.addEventListener("click", function () { picker.click(); });
+        drop.addEventListener("dragover", function (event) {
+            event.preventDefault();
+            drop.classList.add("over");
+        });
+        drop.addEventListener("dragleave", function () { drop.classList.remove("over"); });
+        drop.addEventListener("drop", function (event) {
+            event.preventDefault();
+            drop.classList.remove("over");
+            if (event.dataTransfer.files.length) accept(event.dataTransfer.files[0]);
+        });
+        picker.addEventListener("change", function (event) {
+            if (event.target.files.length) accept(event.target.files[0]);
+        });
+
+        function accept(file) {
+            fileError.hidden = true;
+
+            if (!/\.docx$/i.test(file.name)) {
+                fileError.textContent = "That is not a .docx file. Open it in Word and use " +
+                    "File → Save As to save a .docx first.";
+                fileError.hidden = false;
+                return;
+            }
+
+            drop.querySelector("strong").textContent = "Opening “" + file.name + "”…";
+
+            // Handed over through IndexedDB because trip reports run to tens of
+            // megabytes, which is far past what sessionStorage will hold.
+            window.icmcGate.stashFile(file).then(function () {
+                window.location.href = "{{ "submit/" | relURL }}";
+            }).catch(function () {
+                // Still usable: the builder asks for the file again.
+                window.location.href = "{{ "submit/" | relURL }}";
+            });
+        }
+    }());
+    </script>
 {{- else -}}
     {{- warnf "Search page not found. Create a page with layout: search." -}}
 {{- end -}}
