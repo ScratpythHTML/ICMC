@@ -11,7 +11,7 @@ letting an AI assistant called **opencode** do the rest. Take it one step at a t
 
 ## What you'll be doing, in a nutshell
 
-1. Install two free tools (opencode and VS Code) — a one-time setup.
+1. Install a couple of free tools (opencode and VS Code) — a one-time setup.
 2. Download a copy of the website to your computer.
 3. Drop your Word document into the folder.
 4. Ask the AI assistant to turn your document into a website page.
@@ -22,14 +22,30 @@ letting an AI assistant called **opencode** do the rest. Take it one step at a t
 
 ## Step 1 — Install the tools (one-time setup)
 
-You'll need two free programs. You only have to do this once, ever.
+You'll need a few free programs. You only have to do this once, ever.
 
-### a) Install opencode (the AI assistant)
+### a) Windows only — install Git first
 
-Open the **Terminal** app on your computer:
+**On a Mac? Skip straight to step (b).**
+
+Windows doesn't come with the tools this guide needs, so install Git for Windows first —
+it includes a terminal called **Git Bash** that makes everything below work the same way
+it does on a Mac.
+
+👉 **https://git-scm.com/download/win**
+
+Download it, open the file, and click "Next" through the installer with the default
+options. When it's done, open the **Start menu**, type `Git Bash`, and press Enter.
+
+> **Important:** every time this guide says "terminal", use **Git Bash** — not PowerShell
+> or Command Prompt. The commands won't work in those.
+
+### b) Install opencode (the AI assistant)
+
+Open a terminal:
 
 - **Mac:** press `Cmd + Space`, type `Terminal`, and press Enter.
-- **Windows:** open the **Start menu**, type `Terminal` (or `PowerShell`), and press Enter.
+- **Windows:** open the **Start menu**, type `Git Bash`, and press Enter.
 
 Copy and paste this line into the terminal, then press Enter:
 
@@ -39,7 +55,10 @@ curl -fsSL https://opencode.ai/install | bash
 
 Wait for it to finish. This installs the AI assistant you'll use later.
 
-### b) Install VS Code (a friendly editor)
+> **Mac tip:** if a box pops up asking to install "command line developer tools", click
+> **Install** and wait for it to finish, then run the line above again.
+
+### c) Install VS Code (a friendly editor)
 
 VS Code is a free program that lets you see the website files and open a terminal in one
 place. Download and install it from:
@@ -57,6 +76,9 @@ This makes a copy of the whole website on your computer so you can add to it saf
 
 1. Open **VS Code**.
 2. Open a terminal inside VS Code: from the top menu choose **Terminal → New Terminal**.
+   - **Windows:** click the small **`∨`** arrow next to the `+` on the right of the
+     terminal panel and choose **Git Bash**. (VS Code opens PowerShell by default, and the
+     commands below won't work there.)
 3. Copy and paste this line and press Enter:
 
 ```bash
@@ -91,12 +113,24 @@ Now the fun part. In the VS Code terminal, start the AI assistant by typing:
 opencode
 ```
 
+Then type:
+
+```bash
+\connect
+```
+
+and choose OpenCode Zen.
+
+It will ask you to paste in an API key - you can find a free one here: https://opencode.ai/zen.
+
+Then choose Big Pickle (or any free one) as the model.
+
 When it's ready, **copy the prompt below, paste it in, and press Enter.** Replace
 `YOUR-DOCUMENT-NAME.docx` with the actual name of your file, and set the year to the year
 of the trip.
 
 ```
-I've added a Word document called "YOUR-DOCUMENT-NAME.docx" to this repository.
+I've added a Word document called "lakes.docx" to this repository.
 
 Please turn it into a new trip report page on the website:
 
