@@ -23,7 +23,7 @@
     }
 }
 
-/* Password / document modal opened by that button. */
+/* Document picker modal opened by that button. */
 body.submit-modal-open {
     overflow: hidden;
 }
@@ -87,16 +87,6 @@ body.submit-modal-open {
         margin: 0 0 1.6rem;
         font-size: 1.25rem;
         color: var(--card-text-color-secondary);
-    }
-
-    input[type="password"] {
-        width: 100%;
-        font-size: 1.3rem;
-        padding: 0.95rem 1.2rem;
-        border: 1px solid var(--card-separator-color);
-        border-radius: 6px;
-        background: transparent;
-        color: var(--card-text-color-main);
     }
 
     &__drop {

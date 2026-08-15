@@ -138,22 +138,7 @@ ol.steps ul li strong { color: var(--text); }
 </head>
 <body>
 
-<div class="wrap" id="lock">
-    <h1>Members only</h1>
-    <p class="lede">Enter the club password to use the trip report builder.</p>
-    <div class="panel">
-        <form id="lock-form">
-            <label for="lock-password">Club password</label>
-            <input type="password" id="lock-password" autocomplete="current-password" autofocus>
-            <div class="actions">
-                <button type="submit">Unlock</button>
-                <span class="status" id="lock-error"></span>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div class="wrap" id="builder" hidden>
+<div class="wrap" id="builder">
 
     <h1>Make a trip report</h1>
     <p class="lede">
@@ -267,41 +252,6 @@ ol.steps ul li strong { color: var(--text); }
 </div>
 
 <script src="gate.js"></script>
-<script>
-// Same speed bump as the button in the sidebar: it keeps passers-by out, but
-// the page is static so it is not access control.
-(function () {
-    var lock = document.getElementById("lock");
-    var builder = document.getElementById("builder");
-    var form = document.getElementById("lock-form");
-    var error = document.getElementById("lock-error");
-
-    function unlock() {
-        lock.hidden = true;
-        builder.hidden = false;
-    }
-
-    if (window.icmcGate.isUnlocked()) unlock();
-
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        error.textContent = "";
-
-        window.icmcGate.check(document.getElementById("lock-password").value)
-            .then(function (ok) {
-                if (!ok) {
-                    error.textContent = "That password is not right.";
-                    return;
-                }
-                window.icmcGate.remember();
-                unlock();
-            })
-            .catch(function () {
-                error.textContent = "This needs a secure (https) connection.";
-            });
-    });
-}());
-</script>
 <script src="vendor/mammoth.browser.min.js"></script>
 <script src="vendor/jszip.min.js"></script>
 <script src="convert.js"></script>
