@@ -1,0 +1,3 @@
+User-agent: *
+
+Sitemap: https://icmountaineering.co.uk/sitemap.xml

@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Make a trip report — ICMC</title>
+<style>
+:root {
+    --bg: #f6f7f8;
+    --panel: #ffffff;
+    --text: #1d2b36;
+    --muted: #6b7b88;
+    --line: #dfe4e8;
+    --accent: #34495e;
+    --accent-text: #ffffff;
+    --ok: #2e7d52;
+    --warn: #9a6b00;
+    --warn-bg: #fdf6e3;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #11171c;
+        --panel: #1a2129;
+        --text: #e8edf1;
+        --muted: #93a3b0;
+        --line: #2c3742;
+        --accent: #ecf0f1;
+        --accent-text: #11171c;
+        --ok: #6ecf9b;
+        --warn: #e6c26b;
+        --warn-bg: #2a2415;
+    }
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    padding: 2rem 1rem 5rem;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+.wrap { max-width: 860px; margin: 0 auto; }
+h1 { font-size: 1.7rem; margin: 0 0 .25rem; }
+h2 { font-size: 1.15rem; margin: 0 0 1rem; }
+.lede { color: var(--muted); margin: 0 0 2rem; }
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+}
+.panel[hidden] { display: none; }
+.step { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: .4rem; }
+
+#drop {
+    border: 2px dashed var(--line);
+    border-radius: 10px;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+}
+#drop:hover, #drop.over { border-color: var(--accent); background: rgba(127,127,127,.06); }
+#drop strong { display: block; font-size: 1.05rem; margin-bottom: .3rem; }
+#drop span { color: var(--muted); font-size: .9rem; }
+
+label { display: block; font-weight: 600; font-size: .9rem; margin: 1.1rem 0 .3rem; }
+label:first-of-type { margin-top: 0; }
+.hint { font-weight: 400; color: var(--muted); font-size: .85rem; }
+input[type=text], input[type=date], textarea, select {
+    width: 100%;
+    padding: .55rem .7rem;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: .95rem;
+}
+textarea { min-height: 4.5rem; resize: vertical; }
+.row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.row > div { flex: 1 1 200px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .1rem; }
+.chips label {
+    margin: 0;
+    font-weight: 400;
+    font-size: .88rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: .3rem .75rem;
+    cursor: pointer;
+    user-select: none;
+}
+.chips input { display: none; }
+.chips input:checked + span { font-weight: 600; }
+.chips label:has(input:checked) { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+
+#thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: .5rem; margin-top: .4rem; }
+#thumbs figure { margin: 0; position: relative; cursor: pointer; }
+#thumbs img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; display: block; border: 3px solid transparent; }
+#thumbs figure.cover img { border-color: var(--accent); }
+#thumbs figcaption {
+    position: absolute; left: 4px; bottom: 4px;
+    background: rgba(0,0,0,.65); color: #fff;
+    font-size: .7rem; padding: .05rem .3rem; border-radius: 3px;
+}
+#thumbs figure.cover figcaption { background: var(--ok); }
+
+button {
+    font: inherit; font-weight: 600;
+    padding: .65rem 1.2rem;
+    border-radius: 6px; border: 1px solid var(--accent);
+    background: var(--accent); color: var(--accent-text);
+    cursor: pointer;
+}
+button.secondary { background: transparent; color: var(--text); border-color: var(--line); }
+button:disabled { opacity: .5; cursor: not-allowed; }
+.actions { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; margin-top: 1.5rem; }
+
+pre {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 6px;
+    padding: 1rem; overflow-x: auto; font-size: .82rem; line-height: 1.5;
+    max-height: 400px; overflow-y: auto;
+}
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.path { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9rem; color: var(--ok); font-weight: 600; }
+.note { background: var(--warn-bg); border-left: 3px solid var(--warn); padding: .75rem 1rem; border-radius: 0 6px 6px 0; font-size: .9rem; margin-top: 1rem; }
+ol.steps { padding-left: 1.2rem; }
+ol.steps li { margin-bottom: .6rem; }
+ol.steps ul { margin: .5rem 0 0; padding-left: 1.1rem; }
+ol.steps ul li { margin-bottom: .45rem; color: var(--muted); }
+ol.steps ul li strong { color: var(--text); }
+.status { color: var(--muted); font-size: .9rem; }
+</style>
+</head>
+<body>
+
+<div class="wrap" id="builder">
+
+    <h1>Make a trip report</h1>
+    <p class="lede">
+        Drop in your Word document and this page turns it into a page for the ICMC website —
+        text, headings and photos included. Everything happens in your browser; nothing is
+        uploaded anywhere.
+    </p>
+
+    <div class="panel" id="panel-drop">
+        <div class="step">Step 1</div>
+        <h2>Choose your Word document</h2>
+        <div id="drop">
+            <strong>Drop your .docx file here</strong>
+            <span>or click to browse</span>
+        </div>
+        <input type="file" id="file" accept=".docx" hidden>
+        <p class="status" id="status"></p>
+    </div>
+
+    <div class="panel" id="panel-details" hidden>
+        <div class="step">Step 2</div>
+        <h2>Fill in the details</h2>
+
+        <label for="title">Trip title</label>
+        <input type="text" id="title" placeholder="e.g. Lake District (5th-8th)">
+
+        <label for="description">One-line description <span class="hint">— shown on the trip cards</span></label>
+        <textarea id="description" placeholder="e.g. ICMC went to the Lakes for the first time in forever."></textarea>
+
+        <div class="row">
+            <div>
+                <label for="date">Date of the trip</label>
+                <input type="date" id="date">
+            </div>
+            <div>
+                <label for="author">Written by</label>
+                <input type="text" id="author" placeholder="Your name">
+            </div>
+        </div>
+
+        <label>Category</label>
+        <div class="chips" id="categories"></div>
+
+        <label>Tags <span class="hint">— pick any that fit</span></label>
+        <div class="chips" id="tags"></div>
+
+        <label for="extra-tags">Other tags <span class="hint">— comma separated, optional</span></label>
+        <input type="text" id="extra-tags" placeholder="e.g. Lake District, Multipitch">
+
+        <label for="location">Country or region <span class="hint">— sets the flag on the trip card</span></label>
+        <select id="location"></select>
+
+        <label for="slug">Web address <span class="hint">— lowercase, hyphens, no spaces</span></label>
+        <input type="text" id="slug" placeholder="lake-district">
+        <p class="status">Your report will live at <span class="path" id="folder">content/post/…</span></p>
+    </div>
+
+    <div class="panel" id="panel-photos" hidden>
+        <div class="step">Step 3</div>
+        <h2>Pick the cover photo</h2>
+        <p class="status" id="photo-count"></p>
+        <div id="thumbs"></div>
+    </div>
+
+    <div class="panel" id="panel-preview" hidden>
+        <div class="step">Step 4</div>
+        <h2>Check it over</h2>
+        <pre><code id="preview"></code></pre>
+        <div class="actions">
+            <button id="download">Download my trip report</button>
+            <button id="copy" class="secondary">Copy the text</button>
+            <span class="status" id="download-status"></span>
+        </div>
+    </div>
+
+    <div class="panel" id="panel-publish" hidden>
+        <div class="step">Step 5</div>
+        <h2>Put it on the website</h2>
+        <ol class="steps">
+            <li><strong>Unzip</strong> the file you just downloaded. You will get a folder called
+                <code>content</code>.</li>
+            <li>Go to
+                <a href="https://github.com/icmountaineering/icmc_website/upload/master" target="_blank" rel="noopener">the
+                upload page</a> on GitHub (sign in if it asks).</li>
+            <li><strong>Drag the <code>content</code> folder</strong> onto that page. GitHub will
+                keep the folders in the right places.</li>
+            <li>Scroll down and choose how to save it:
+                <ul>
+                    <li><strong>Most people:</strong> pick <strong>“Create a new branch and start a
+                        pull request”</strong> and click <strong>Propose changes</strong>. Someone on
+                        committee will check it over and publish it.</li>
+                    <li><strong>Admins:</strong> if you have write access you can skip the review and
+                        pick <strong>“Commit directly to the <code>master</code> branch”</strong>
+                        instead — that is the main branch this site is built from. It still needs the
+                        deploy to be run before it appears on the live site (see below).</li>
+                </ul>
+            </li>
+        </ol>
+        <p class="status">
+            Once it is merged, publish it from the
+            <a href="https://github.com/icmountaineering/icmc_website/actions/workflows/hugo.yaml"
+               target="_blank" rel="noopener">Actions page</a> — click <strong>Run workflow</strong>.
+        </p>
+        <div class="note">
+            Photos can be large, so the upload may take a minute or two on a slow connection.
+            If GitHub refuses the upload, it is usually because there are more than 100 files or
+            the total is over 25&nbsp;MB — ask on the committee chat and someone will add it for you.
+        </div>
+    </div>
+
+</div>
+
+<script src="gate.js"></script>
+<script src="vendor/mammoth.browser.min.js"></script>
+<script src="vendor/jszip.min.js"></script>
+<script src="convert.js"></script>
+<script>
+(function () {
+    "use strict";
+
+    // Kept in step with archetypes/post.md.
+    var CATEGORIES = ["weekend", "expedition", "summer-tour", "winter-tour",
+                      "easter-tour", "freshers", "archives", "accident", "other"];
+
+    var TAGS = ["Trad", "Sport Climbing", "Bouldering", "Alpinism", "Winter",
+                "Scotland", "Peak District", "North Wales", "Lake District", "Hiking"];
+
+    // ISO 3166-1 alpha-2, plus the GB subdivisions the theme draws flags for.
+    var LOCATIONS = [
+        ["GB-ENG", "England"], ["GB-SCT", "Scotland"], ["GB-WLS", "Wales"],
+        ["GB-NIR", "Northern Ireland"], ["IE", "Ireland"], ["FR", "France"],
+        ["ES", "Spain"], ["IT", "Italy"], ["CH", "Switzerland"], ["AT", "Austria"],
+        ["DE", "Germany"], ["NO", "Norway"], ["SE", "Sweden"], ["GR", "Greece"],
+        ["PT", "Portugal"], ["SI", "Slovenia"], ["HR", "Croatia"], ["BA", "Bosnia and Herzegovina"],
+        ["PL", "Poland"], ["CZ", "Czechia"], ["RO", "Romania"], ["TR", "Turkey"],
+        ["MA", "Morocco"], ["ZA", "South Africa"], ["KE", "Kenya"], ["TZ", "Tanzania"],
+        ["US", "United States"], ["CA", "Canada"], ["MX", "Mexico"], ["AR", "Argentina"],
+        ["CL", "Chile"], ["PE", "Peru"], ["BO", "Bolivia"], ["EC", "Ecuador"],
+        ["NP", "Nepal"], ["IN", "India"], ["PK", "Pakistan"], ["KG", "Kyrgyzstan"],
+        ["GE", "Georgia"], ["JP", "Japan"], ["CN", "China"], ["TH", "Thailand"],
+        ["NZ", "New Zealand"], ["AU", "Australia"], ["IS", "Iceland"], ["GL", "Greenland"]
+    ];
+
+    var $ = function (id) { return document.getElementById(id); };
+
+    var state = { file: null, result: null, coverIndex: 0, images: [] };
+
+    /* ---------------- form scaffolding ---------------- */
+
+    function buildChips(container, values, name, checked) {
+        container.innerHTML = values.map(function (value) {
+            var isOn = value === checked ? " checked" : "";
+            return '<label><input type="' + (name === "category" ? "radio" : "checkbox") +
+                '" name="' + name + '" value="' + value + '"' + isOn + '><span>' +
+                value + '</span></label>';
+        }).join("");
+    }
+
+    function chipValues(name) {
+        return Array.prototype.slice
+            .call(document.querySelectorAll('input[name="' + name + '"]:checked'))
+            .map(function (input) { return input.value; });
+    }
+
+    buildChips($("categories"), CATEGORIES, "category", "weekend");
+    buildChips($("tags"), TAGS, "tag");
+
+    $("location").innerHTML = LOCATIONS.map(function (pair) {
+        return '<option value="' + pair[0] + '">' + pair[1] + ' (' + pair[0] + ')</option>';
+    }).join("");
+
+    $("date").value = new Date().toISOString().slice(0, 10);
+
+    /* ---------------- reading the document ---------------- */
+
+    var drop = $("drop");
+
+    drop.addEventListener("click", function () { $("file").click(); });
+    drop.addEventListener("dragover", function (e) {
+        e.preventDefault();
+        drop.classList.add("over");
+    });
+    drop.addEventListener("dragleave", function () { drop.classList.remove("over"); });
+    drop.addEventListener("drop", function (e) {
+        e.preventDefault();
+        drop.classList.remove("over");
+        if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+    });
+    $("file").addEventListener("change", function (e) {
+        if (e.target.files.length) handleFile(e.target.files[0]);
+    });
+
+    function handleFile(file) {
+        if (!/\.docx$/i.test(file.name)) {
+            $("status").textContent =
+                "That is not a .docx file. If your document is an older .doc, open it in Word " +
+                "and use File → Save As to save a .docx first.";
+            return;
+        }
+
+        state.file = file;
+        $("status").textContent = "Reading “" + file.name + "”…";
+
+        // Seed the title from the file name; the member can correct it.
+        if (!$("title").value) {
+            $("title").value = file.name.replace(/\.docx$/i, "").replace(/[_-]+/g, " ").trim();
+        }
+
+        file.arrayBuffer().then(function (buffer) {
+            state.buffer = buffer;
+            return rebuild();
+        }).then(function () {
+            $("status").textContent = "Read “" + file.name + "” successfully.";
+            ["panel-details", "panel-photos", "panel-preview", "panel-publish"]
+                .forEach(function (id) { $(id).hidden = false; });
+            $("panel-details").scrollIntoView({ behavior: "smooth", block: "start" });
+        }).catch(function (error) {
+            $("status").textContent = "Sorry — that document could not be read. " +
+                "Try opening it in Word and saving it again as .docx. (" + error.message + ")";
+        });
+    }
+
+    /* ---------------- conversion ---------------- */
+
+    function meta() {
+        var extra = $("extra-tags").value.split(",").map(function (t) { return t.trim(); })
+            .filter(Boolean);
+        var date = $("date").value;
+
+        return {
+            title: $("title").value.trim(),
+            description: $("description").value.trim(),
+            date: date,
+            year: date.slice(0, 4),
+            author: $("author").value.trim(),
+            categories: chipValues("category"),
+            tags: chipValues("tag").concat(extra),
+            locations: [$("location").value],
+            slug: $("slug").value.trim() || undefined,
+            coverIndex: state.coverIndex
+        };
+    }
+
+    function rebuild() {
+        if (!state.buffer) return Promise.resolve();
+
+        // arrayBuffer is consumed by mammoth, so hand over a copy each time.
+        return window.icmcConvert.convert(
+            { arrayBuffer: state.buffer.slice(0) }, meta()
+        ).then(function (result) {
+            state.result = result;
+            $("preview").textContent = result.markdown;
+            $("folder").textContent = result.folder + "/";
+            $("photo-count").textContent = result.images.length
+                ? result.images.length + " photos found. Click one to make it the cover."
+                : "No photos found in this document.";
+
+            if (result.images.length !== state.images.length) {
+                state.images = result.images;
+                renderThumbs(result.images);
+            }
+            markCover();
+        });
+    }
+
+    function renderThumbs(images) {
+        $("thumbs").innerHTML = images.map(function (image, i) {
+            return '<figure data-index="' + i + '">' +
+                '<img loading="lazy" src="data:' + image.contentType + ';base64,' + image.base64 + '" alt="">' +
+                '<figcaption>' + (i + 1) + '</figcaption></figure>';
+        }).join("");
+    }
+
+    function markCover() {
+        Array.prototype.forEach.call($("thumbs").children, function (figure, i) {
+            figure.classList.toggle("cover", i === state.coverIndex);
+        });
+    }
+
+    $("thumbs").addEventListener("click", function (e) {
+        var figure = e.target.closest("figure");
+        if (!figure) return;
+        state.coverIndex = parseInt(figure.dataset.index, 10);
+        markCover();
+        rebuild();
+    });
+
+    // Re-run on every edit so the preview always matches the form.
+    ["title", "description", "date", "author", "extra-tags", "location", "slug"]
+        .forEach(function (id) { $(id).addEventListener("input", debounce(rebuild, 250)); });
+    document.addEventListener("change", function (e) {
+        if (e.target.name === "category" || e.target.name === "tag") rebuild();
+    });
+
+    function debounce(fn, wait) {
+        var timer;
+        return function () {
+            clearTimeout(timer);
+            timer = setTimeout(fn, wait);
+        };
+    }
+
+    /* ---------------- output ---------------- */
+
+    $("download").addEventListener("click", function () {
+        if (!state.result) return;
+
+        var result = state.result;
+        var zip = new JSZip();
+        // The full path is kept so the folder can be dragged straight onto
+        // GitHub's uploader without anyone having to place it by hand.
+        var folder = zip.folder(result.folder);
+
+        folder.file("index.md", result.markdown);
+        if (result.cover) folder.file(result.cover.name, result.cover.base64, { base64: true });
+
+        var images = folder.folder("images");
+        result.images.forEach(function (image) {
+            images.file(image.name, image.base64, { base64: true });
+        });
+
+        $("download-status").textContent = "Building your file…";
+
+        zip.generateAsync({ type: "blob" }).then(function (blob) {
+            var url = URL.createObjectURL(blob);
+            var link = document.createElement("a");
+            link.href = url;
+            link.download = result.slug + ".zip";
+            link.click();
+            URL.revokeObjectURL(url);
+            $("download-status").textContent = "Downloaded. Now follow step 5.";
+            $("panel-publish").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+    });
+
+    // A document chosen in the sidebar modal is waiting in IndexedDB; pick it
+    // up so the member does not have to select it a second time.
+    if (window.icmcGate && window.icmcGate.takeFile) {
+        window.icmcGate.takeFile().then(function (file) {
+            if (file) handleFile(file);
+        });
+    }
+
+    $("copy").addEventListener("click", function () {
+        if (!state.result) return;
+        navigator.clipboard.writeText(state.result.markdown).then(function () {
+            $("download-status").textContent = "Text copied to the clipboard.";
+        });
+    });
+}());
+</script>
+</body>
+</html>
